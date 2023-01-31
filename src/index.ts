@@ -1,5 +1,6 @@
 import './index.html';
 import './main.scss';
+import './data/index';
 import 'normalize.css';
 
 
