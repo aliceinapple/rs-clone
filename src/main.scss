@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
+
 @mixin display-flex($direction, $justify, $align) {
   display: flex;
   flex-direction: $direction;
@@ -11,8 +13,67 @@
   font-weight: $weight;
 }
 
+$color_white: #ffffff;
+$color_gray: #4F4F4F;
+$color_purple: #8E42FF;
+$color_green: #01887A;
+$color_black: #18191B;
+$color_dark-gray: #252627;
+
+$gradient: linear-gradient(91.91deg, #01C2CD 0%, #3A69DF 50.22%, #7D2AE7 100%);
+$box-shadow: 0px -5px 7px rgba(0, 0, 0, 0.1);
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+a {
+  color: $color_gray;
+  text-decoration: none;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Noto Sans', sans-serif;
+  background-color: $color_white;
+  @include font-size(14px, 19px, 400);
+}
+
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.content {
+  width: 100%;
+  height: calc(100vh - 70px);
+  padding: 0 35px;
+}
+
+.footer {
+  padding: 0 35px;
+  box-shadow: $box-shadow;
+}
+.footer__wrapper {
+  height: 70px;
+  color: $color_gray;
+  @include font-size(16px, 22px, 400);
+  @include display-flex(row, space-between, center);
+}
+
+.githab-block,
+.githab-block__nik {
+  @include display-flex(row, flex-start, center);
+}
+
+.nik__ico {
+  width: 24px;
+  height: 24px;
+  margin: 0 20px 0 0;
+}
+
+.nik__githab {
+  margin: 0 40px 0 0;
+} 
