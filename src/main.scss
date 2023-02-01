@@ -52,28 +52,4 @@ body {
   padding: 0 35px;
 }
 
-.footer {
-  padding: 0 35px;
-  box-shadow: $box-shadow;
-}
-.footer__wrapper {
-  height: 70px;
-  color: $color_gray;
-  @include font-size(16px, 22px, 400);
-  @include display-flex(row, space-between, center);
-}
-
-.githab-block,
-.githab-block__nik {
-  @include display-flex(row, flex-start, center);
-}
-
-.nik__ico {
-  width: 24px;
-  height: 24px;
-  margin: 0 20px 0 0;
-}
-
-.nik__githab {
-  margin: 0 40px 0 0;
-} 
+@import 'components/footer/footer.style';
