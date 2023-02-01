@@ -21,7 +21,8 @@ $color_black: #18191B;
 $color_dark-gray: #252627;
 
 $gradient: linear-gradient(91.91deg, #01C2CD 0%, #3A69DF 50.22%, #7D2AE7 100%);
-$box-shadow: 0px -5px 7px rgba(0, 0, 0, 0.1);
+
+$container-padding: 0 35px;
 
 * {
   box-sizing: border-box;
@@ -32,6 +33,12 @@ $box-shadow: 0px -5px 7px rgba(0, 0, 0, 0.1);
 a {
   color: $color_gray;
   text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
 
 body {
@@ -49,7 +56,7 @@ body {
 .content {
   width: 100%;
   height: calc(100vh - 70px);
-  padding: 0 35px;
 }
 
 @import 'components/footer/footer.style';
+@import 'components/mainHeader/mainHeader';
