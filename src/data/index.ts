@@ -51,54 +51,105 @@ const templatesMidecal: ITemplates[] = [
 console.log(templatesMidecal);   
 
 const templatesArt: ITemplates[] = [
-  { id: 1, src: '../assets/templates/art/1', scope: 'art', color: 'black', style: 'minimalism', textColor: '#A3721C', textSize: '38px' },
-  { id: 2, src: '../assets/templates/art/2', scope: 'art', color: 'black', style: 'minimalism', textColor: '#CBB9B9', textSize: '40px' },
-  { id: 3, src: '../assets/templates/art/3', scope: 'art', color: 'black', style: 'minimalism', textColor: '#FFDE59', textSize: '54px' },
-  { id: 4, src: '../assets/templates/art/4', scope: 'art', color: 'black', style: 'light', textColor: '#FFFFFF', textSize: '25px' },
-  { id: 5, src: '../assets/templates/art/5', scope: 'art', color: 'black', style: 'light', textColor: '#F2CB4D', textSize: '25px' },
-  { id: 6, src: '../assets/templates/art/6', scope: 'art', color: 'black', style: 'light', textColor: '#FFF8EF', textSize: '26px' },
-  { id: 7, src: '../assets/templates/art/7', scope: 'art', color: 'black', style: 'strong', textColor: '#7DAA7B', textSize: '20px' },
-  { id: 8, src: '../assets/templates/art/8', scope: 'art', color: 'black', style: 'strong', textColor: '#CE9F41', textSize: '40px' },
-  { id: 9, src: '../assets/templates/art/9', scope: 'art', color: 'black', style: 'strong', textColor: '#000000', textSize: '27px' },
-  { id: 10, src: '../assets/templates/art/10', scope: 'art', color: 'black', style: 'catchy', textColor: '#000000', textSize: '20px' },
-  { id: 11, src: '../assets/templates/art/11', scope: 'art', color: 'black', style: 'catchy', textColor: '#F4C588', textSize: '30px' },
-  { id: 12, src: '../assets/templates/art/12', scope: 'art', color: 'black', style: 'catchy', textColor: '#1E1E1C', textSize: '27px' },
-  { id: 13, src: '../assets/templates/art/13', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
-  { id: 14, src: '../assets/templates/art/14', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
-  { id: 15, src: '../assets/templates/art/15', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '25px' },
-  { id: 16, src: '../assets/templates/art/16', scope: 'art', color: 'blackWite', style: 'light', textColor: '#1B1919', textSize: '27px' },
-  { id: 17, src: '../assets/templates/art/17', scope: 'art', color: 'blackWite', style: 'light', textColor: '#000000', textSize: '30px' },
-  { id: 18, src: '../assets/templates/art/18', scope: 'art', color: 'blackWite', style: 'light', textColor: '#FFFFFF', textSize: '30px' },
-  { id: 19, src: '../assets/templates/art/19', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#9395AB', textSize: '55px' },
-  { id: 20, src: '../assets/templates/art/20', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '25px' },
-  { id: 21, src: '../assets/templates/art/21', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#121212', textSize: '45px' },
-  { id: 22, src: '../assets/templates/art/22', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '30px' },
-  { id: 23, src: '../assets/templates/art/23', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '25px' },
-  { id: 24, src: '../assets/templates/art/24', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#FFFFFF', textSize: '42px' },
-  { id: 25, src: '../assets/templates/art/25', scope: 'art', color: 'white', style: 'minimalism', textColor: '#5A4A42', textSize: '51px' },
-  { id: 26, src: '../assets/templates/art/26', scope: 'art', color: 'white', style: 'minimalism', textColor: '#82412D', textSize: '30px' },
-  { id: 27, src: '../assets/templates/art/27', scope: 'art', color: 'white', style: 'minimalism', textColor: '#31373E', textSize: '25px' },
-  { id: 28, src: '../assets/templates/art/28', scope: 'art', color: 'white', style: 'light', textColor: '#82412D', textSize: '30px' },
-  { id: 29, src: '../assets/templates/art/29', scope: 'art', color: 'white', style: 'light', textColor: '#1E1E1C', textSize: '27px' },
-  { id: 30, src: '../assets/templates/art/30', scope: 'art', color: 'white', style: 'light', textColor: '#000000', textSize: '25px' },
-  { id: 31, src: '../assets/templates/art/31', scope: 'art', color: 'white', style: 'strong', textColor: '#3B312C', textSize: '22px' },
-  { id: 32, src: '../assets/templates/art/32', scope: 'art', color: 'white', style: 'strong', textColor: '#000000', textSize: '28px' },
-  { id: 33, src: '../assets/templates/art/33', scope: 'art', color: 'white', style: 'strong', textColor: '#545454', textSize: '26px' },
-  { id: 34, src: '../assets/templates/art/34', scope: 'art', color: 'white', style: 'catchy', textColor: '#2E2F33', textSize: '42px' },
-  { id: 35, src: '../assets/templates/art/35', scope: 'art', color: 'white', style: 'catchy', textColor: '#2E2F33', textSize: '38px' },
-  { id: 36, src: '../assets/templates/art/36', scope: 'art', color: 'white', style: 'catchy', textColor: '#231916', textSize: '30px' },
-  { id: 37, src: '../assets/templates/art/37', scope: 'art', color: 'bright', style: 'minimalism', textColor: '#FFFFFF', textSize: '35px' },
-  { id: 38, src: '../assets/templates/art/38', scope: 'art', color: 'bright', style: 'minimalism', textColor: '#82412D', textSize: '30px' },
-  { id: 39, src: '../assets/templates/art/39', scope: 'art', color: 'bright', style: 'minimalism', textColor: '#1D213B', textSize: '40px' },
-  { id: 40, src: '../assets/templates/art/40', scope: 'art', color: 'bright', style: 'light', textColor: '#CBDCE6', textSize: '27px' },
-  { id: 41, src: '../assets/templates/art/41', scope: 'art', color: 'bright', style: 'light', textColor: '#1B0050', textSize: '45px' },
-  { id: 42, src: '../assets/templates/art/42', scope: 'art', color: 'bright', style: 'light', textColor: '#D76249', textSize: '35px' },
-  { id: 43, src: '../assets/templates/art/43', scope: 'art', color: 'bright', style: 'strong', textColor: '#FFFFFF', textSize: '35px' },
-  { id: 44, src: '../assets/templates/art/44', scope: 'art', color: 'bright', style: 'strong', textColor: '#512A69', textSize: '25px' },
-  { id: 45, src: '../assets/templates/art/45', scope: 'art', color: 'bright', style: 'strong', textColor: '#000000', textSize: '35px' },
-  { id: 46, src: '../assets/templates/art/46', scope: 'art', color: 'bright', style: 'catchy', textColor: '#393536', textSize: '28px' },
-  { id: 47, src: '../assets/templates/art/47', scope: 'art', color: 'bright', style: 'catchy', textColor: '#F9FFED', textSize: '35px' },
-  { id: 48, src: '../assets/templates/art/48', scope: 'art', color: 'bright', style: 'catchy', textColor: '#FFFFFF', textSize: '25px' },
+  { id: 1, src: '../assets/templates/art/1.png', scope: 'art', color: 'black', style: 'minimalism', textColor: '#A3721C', textSize: '38px' },
+  { id: 2, src: '../assets/templates/art/2.png', scope: 'art', color: 'black', style: 'minimalism', textColor: '#CBB9B9', textSize: '40px' },
+  { id: 3, src: '../assets/templates/art/3.png', scope: 'art', color: 'black', style: 'minimalism', textColor: '#FFDE59', textSize: '54px' },
+  { id: 4, src: '../assets/templates/art/4.png', scope: 'art', color: 'black', style: 'light', textColor: '#FFFFFF', textSize: '25px' },
+  { id: 5, src: '../assets/templates/art/5.png', scope: 'art', color: 'black', style: 'light', textColor: '#F2CB4D', textSize: '25px' },
+  { id: 6, src: '../assets/templates/art/6.png', scope: 'art', color: 'black', style: 'light', textColor: '#FFF8EF', textSize: '26px' },
+  { id: 7, src: '../assets/templates/art/7.png', scope: 'art', color: 'black', style: 'strong', textColor: '#7DAA7B', textSize: '20px' },
+  { id: 8, src: '../assets/templates/art/8.png', scope: 'art', color: 'black', style: 'strong', textColor: '#CE9F41', textSize: '40px' },
+  { id: 9, src: '../assets/templates/art/9.png', scope: 'art', color: 'black', style: 'strong', textColor: '#000000', textSize: '27px' },
+  { id: 10, src: '../assets/templates/art/10.png', scope: 'art', color: 'black', style: 'catchy', textColor: '#000000', textSize: '20px' },
+  { id: 11, src: '../assets/templates/art/11.png', scope: 'art', color: 'black', style: 'catchy', textColor: '#F4C588', textSize: '30px' },
+  { id: 12, src: '../assets/templates/art/12.png', scope: 'art', color: 'black', style: 'catchy', textColor: '#1E1E1C', textSize: '27px' },
+  { id: 13, src: '../assets/templates/art/13.png', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
+  { id: 14, src: '../assets/templates/art/14.png', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
+  { id: 15, src: '../assets/templates/art/15.png', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '25px' },
+  { id: 16, src: '../assets/templates/art/16.png', scope: 'art', color: 'blackWite', style: 'light', textColor: '#1B1919', textSize: '27px' },
+  { id: 17, src: '../assets/templates/art/17.png', scope: 'art', color: 'blackWite', style: 'light', textColor: '#000000', textSize: '30px' },
+  { id: 18, src: '../assets/templates/art/18.png', scope: 'art', color: 'blackWite', style: 'light', textColor: '#FFFFFF', textSize: '30px' },
+  { id: 19, src: '../assets/templates/art/19.png', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#9395AB', textSize: '55px' },
+  { id: 20, src: '../assets/templates/art/20.png', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '25px' },
+  { id: 21, src: '../assets/templates/art/21.png', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#121212', textSize: '45px' },
+  { id: 22, src: '../assets/templates/art/22.png', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '30px' },
+  { id: 23, src: '../assets/templates/art/23.png', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '25px' },
+  { id: 24, src: '../assets/templates/art/24.png', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#FFFFFF', textSize: '42px' },
+  { id: 25, src: '../assets/templates/art/25.png', scope: 'art', color: 'white', style: 'minimalism', textColor: '#5A4A42', textSize: '51px' },
+  { id: 26, src: '../assets/templates/art/26.png', scope: 'art', color: 'white', style: 'minimalism', textColor: '#82412D', textSize: '30px' },
+  { id: 27, src: '../assets/templates/art/27.png', scope: 'art', color: 'white', style: 'minimalism', textColor: '#31373E', textSize: '25px' },
+  { id: 28, src: '../assets/templates/art/28.png', scope: 'art', color: 'white', style: 'light', textColor: '#82412D', textSize: '30px' },
+  { id: 29, src: '../assets/templates/art/29.png', scope: 'art', color: 'white', style: 'light', textColor: '#1E1E1C', textSize: '27px' },
+  { id: 30, src: '../assets/templates/art/30.png', scope: 'art', color: 'white', style: 'light', textColor: '#000000', textSize: '25px' },
+  { id: 31, src: '../assets/templates/art/31.png', scope: 'art', color: 'white', style: 'strong', textColor: '#3B312C', textSize: '22px' },
+  { id: 32, src: '../assets/templates/art/32.png', scope: 'art', color: 'white', style: 'strong', textColor: '#000000', textSize: '28px' },
+  { id: 33, src: '../assets/templates/art/33.png', scope: 'art', color: 'white', style: 'strong', textColor: '#545454', textSize: '26px' },
+  { id: 34, src: '../assets/templates/art/34.png', scope: 'art', color: 'white', style: 'catchy', textColor: '#2E2F33', textSize: '42px' },
+  { id: 35, src: '../assets/templates/art/35.png', scope: 'art', color: 'white', style: 'catchy', textColor: '#2E2F33', textSize: '38px' },
+  { id: 36, src: '../assets/templates/art/36.png', scope: 'art', color: 'white', style: 'catchy', textColor: '#231916', textSize: '30px' },
+  { id: 37, src: '../assets/templates/art/37.png', scope: 'art', color: 'bright', style: 'minimalism', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 38, src: '../assets/templates/art/38.png', scope: 'art', color: 'bright', style: 'minimalism', textColor: '#82412D', textSize: '30px' },
+  { id: 39, src: '../assets/templates/art/39.png', scope: 'art', color: 'bright', style: 'minimalism', textColor: '#1D213B', textSize: '40px' },
+  { id: 40, src: '../assets/templates/art/40.png', scope: 'art', color: 'bright', style: 'light', textColor: '#CBDCE6', textSize: '27px' },
+  { id: 41, src: '../assets/templates/art/41.png', scope: 'art', color: 'bright', style: 'light', textColor: '#1B0050', textSize: '45px' },
+  { id: 42, src: '../assets/templates/art/42.png', scope: 'art', color: 'bright', style: 'light', textColor: '#D76249', textSize: '35px' },
+  { id: 43, src: '../assets/templates/art/43.png', scope: 'art', color: 'bright', style: 'strong', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 44, src: '../assets/templates/art/44.png', scope: 'art', color: 'bright', style: 'strong', textColor: '#512A69', textSize: '25px' },
+  { id: 45, src: '../assets/templates/art/45.png', scope: 'art', color: 'bright', style: 'strong', textColor: '#000000', textSize: '35px' },
+  { id: 46, src: '../assets/templates/art/46.png', scope: 'art', color: 'bright', style: 'catchy', textColor: '#393536', textSize: '28px' },
+  { id: 47, src: '../assets/templates/art/47.png', scope: 'art', color: 'bright', style: 'catchy', textColor: '#F9FFED', textSize: '35px' },
+  { id: 48, src: '../assets/templates/art/48.png', scope: 'art', color: 'bright', style: 'catchy', textColor: '#FFFFFF', textSize: '25px' },
+]; 
+
+const templatesFood: ITemplates[] = [
+  { id: 1, src: '../assets/templates/food/1.png', scope: 'food', color: 'black', style: 'minimalism', textColor: '#241800', textSize: '38px' },
+  { id: 2, src: '../assets/templates/food/2.png', scope: 'food', color: 'black', style: 'minimalism', textColor: '#B6002A', textSize: '40px' },
+  { id: 3, src: '../assets/templates/food/3.png', scope: 'food', color: 'black', style: 'minimalism', textColor: '#FFFFFF', textSize: '54px' },
+  { id: 4, src: '../assets/templates/food/4.png', scope: 'food', color: 'black', style: 'light', textColor: '#D7A86E', textSize: '30px' },
+  { id: 5, src: '../assets/templates/food/5.png', scope: 'food', color: 'black', style: 'light', textColor: '#A0C8C7', textSize: '35px' },
+  { id: 6, src: '../assets/templates/food/6.png', scope: 'food', color: 'black', style: 'light', textColor: '#FFF4DC', textSize: '26px' },
+  { id: 7, src: '../assets/templates/food/7.png', scope: 'food', color: 'black', style: 'strong', textColor: '#C4A87E', textSize: '20px' },
+  { id: 8, src: '../assets/templates/food/8.png', scope: 'food', color: 'black', style: 'strong', textColor: '#FFFFFF', textSize: '40px' },
+  { id: 9, src: '../assets/templates/food/9.png', scope: 'food', color: 'black', style: 'strong', textColor: '#B8C48E', textSize: '27px' },
+  { id: 10, src: '../assets/templates/food/10.png', scope: 'food', color: 'black', style: 'catchy', textColor: '#E9B546', textSize: '20px' },
+  { id: 11, src: '../assets/templates/food/11.png', scope: 'food', color: 'black', style: 'catchy', textColor: '#FFF9F6', textSize: '30px' },
+  { id: 12, src: '../assets/templates/food/12.png', scope: 'food', color: 'black', style: 'catchy', textColor: '#FCFEF1', textSize: '37px' },
+  { id: 13, src: '../assets/templates/food/13.png', scope: 'food', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
+  { id: 14, src: '../assets/templates/food/14.png', scope: 'food', color: 'blackWite', style: 'minimalism', textColor: '#030507', textSize: '28px' },
+  { id: 15, src: '../assets/templates/food/15.png', scope: 'food', color: 'blackWite', style: 'minimalism', textColor: '#FFFFFF', textSize: '25px' },
+  { id: 16, src: '../assets/templates/food/16.png', scope: 'food', color: 'blackWite', style: 'light', textColor: '#302F2F', textSize: '30px' },
+  { id: 17, src: '../assets/templates/food/17.png', scope: 'food', color: 'blackWite', style: 'light', textColor: '#D9D9D9', textSize: '30px' },
+  { id: 18, src: '../assets/templates/food/18.png', scope: 'food', color: 'blackWite', style: 'light', textColor: '#000000', textSize: '30px' },
+  { id: 19, src: '../assets/templates/food/19.png', scope: 'food', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '30px' },
+  { id: 20, src: '../assets/templates/food/20.png', scope: 'food', color: 'blackWite', style: 'strong', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 21, src: '../assets/templates/food/21.png', scope: 'food', color: 'blackWite', style: 'strong', textColor: '#FFFFFF', textSize: '45px' },
+  { id: 22, src: '../assets/templates/food/22.png', scope: 'food', color: 'blackWite', style: 'catchy', textColor: '#545454', textSize: '30px' },
+  { id: 23, src: '../assets/templates/food/23.png', scope: 'food', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '25px' },
+  { id: 24, src: '../assets/templates/food/24.png', scope: 'food', color: 'blackWite', style: 'catchy', textColor: '#D9D9D9', textSize: '42px' },
+  { id: 25, src: '../assets/templates/food/25.png', scope: 'food', color: 'white', style: 'minimalism', textColor: '#A2751D', textSize: '41px' },
+  { id: 26, src: '../assets/templates/food/26.png', scope: 'food', color: 'white', style: 'minimalism', textColor: '#2C1E1F', textSize: '30px' },
+  { id: 27, src: '../assets/templates/food/27.png', scope: 'food', color: 'white', style: 'minimalism', textColor: '#000000', textSize: '30px' },
+  { id: 28, src: '../assets/templates/food/28.png', scope: 'food', color: 'white', style: 'light', textColor: '#2B2929', textSize: '30px' },
+  { id: 29, src: '../assets/templates/food/29.png', scope: 'food', color: 'white', style: 'light', textColor: '#272727', textSize: '27px' },
+  { id: 30, src: '../assets/templates/food/30.png', scope: 'food', color: 'white', style: 'light', textColor: '#828080', textSize: '30px' },
+  { id: 31, src: '../assets/templates/food/31.png', scope: 'food', color: 'white', style: 'strong', textColor: '#000000', textSize: '22px' },
+  { id: 32, src: '../assets/templates/food/32.png', scope: 'food', color: 'white', style: 'strong', textColor: '#222222', textSize: '28px' },
+  { id: 33, src: '../assets/templates/food/33.png', scope: 'food', color: 'white', style: 'strong', textColor: '#616D69', textSize: '36px' },
+  { id: 34, src: '../assets/templates/food/34.png', scope: 'food', color: 'white', style: 'catchy', textColor: '#000000', textSize: '42px' },
+  { id: 35, src: '../assets/templates/food/35.png', scope: 'food', color: 'white', style: 'catchy', textColor: '#701510', textSize: '38px' },
+  { id: 36, src: '../assets/templates/food/36.png', scope: 'food', color: 'white', style: 'catchy', textColor: '#085D56', textSize: '30px' },
+  { id: 37, src: '../assets/templates/food/37.png', scope: 'food', color: 'bright', style: 'minimalism', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 38, src: '../assets/templates/food/38.png', scope: 'food', color: 'bright', style: 'minimalism', textColor: '#000000', textSize: '30px' },
+  { id: 39, src: '../assets/templates/food/39.png', scope: 'food', color: 'bright', style: 'minimalism', textColor: '#FFC014', textSize: '40px' },
+  { id: 40, src: '../assets/templates/food/40.png', scope: 'food', color: 'bright', style: 'light', textColor: '#CBDCE6', textSize: '27px' },
+  { id: 41, src: '../assets/templates/food/41.png', scope: 'food', color: 'bright', style: 'light', textColor: '#74E4AB', textSize: '45px' },
+  { id: 42, src: '../assets/templates/food/42.png', scope: 'food', color: 'bright', style: 'light', textColor: '#B678E6', textSize: '35px' },
+  { id: 43, src: '../assets/templates/food/43.png', scope: 'food', color: 'bright', style: 'strong', textColor: '#FADB5E', textSize: '35px' },
+  { id: 44, src: '../assets/templates/food/44.png', scope: 'food', color: 'bright', style: 'strong', textColor: '#C6BCA0', textSize: '25px' },
+  { id: 45, src: '../assets/templates/food/45.png', scope: 'food', color: 'bright', style: 'strong', textColor: '#000000', textSize: '35px' },
+  { id: 46, src: '../assets/templates/food/46.png', scope: 'food', color: 'bright', style: 'catchy', textColor: '#DDD2B3', textSize: '25px' },
+  { id: 47, src: '../assets/templates/food/47.png', scope: 'food', color: 'bright', style: 'catchy', textColor: '#891E19', textSize: '35px' },
+  { id: 48, src: '../assets/templates/food/48.png', scope: 'food', color: 'bright', style: 'catchy', textColor: '#701510', textSize: '35px' },
 ]; 
 
 interface ITemplates {
@@ -110,21 +161,21 @@ interface ITemplates {
   textColor: string,
   textSize: string
 }
-// import test from './assets/templates/medical/1.jpg';
 
-templatesMidecal.forEach((elem, index) => {
+
+templatesFood.forEach((elem, index) => {
   const cont = document.createElement('div') as HTMLDivElement;
   const example = document.createElement('img') as HTMLImageElement;
   example.className = 'img';
   cont.className = 'example';
   const text = document.createElement('p') as HTMLParagraphElement;
   text.className = 'text';
-  text.innerHTML = 'Медицина';
-  text.style.color = `${templatesMidecal[index].textColor}`;
-  text.style.fontSize = `${templatesMidecal[index].textSize}`;
+  text.innerHTML = 'Вкусная еда';
+  text.style.color = `${templatesFood[index].textColor}`;
+  text.style.fontSize = `${templatesFood[index].textSize}`;
   // example.src = templatesMidecal[28].src;
   // example.src = 'https://raw.githubusercontent.com/milsevka/templates/main/1.png';
-  example.src = require(`../assets/templates/medical/${index + 1}.png`);
+  example.src = require(`../assets/templates/food/${index + 1}.png`);
   cont.appendChild(example);
   cont.appendChild(text);
   document.body.appendChild(cont);
