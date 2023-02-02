@@ -1,29 +1,159 @@
 .designe-page__contetn {
   width: 100%;
-  height: 950px;
+  height: 800px;
   @include display-flex(row, flex-start, center);
 }
 
 .designe-page__side-menu {
   width: 80px;
   height: 100%;
-  border: 1px solid red;
+  padding: 17px 0 0;
+  background-color: $color_black;
+  color: rgba(255, 255, 255, 0.5);
+  @include display-flex(column, flex-start, center);
+  @include font-size(10px, 14px, 400);
+}
+
+.side-menu__designe-block,
+.side-menu__element-block,
+.side-menu__text-block {
+  @include display-flex(column, center, center);
+  margin: 0 0 33px 0;
+  cursor: pointer;
+}
+
+.side-menu__designe-block {
+  color: $color_white;
+}
+
+.side-menu__ico-designe {
+  @include ico-style(24px, 24px, 'assets/ico/ico_grid-large.png');
+}
+
+.side-menu__ico-element {
+  @include ico-style(24px, 24px, 'assets/ico/ico_cards-heart-outline.png');
+}
+
+.side-menu__ico-text {
+  @include ico-style(24px, 24px, 'assets/ico/ico_text.png');
 }
 
 .designe-page__hiding-panel {
   width: 350px;
   height: 100%;
-  border: 1px solid red;
+  padding: 50px 0;
+  background-color: $color_dark-gray;
+  @include display-flex(column, space-between, center);
+}
+
+.hiding-panel_hidden {
+  transition: $transition;
+  display: none;
 }
 
 .designe-page__btn-for-hiding {
   width: 15px;
-  height: 100%;
-  border: 1px solid red;
+  height: 700px;
+  @include display-flex(row, center, center);
+}
+
+.btn-for-hiding {
+  width: 15px;
+  height: 96px;
+  border-radius: 0px 8px 8px 0px;
+  background: $color_dark-gray url('assets/ico/ico_arrow-back.png') center no-repeat;
+  cursor: pointer;
 }
 
 .designe-page__paint-block {
   width: 100%;
   height: 100%;
-  border: 1px solid blue;
+}
+
+.paint-block__wrapper {
+  @include display-flex(row, flex-start, center);
+}
+
+.paint-block__control-panel {
+  @include display-flex(row, flex-start, center);
+  padding: 0 0 0 35px;
+  height: 50px;
+  box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.1);
+}
+
+.vertical-line {
+  width: 0;
+  height: 30px;
+  margin: 0 35px 0 0;
+  border: 1px solid rgba(79, 79, 79, 0.3);
+}
+
+.select {
+  width: 172px;
+  height: 32px;
+  margin: 0 35px 0 0;
+  padding: 0 8px 0 20px;
+  border: 1px solid rgba(79, 79, 79, 0.3);
+  border-radius: 4px;
+  font-family: 'Noto Sans', sans-serif;
+  color: $color_gray;
+  @include font-size(14px, 19px, 400);
+}
+
+.font-size-block {
+  margin: 0 35px 0 0;
+  border: 1px solid rgba(79, 79, 79, 0.3);
+  border-radius: 4px;
+  @include display-flex(row, center, center);
+}
+
+.font-size-block__input {
+  width: 44px;
+  height: 32px;
+  border-left: 1px solid rgba(79, 79, 79, 0.3);
+  border-right: 1px solid rgba(79, 79, 79, 0.3);
+  @include display-flex(row, center, center);
+}
+
+.font-size-block__plus,
+.font-size-block__minus {
+  width: 32px;
+  height: 32px;
+  @include display-flex(row, center, center);
+  cursor: pointer;
+}
+
+.font-style-block {
+  width: 100px;
+  margin: 0 35px 0 0;
+  @include display-flex(row, space-between, center);
+}
+
+.font-style-block__underlined {
+  @include ico-style(28px, 28px, 'assets/ico/ico-text-format-rounded.png');
+}
+
+.font-style-block__bold {
+  @include ico-style(28px, 28px, 'assets/ico/ico_text-bold.png');
+}
+
+.font-style-block__italic {
+  @include ico-style(28px, 28px, 'assets/ico/ico_text-italic.png');
+}
+
+.text-align-block {
+  width: 92px;
+  @include display-flex(row, space-between, center);
+}
+
+.text-align-block__right {
+  @include ico-style(24px, 24px, 'assets/ico/ico_text-align-right.png');
+}
+
+.text-align-block__center {
+  @include ico-style(24px, 24px, 'assets/ico/ico_text-align-center.png');
+}
+
+.text-align-block__left {
+  @include ico-style(24px, 24px, 'assets/ico/ico_text-align-left.png');
 }

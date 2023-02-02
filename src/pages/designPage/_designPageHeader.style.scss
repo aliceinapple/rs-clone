@@ -15,18 +15,18 @@
 }
 
 .arrow-block__arrow-back {
-  @include ico-style('assets/ico/ico_arrow-back-designe.png');
+  @include ico-style(24px, 24px, 'assets/ico/ico_arrow-back-designe.png');
   margin: 0 35px 0 0;
 }
 
 .arrow-block__arrow-forward {
-  @include ico-style('assets/ico/ico_arrow-forward-designe.png');
+  @include ico-style(24px, 24px, 'assets/ico/ico_arrow-forward-designe.png');
 }
 
 .save-block__ico {
-  @include ico-style('assets/ico/ico_save.png');
+  @include ico-style(24px, 24px, 'assets/ico/ico_save.png');
 }
 
 .remove-block__ico {
-  @include ico-style('assets/ico/ico_trash.png');
+  @include ico-style(24px, 24px, 'assets/ico/ico_trash.png');
 }

@@ -13,9 +13,9 @@
   font-weight: $weight;
 }
 
-@mixin ico-style($bgi) {
-  width: 24px;
-  height: 24px;
+@mixin ico-style($w, $h, $bgi) {
+  width: $w;
+  height: $h;
   background: url($bgi) center no-repeat;
   cursor: pointer;
 }
