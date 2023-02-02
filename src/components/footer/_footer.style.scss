@@ -22,4 +22,14 @@
 
 .nik__githab {
   margin: 0 40px 0 0;
+
+  &:hover {
+    transition: $transition;
+    transform: scale(1.1);
+  }
 } 
+
+.rs-block:hover {
+  transition: $transition;
+  transform: scale(1.1);
+}

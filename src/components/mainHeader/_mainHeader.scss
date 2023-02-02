@@ -22,6 +22,12 @@
 .nav__item {
   font-weight: 600;
   margin: 0 40px 0 0;
+  cursor: pointer;
+
+    &:hover {
+      transition: $transition;
+      transform: scale(1.1);
+    }
 }
 
 .logo {
@@ -42,6 +48,18 @@
   color: $color_white;
   background-color: $color_purple;
   border-radius: 4px;
+
+    &:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.20);
+      transition: $transition;
+    }
+
+    &:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.20);
+      transition: $transition;
+    }
 }
 
 .btn-log {
@@ -51,6 +69,18 @@
   border-radius: 100%;
   background-color: $color_green;
   @include display-flex(row, center, center);
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: #053f39;
+    transition: $transition;
+  }
+
+  &:active {
+    transform: scale(1);
+    background-color: $color_green;
+    transition: $transition;
+  }
 }
 
 .btn-log__ico {
