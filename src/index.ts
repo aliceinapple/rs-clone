@@ -1,6 +1,5 @@
 import './index.html';
 import './main.scss';
-// import './data/index';
 import 'normalize.css';
 
 
@@ -10,12 +9,12 @@ import 'normalize.css';
 // import { renderDesignePage } from './pages/designPage/index';
 // renderDesignePage();
 
-import { renderPageInfoAboutBusiness } from './pages/questionPages';
-renderPageInfoAboutBusiness();
+// import { renderPageInfoAboutBusiness } from './pages/questionPages';
+// renderPageInfoAboutBusiness();
 
-import { renderColorSelectionPage } from './pages/questionPages';
-renderColorSelectionPage();
+// import { renderColorSelectionPage } from './pages/questionPages';
+// renderColorSelectionPage();
 
-import { renderStyleLogoPage } from './pages/questionPages';
-renderStyleLogoPage();
+// import { renderStyleLogoPage } from './pages/questionPages';
+// renderStyleLogoPage();
 
