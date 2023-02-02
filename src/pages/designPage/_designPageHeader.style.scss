@@ -1,0 +1,32 @@
+@mixin block-style() {
+  padding: 0 35px;
+  height: 40px;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+.design-header__arrow-block,
+.design-header__save-block,
+.design-header__remove-block {
+  @include display-flex(row, flex-start, center);
+  @include block-style();
+}
+
+.design-header__remove-block {
+  border: none
+}
+
+.arrow-block__arrow-back {
+  @include ico-style('assets/ico/ico_arrow-back-designe.png');
+  margin: 0 35px 0 0;
+}
+
+.arrow-block__arrow-forward {
+  @include ico-style('assets/ico/ico_arrow-forward-designe.png');
+}
+
+.save-block__ico {
+  @include ico-style('assets/ico/ico_save.png');
+}
+
+.remove-block__ico {
+  @include ico-style('assets/ico/ico_trash.png');
+}

@@ -13,6 +13,13 @@
   font-weight: $weight;
 }
 
+@mixin ico-style($bgi) {
+  width: 24px;
+  height: 24px;
+  background: url($bgi) center no-repeat;
+  cursor: pointer;
+}
+
 $color_white: #ffffff;
 $color_gray: #4F4F4F;
 $color_purple: #8E42FF;
@@ -60,5 +67,9 @@ body {
 }
 
 @import 'components/footer/footer.style';
-@import 'components/mainHeader/mainHeader';
-@import 'components/mainContent/mainContent.style';
+@import 'components/buttons/buttons.style';
+@import 'components/header/header.style';
+@import 'pages/main/mainHeader.style';
+@import 'pages/main/mainContent.style';
+@import 'pages/designPage/designPageHeader.style';
+@import 'pages/designPage/disignePageContent.style';

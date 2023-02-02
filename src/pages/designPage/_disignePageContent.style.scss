@@ -1,0 +1,29 @@
+.designe-page__contetn {
+  width: 100%;
+  height: 950px;
+  @include display-flex(row, flex-start, center);
+}
+
+.designe-page__side-menu {
+  width: 80px;
+  height: 100%;
+  border: 1px solid red;
+}
+
+.designe-page__hiding-panel {
+  width: 350px;
+  height: 100%;
+  border: 1px solid red;
+}
+
+.designe-page__btn-for-hiding {
+  width: 15px;
+  height: 100%;
+  border: 1px solid red;
+}
+
+.designe-page__paint-block {
+  width: 100%;
+  height: 100%;
+  border: 1px solid blue;
+}
