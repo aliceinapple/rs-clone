@@ -14,9 +14,12 @@ export const createPageInfoAboutBusiness = () => {
 
   const typeOfActivity: HTMLSelectElement = document.createElement('select');
   typeOfActivity.classList.add('type-of-activity');
-  const option: HTMLOptionElement = document.createElement('option');
-  option.textContent = 'Выберите сферу деятельности';
-  typeOfActivity.append(option);
+  const options = ['Выберите сферу деятельности', 'Медицина', 'IT', 'Искусство/Дизайн', 'Рестораны/Еда'];
+  options.forEach(element => {
+    const option: HTMLOptionElement = document.createElement('option');
+    option.textContent = element;
+    typeOfActivity.append(option);
+  });
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
   btnNextQuestionBlock.append(btnNextQuestion);
@@ -83,14 +86,14 @@ const createStyleLogoPage = () => {
   question.textContent = 'Выберите стиль логотипа';
 
   const styleBlock = createHtmlElement('div', 'view-style-block');
-  const style1 = createViewStyle('style-block-1', 'style-1', 'Стиль');
-  const style2 = createViewStyle('style-block-2', 'style-2', 'Стиль');
-  const style3 = createViewStyle('style-block-3', 'style-3', 'Стиль');
-  const style4 = createViewStyle('style-block-4', 'style-4', 'Стиль');
+  const style1 = createViewStyle('style-block-1', 'style-1', 'Минимализм');
+  const style2 = createViewStyle('style-block-2', 'style-2', 'Строгий');
+  const style3 = createViewStyle('style-block-3', 'style-3', 'Лёгкий');
+  const style4 = createViewStyle('style-block-4', 'style-4', 'Броский');
   styleBlock.append(style1, style2, style3, style4);
 
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
-  const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
+  const btnNextQuestion = createButtonElement('btn-next-question', 'Получить результат');
   btnNextQuestionBlock.append(btnNextQuestion);
 
   container.append(question, styleBlock, btnNextQuestionBlock);
