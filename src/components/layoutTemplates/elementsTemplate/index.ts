@@ -7,6 +7,15 @@ export const defaultTexsts = {
          Добавить заголовок`,
 };
 
+function createHandle(width: string, height: string): HTMLDivElement {
+  const handle: HTMLDivElement = document.createElement('div');
+  handle.classList.add('handle');
+  handle.style.width = width;
+  handle.style.height = height;
+
+  return handle;
+}
+
 export function createTemplateText(
   width: string,
   fontFamily: string,
@@ -17,6 +26,7 @@ export function createTemplateText(
   textAlign?: string,
 ): HTMLDivElement {
   const text: HTMLDivElement = document.createElement('div');
+
   text.setAttribute('contentEditable', 'true');
   text.style.position = 'absolute';
   text.style.width = width;
@@ -43,11 +53,7 @@ export function createTemplateShape(
 ) {
   const element: HTMLDivElement = document.createElement('div');
 
-  const handle: HTMLDivElement = document.createElement('div');
-  handle.style.width = width;
-  handle.style.height = height;
-  handle.style.border = '2px solid red';
-  handle.style.display = 'none';
+  const handle: HTMLDivElement = createHandle(width, height);
 
   element.appendChild(handle);
 
@@ -72,10 +78,7 @@ export function createTemplateShape(
 export function createTemplateImg(width: string, height: string, x: string, y: string, img: string): HTMLDivElement {
   const element: HTMLDivElement = document.createElement('div');
 
-  const handle: HTMLDivElement = document.createElement('div');
-  handle.style.width = width;
-  handle.style.height = height;
-  handle.style.border = '2px solid red';
+  const handle: HTMLDivElement = createHandle(width, height);
 
   element.appendChild(handle);
 

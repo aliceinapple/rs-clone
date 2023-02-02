@@ -1,5 +1,5 @@
 import { BusinessCard } from './businessCard';
-import { createTemplateImg, createTemplateShape, createTemplateText, defaultTexsts } from './templateElements';
+import { createTemplateImg, createTemplateShape, createTemplateText, defaultTexsts } from './elementsTemplate';
 import mountains from '../../assets/templateImages/mountains.png';
 import flowers from '../../assets/templateImages/flowers.png';
 import qrCode from '../../assets/templateImages/qrCode.png';
