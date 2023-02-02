@@ -11,18 +11,18 @@ const templatesMidecal: ITemplates[] = [
   { id: 10, src: '../assets/templates/medical/10.png', scope: 'medical', color: 'black', style: 'catchy', textColor: '#FFFFFF', textSize: '32px' },
   { id: 11, src: '../assets/templates/medical/11.png', scope: 'medical', color: 'black', style: 'catchy', textColor: '#FFFFFF', textSize: '31px' },
   { id: 12, src: '../assets/templates/medical/12.png', scope: 'medical', color: 'black', style: 'catchy', textColor: '#B936A2', textSize: '28px' },
-  { id: 13, src: '../assets/templates/medical/13.png', scope: 'medical', color: 'blackWite', style: 'minimalism', textColor: '#FFFFFF', textSize: '35px' },
-  { id: 14, src: '../assets/templates/medical/14.png', scope: 'medical', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '37px' },
-  { id: 15, src: '../assets/templates/medical/15.png', scope: 'medical', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '35px' },
-  { id: 16, src: '../assets/templates/medical/16.png', scope: 'medical', color: 'blackWite', style: 'light', textColor: '#D9D9D9', textSize: '42px' },
-  { id: 17, src: '../assets/templates/medical/17.png', scope: 'medical', color: 'blackWite', style: 'light', textColor: '#FFFFFF', textSize: '35px' },
-  { id: 18, src: '../assets/templates/medical/18.png', scope: 'medical', color: 'blackWite', style: 'light', textColor: '#000000', textSize: '35px' },
-  { id: 19, src: '../assets/templates/medical/19.png', scope: 'medical', color: 'blackWite', style: 'strong', textColor: '#545454', textSize: '25px' },
-  { id: 20, src: '../assets/templates/medical/20.png', scope: 'medical', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '47px' },
-  { id: 21, src: '../assets/templates/medical/21.png', scope: 'medical', color: 'blackWite', style: 'strong', textColor: '#FFFFFF', textSize: '28px' },
-  { id: 22, src: '../assets/templates/medical/22.png', scope: 'medical', color: 'blackWite', style: 'catchy', textColor: '#545454', textSize: '30px' },
-  { id: 23, src: '../assets/templates/medical/23.png', scope: 'medical', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '33px' },
-  { id: 24, src: '../assets/templates/medical/24.png', scope: 'medical', color: 'blackWite', style: 'catchy', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 13, src: '../assets/templates/medical/13.png', scope: 'medical', color: 'blackWhite', style: 'minimalism', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 14, src: '../assets/templates/medical/14.png', scope: 'medical', color: 'blackWhite', style: 'minimalism', textColor: '#000000', textSize: '37px' },
+  { id: 15, src: '../assets/templates/medical/15.png', scope: 'medical', color: 'blackWhite', style: 'minimalism', textColor: '#000000', textSize: '35px' },
+  { id: 16, src: '../assets/templates/medical/16.png', scope: 'medical', color: 'blackWhite', style: 'light', textColor: '#D9D9D9', textSize: '42px' },
+  { id: 17, src: '../assets/templates/medical/17.png', scope: 'medical', color: 'blackWhite', style: 'light', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 18, src: '../assets/templates/medical/18.png', scope: 'medical', color: 'blackWhite', style: 'light', textColor: '#000000', textSize: '35px' },
+  { id: 19, src: '../assets/templates/medical/19.png', scope: 'medical', color: 'blackWhite', style: 'strong', textColor: '#545454', textSize: '25px' },
+  { id: 20, src: '../assets/templates/medical/20.png', scope: 'medical', color: 'blackWhite', style: 'strong', textColor: '#000000', textSize: '47px' },
+  { id: 21, src: '../assets/templates/medical/21.png', scope: 'medical', color: 'blackWhite', style: 'strong', textColor: '#FFFFFF', textSize: '28px' },
+  { id: 22, src: '../assets/templates/medical/22.png', scope: 'medical', color: 'blackWhite', style: 'catchy', textColor: '#545454', textSize: '30px' },
+  { id: 23, src: '../assets/templates/medical/23.png', scope: 'medical', color: 'blackWhite', style: 'catchy', textColor: '#000000', textSize: '33px' },
+  { id: 24, src: '../assets/templates/medical/24.png', scope: 'medical', color: 'blackWhite', style: 'catchy', textColor: '#FFFFFF', textSize: '35px' },
   { id: 25, src: '../assets/templates/medical/25.png', scope: 'medical', color: 'white', style: 'minimalism', textColor: '#000000', textSize: '21px' },
   { id: 26, src: '../assets/templates/medical/26.png', scope: 'medical', color: 'white', style: 'minimalism', textColor: '#000000', textSize: '35px' },
   { id: 27, src: '../assets/templates/medical/27.png', scope: 'medical', color: 'white', style: 'minimalism', textColor: '#1F355F', textSize: '33px' },
@@ -48,8 +48,7 @@ const templatesMidecal: ITemplates[] = [
   { id: 47, src: '../assets/templates/medical/47.png', scope: 'medical', color: 'bright', style: 'catchy', textColor: '#09090B', textSize: '31px' },
   { id: 48, src: '../assets/templates/medical/48.png', scope: 'medical', color: 'bright', style: 'catchy', textColor: '#104069', textSize: '47px' },
 ];
-console.log(templatesMidecal);   
-
+   
 const templatesArt: ITemplates[] = [
   { id: 1, src: '../assets/templates/art/1.png', scope: 'art', color: 'black', style: 'minimalism', textColor: '#A3721C', textSize: '38px' },
   { id: 2, src: '../assets/templates/art/2.png', scope: 'art', color: 'black', style: 'minimalism', textColor: '#CBB9B9', textSize: '40px' },
@@ -63,18 +62,18 @@ const templatesArt: ITemplates[] = [
   { id: 10, src: '../assets/templates/art/10.png', scope: 'art', color: 'black', style: 'catchy', textColor: '#000000', textSize: '20px' },
   { id: 11, src: '../assets/templates/art/11.png', scope: 'art', color: 'black', style: 'catchy', textColor: '#F4C588', textSize: '30px' },
   { id: 12, src: '../assets/templates/art/12.png', scope: 'art', color: 'black', style: 'catchy', textColor: '#1E1E1C', textSize: '27px' },
-  { id: 13, src: '../assets/templates/art/13.png', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
-  { id: 14, src: '../assets/templates/art/14.png', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
-  { id: 15, src: '../assets/templates/art/15.png', scope: 'art', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '25px' },
-  { id: 16, src: '../assets/templates/art/16.png', scope: 'art', color: 'blackWite', style: 'light', textColor: '#1B1919', textSize: '27px' },
-  { id: 17, src: '../assets/templates/art/17.png', scope: 'art', color: 'blackWite', style: 'light', textColor: '#000000', textSize: '30px' },
-  { id: 18, src: '../assets/templates/art/18.png', scope: 'art', color: 'blackWite', style: 'light', textColor: '#FFFFFF', textSize: '30px' },
-  { id: 19, src: '../assets/templates/art/19.png', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#9395AB', textSize: '55px' },
-  { id: 20, src: '../assets/templates/art/20.png', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '25px' },
-  { id: 21, src: '../assets/templates/art/21.png', scope: 'art', color: 'blackWite', style: 'strong', textColor: '#121212', textSize: '45px' },
-  { id: 22, src: '../assets/templates/art/22.png', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '30px' },
-  { id: 23, src: '../assets/templates/art/23.png', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '25px' },
-  { id: 24, src: '../assets/templates/art/24.png', scope: 'art', color: 'blackWite', style: 'catchy', textColor: '#FFFFFF', textSize: '42px' },
+  { id: 13, src: '../assets/templates/art/13.png', scope: 'art', color: 'blackWhite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
+  { id: 14, src: '../assets/templates/art/14.png', scope: 'art', color: 'blackWhite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
+  { id: 15, src: '../assets/templates/art/15.png', scope: 'art', color: 'blackWhite', style: 'minimalism', textColor: '#000000', textSize: '25px' },
+  { id: 16, src: '../assets/templates/art/16.png', scope: 'art', color: 'blackWhite', style: 'light', textColor: '#1B1919', textSize: '27px' },
+  { id: 17, src: '../assets/templates/art/17.png', scope: 'art', color: 'blackWhite', style: 'light', textColor: '#000000', textSize: '30px' },
+  { id: 18, src: '../assets/templates/art/18.png', scope: 'art', color: 'blackWhite', style: 'light', textColor: '#FFFFFF', textSize: '30px' },
+  { id: 19, src: '../assets/templates/art/19.png', scope: 'art', color: 'blackWhite', style: 'strong', textColor: '#9395AB', textSize: '55px' },
+  { id: 20, src: '../assets/templates/art/20.png', scope: 'art', color: 'blackWhite', style: 'strong', textColor: '#000000', textSize: '25px' },
+  { id: 21, src: '../assets/templates/art/21.png', scope: 'art', color: 'blackWhite', style: 'strong', textColor: '#121212', textSize: '45px' },
+  { id: 22, src: '../assets/templates/art/22.png', scope: 'art', color: 'blackWhite', style: 'catchy', textColor: '#000000', textSize: '30px' },
+  { id: 23, src: '../assets/templates/art/23.png', scope: 'art', color: 'blackWhite', style: 'catchy', textColor: '#000000', textSize: '25px' },
+  { id: 24, src: '../assets/templates/art/24.png', scope: 'art', color: 'blackWhite', style: 'catchy', textColor: '#FFFFFF', textSize: '42px' },
   { id: 25, src: '../assets/templates/art/25.png', scope: 'art', color: 'white', style: 'minimalism', textColor: '#5A4A42', textSize: '51px' },
   { id: 26, src: '../assets/templates/art/26.png', scope: 'art', color: 'white', style: 'minimalism', textColor: '#82412D', textSize: '30px' },
   { id: 27, src: '../assets/templates/art/27.png', scope: 'art', color: 'white', style: 'minimalism', textColor: '#31373E', textSize: '25px' },
@@ -114,18 +113,18 @@ const templatesFood: ITemplates[] = [
   { id: 10, src: '../assets/templates/food/10.png', scope: 'food', color: 'black', style: 'catchy', textColor: '#E9B546', textSize: '20px' },
   { id: 11, src: '../assets/templates/food/11.png', scope: 'food', color: 'black', style: 'catchy', textColor: '#FFF9F6', textSize: '30px' },
   { id: 12, src: '../assets/templates/food/12.png', scope: 'food', color: 'black', style: 'catchy', textColor: '#FCFEF1', textSize: '37px' },
-  { id: 13, src: '../assets/templates/food/13.png', scope: 'food', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
-  { id: 14, src: '../assets/templates/food/14.png', scope: 'food', color: 'blackWite', style: 'minimalism', textColor: '#030507', textSize: '28px' },
-  { id: 15, src: '../assets/templates/food/15.png', scope: 'food', color: 'blackWite', style: 'minimalism', textColor: '#FFFFFF', textSize: '25px' },
-  { id: 16, src: '../assets/templates/food/16.png', scope: 'food', color: 'blackWite', style: 'light', textColor: '#302F2F', textSize: '30px' },
-  { id: 17, src: '../assets/templates/food/17.png', scope: 'food', color: 'blackWite', style: 'light', textColor: '#D9D9D9', textSize: '30px' },
-  { id: 18, src: '../assets/templates/food/18.png', scope: 'food', color: 'blackWite', style: 'light', textColor: '#000000', textSize: '30px' },
-  { id: 19, src: '../assets/templates/food/19.png', scope: 'food', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '30px' },
-  { id: 20, src: '../assets/templates/food/20.png', scope: 'food', color: 'blackWite', style: 'strong', textColor: '#FFFFFF', textSize: '35px' },
-  { id: 21, src: '../assets/templates/food/21.png', scope: 'food', color: 'blackWite', style: 'strong', textColor: '#FFFFFF', textSize: '45px' },
-  { id: 22, src: '../assets/templates/food/22.png', scope: 'food', color: 'blackWite', style: 'catchy', textColor: '#545454', textSize: '30px' },
-  { id: 23, src: '../assets/templates/food/23.png', scope: 'food', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '25px' },
-  { id: 24, src: '../assets/templates/food/24.png', scope: 'food', color: 'blackWite', style: 'catchy', textColor: '#D9D9D9', textSize: '42px' },
+  { id: 13, src: '../assets/templates/food/13.png', scope: 'food', color: 'blackWhite', style: 'minimalism', textColor: '#000000', textSize: '28px' },
+  { id: 14, src: '../assets/templates/food/14.png', scope: 'food', color: 'blackWhite', style: 'minimalism', textColor: '#030507', textSize: '28px' },
+  { id: 15, src: '../assets/templates/food/15.png', scope: 'food', color: 'blackWhite', style: 'minimalism', textColor: '#FFFFFF', textSize: '25px' },
+  { id: 16, src: '../assets/templates/food/16.png', scope: 'food', color: 'blackWhite', style: 'light', textColor: '#302F2F', textSize: '30px' },
+  { id: 17, src: '../assets/templates/food/17.png', scope: 'food', color: 'blackWhite', style: 'light', textColor: '#D9D9D9', textSize: '30px' },
+  { id: 18, src: '../assets/templates/food/18.png', scope: 'food', color: 'blackWhite', style: 'light', textColor: '#000000', textSize: '30px' },
+  { id: 19, src: '../assets/templates/food/19.png', scope: 'food', color: 'blackWhite', style: 'strong', textColor: '#000000', textSize: '30px' },
+  { id: 20, src: '../assets/templates/food/20.png', scope: 'food', color: 'blackWhite', style: 'strong', textColor: '#FFFFFF', textSize: '35px' },
+  { id: 21, src: '../assets/templates/food/21.png', scope: 'food', color: 'blackWhite', style: 'strong', textColor: '#FFFFFF', textSize: '45px' },
+  { id: 22, src: '../assets/templates/food/22.png', scope: 'food', color: 'blackWhite', style: 'catchy', textColor: '#545454', textSize: '30px' },
+  { id: 23, src: '../assets/templates/food/23.png', scope: 'food', color: 'blackWhite', style: 'catchy', textColor: '#000000', textSize: '25px' },
+  { id: 24, src: '../assets/templates/food/24.png', scope: 'food', color: 'blackWhite', style: 'catchy', textColor: '#D9D9D9', textSize: '42px' },
   { id: 25, src: '../assets/templates/food/25.png', scope: 'food', color: 'white', style: 'minimalism', textColor: '#A2751D', textSize: '41px' },
   { id: 26, src: '../assets/templates/food/26.png', scope: 'food', color: 'white', style: 'minimalism', textColor: '#2C1E1F', textSize: '30px' },
   { id: 27, src: '../assets/templates/food/27.png', scope: 'food', color: 'white', style: 'minimalism', textColor: '#000000', textSize: '30px' },
@@ -165,18 +164,18 @@ const templatesIt: ITemplates[] = [
   { id: 10, src: '../assets/templates/it/10.png', scope: 'it', color: 'black', style: 'catchy', textColor: '#FFFFFF', textSize: '50px' },
   { id: 11, src: '../assets/templates/it/11.png', scope: 'it', color: 'black', style: 'catchy', textColor: '#FFFFFF', textSize: '30px' },
   { id: 12, src: '../assets/templates/it/12.png', scope: 'it', color: 'black', style: 'catchy', textColor: '#F4F6FC', textSize: '37px' },
-  { id: 13, src: '../assets/templates/it/13.png', scope: 'it', color: 'blackWite', style: 'minimalism', textColor: '#ffffff', textSize: '28px' },
-  { id: 14, src: '../assets/templates/it/14.png', scope: 'it', color: 'blackWite', style: 'minimalism', textColor: '#545454', textSize: '28px' },
-  { id: 15, src: '../assets/templates/it/15.png', scope: 'it', color: 'blackWite', style: 'minimalism', textColor: '#000000', textSize: '25px' },
-  { id: 16, src: '../assets/templates/it/16.png', scope: 'it', color: 'blackWite', style: 'light', textColor: '#ffffff', textSize: '30px' },
-  { id: 17, src: '../assets/templates/it/17.png', scope: 'it', color: 'blackWite', style: 'light', textColor: '#000000', textSize: '30px' },
-  { id: 18, src: '../assets/templates/it/18.png', scope: 'it', color: 'blackWite', style: 'light', textColor: '#737373', textSize: '30px' },
-  { id: 19, src: '../assets/templates/it/19.png', scope: 'it', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '30px' },
-  { id: 20, src: '../assets/templates/it/20.png', scope: 'it', color: 'blackWite', style: 'strong', textColor: '#000000', textSize: '35px' },
-  { id: 21, src: '../assets/templates/it/21.png', scope: 'it', color: 'blackWite', style: 'strong', textColor: '#545454', textSize: '45px' },
-  { id: 22, src: '../assets/templates/it/22.png', scope: 'it', color: 'blackWite', style: 'catchy', textColor: '#545454', textSize: '30px' },
-  { id: 23, src: '../assets/templates/it/23.png', scope: 'it', color: 'blackWite', style: 'catchy', textColor: '#000000', textSize: '25px' },
-  { id: 24, src: '../assets/templates/it/24.png', scope: 'it', color: 'blackWite', style: 'catchy', textColor: '#222222', textSize: '42px' },
+  { id: 13, src: '../assets/templates/it/13.png', scope: 'it', color: 'blackWhite', style: 'minimalism', textColor: '#ffffff', textSize: '28px' },
+  { id: 14, src: '../assets/templates/it/14.png', scope: 'it', color: 'blackWhite', style: 'minimalism', textColor: '#545454', textSize: '28px' },
+  { id: 15, src: '../assets/templates/it/15.png', scope: 'it', color: 'blackWhite', style: 'minimalism', textColor: '#000000', textSize: '25px' },
+  { id: 16, src: '../assets/templates/it/16.png', scope: 'it', color: 'blackWhite', style: 'light', textColor: '#ffffff', textSize: '30px' },
+  { id: 17, src: '../assets/templates/it/17.png', scope: 'it', color: 'blackWhite', style: 'light', textColor: '#000000', textSize: '30px' },
+  { id: 18, src: '../assets/templates/it/18.png', scope: 'it', color: 'blackWhite', style: 'light', textColor: '#737373', textSize: '30px' },
+  { id: 19, src: '../assets/templates/it/19.png', scope: 'it', color: 'blackWhite', style: 'strong', textColor: '#000000', textSize: '30px' },
+  { id: 20, src: '../assets/templates/it/20.png', scope: 'it', color: 'blackWhite', style: 'strong', textColor: '#000000', textSize: '35px' },
+  { id: 21, src: '../assets/templates/it/21.png', scope: 'it', color: 'blackWhite', style: 'strong', textColor: '#545454', textSize: '45px' },
+  { id: 22, src: '../assets/templates/it/22.png', scope: 'it', color: 'blackWhite', style: 'catchy', textColor: '#545454', textSize: '30px' },
+  { id: 23, src: '../assets/templates/it/23.png', scope: 'it', color: 'blackWhite', style: 'catchy', textColor: '#000000', textSize: '25px' },
+  { id: 24, src: '../assets/templates/it/24.png', scope: 'it', color: 'blackWhite', style: 'catchy', textColor: '#222222', textSize: '42px' },
   { id: 25, src: '../assets/templates/it/25.png', scope: 'it', color: 'white', style: 'minimalism', textColor: '#393536', textSize: '41px' },
   { id: 26, src: '../assets/templates/it/26.png', scope: 'it', color: 'white', style: 'minimalism', textColor: '#4A87CE', textSize: '30px' },
   { id: 27, src: '../assets/templates/it/27.png', scope: 'it', color: 'white', style: 'minimalism', textColor: '#393536', textSize: '30px' },
@@ -212,21 +211,92 @@ interface ITemplates {
   textSize: string
 }
 
+const cont = document.getElementById('s1') as HTMLSelectElement;
 
-templatesIt.forEach((elem, index) => {
-  const cont = document.createElement('div') as HTMLDivElement;
-  const example = document.createElement('img') as HTMLImageElement;
-  example.className = 'img';
-  cont.className = 'example';
-  const text = document.createElement('p') as HTMLParagraphElement;
-  text.className = 'text';
-  text.innerHTML = 'Технологии';
-  text.style.color = `${templatesIt[index].textColor}`;
-  text.style.fontSize = `${templatesIt[index].textSize}`;
-  // example.src = templatesMidecal[28].src;
-  // example.src = 'https://raw.githubusercontent.com/milsevka/templates/main/1.png';
-  example.src = require(`../assets/templates/it/${index + 1}.png`);
-  cont.appendChild(example);
-  cont.appendChild(text);
-  document.body.appendChild(cont);
+function selectCategory() {
+  let resultarr: ITemplates[] = [];
+  switch (cont.value) {
+    case 'art': 
+      resultarr = templatesArt;
+      break;
+    case 'food':
+      resultarr = templatesFood;
+      break;
+    case 'it':
+      resultarr = templatesIt;
+      break;
+    case 'medical':
+      resultarr = templatesMidecal;
+      break;
+    default:
+      console.log('default');
+  }
+  return resultarr;
+}
+
+cont.addEventListener('change', selectCategory);
+
+
+function filterStyle() {
+  const styleArr = selectCategory();
+  const filterSty = styleArr.filter(item => item.style === (document.getElementById('s2') as HTMLSelectElement).value);
+  return filterSty;
+}
+function filterColor() {
+  const colorArr = filterStyle();
+  const filterCol = colorArr.filter(item => item.color === (document.getElementById('s3') as HTMLSelectElement).value);
+  return filterCol;
+}
+(document.getElementById('s2') as HTMLSelectElement).addEventListener('change', filterStyle);
+(document.getElementById('s3') as HTMLSelectElement).addEventListener('change', filterColor);
+
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+(document.querySelector('.result') as HTMLButtonElement).addEventListener('click', () => {
+  const result = filterColor();
+  console.log(result);
+  let resultALL: ITemplates[] = [];
+  while (resultALL.length != 2) {
+    const index = getRandomInt(result.length);    
+    resultALL.push(result[index]);    
+    resultALL = resultALL.filter((v, i, arr) =>  arr.indexOf(v) == i);
+  }
+  resultALL.forEach((elem) => {
+    const container = document.createElement('div') as HTMLDivElement;
+    const example = document.createElement('img') as HTMLImageElement;
+    example.className = 'img';
+    container.className = 'example';
+    const text = document.createElement('p') as HTMLParagraphElement;
+    text.className = 'text';
+    text.innerHTML = `${(document.querySelector('.input') as HTMLInputElement).value}`;
+    // text.innerHTML = `${elem.scope}`;
+    text.style.color = `${elem.textColor}`;
+    // text.style.fontSize = `${elem.textSize}`;
+    text.style.fontSize = '80px';
+    example.src = require(`../assets/templates/${elem.scope}/${elem.id}.png`);
+    container.appendChild(example);
+    container.appendChild(text);
+    document.body.appendChild(container);
+  });
 });
+ 
+
+
+
+
+// templatesIt.forEach((elem, index) => {
+//   const cont = document.createElement('div') as HTMLDivElement;
+//   const example = document.createElement('img') as HTMLImageElement;
+//   example.className = 'img';
+//   cont.className = 'example';
+//   const text = document.createElement('p') as HTMLParagraphElement;
+//   text.className = 'text';
+//   text.innerHTML = 'Технологии';
+//   text.style.color = `${templatesIt[index].textColor}`;
+//   text.style.fontSize = `${templatesIt[index].textSize}`;
+//   example.src = require(`../assets/templates/it/${index + 1}.png`);
+//   cont.appendChild(example);
+//   cont.appendChild(text);
+//   document.body.appendChild(cont);
+// });
