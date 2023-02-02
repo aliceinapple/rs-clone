@@ -1,0 +1,35 @@
+.footer {
+  padding: 0 35px;
+  box-shadow: 0px -5px 7px rgba(0, 0, 0, 0.1);;
+}
+.footer__wrapper {
+  height: 70px;
+  color: $color_gray;
+  @include font-size(16px, 22px, 400);
+  @include display-flex(row, space-between, center);
+}
+
+.githab-block,
+.githab-block__nik {
+  @include display-flex(row, flex-start, center);
+}
+
+.nik__ico {
+  width: 24px;
+  height: 24px;
+  margin: 0 20px 0 0;
+}
+
+.nik__githab {
+  margin: 0 40px 0 0;
+
+  &:hover {
+    transition: $transition;
+    transform: scale(1.1);
+  }
+} 
+
+.rs-block:hover {
+  transition: $transition;
+  transform: scale(1.1);
+}
