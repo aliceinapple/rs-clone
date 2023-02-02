@@ -1,0 +1,113 @@
+.page-question {
+  width: 100%;
+  padding: 150px 0 50px;
+  @include display-flex(column, center, center);
+}
+
+.question {
+  @include font-size(28px, 50px, 700);
+}
+
+.input-name-company {
+  width: 300px;
+  height: 50px;
+  margin: 35px 0;
+  padding: 0 0 0 20px;
+  color: $color_gray;
+  background-color: $color_white-gray;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+}
+
+.input-name-company::placeholder {
+  @include font-size(14px, 19px, 400);
+  text-align: center;
+  color: rgba(79, 79, 79, 0.5);
+}
+
+.type-of-activity {
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  color: rgba(79, 79, 79, 0.5);
+  background-color: $color_white-gray;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.btn-next-question-block {
+  padding: 100px 0;
+  @include display-flex(row, center, center);
+}
+.btn-next-question {
+  width: 250px;
+  height: 40px;
+  font-weight: 600;
+  color: $color_white;
+  background-color: $color_purple;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+
+    &:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.20);
+      transition: $transition;
+    }
+
+    &:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.20);
+      transition: $transition;
+    }
+}
+
+.color-palette-block {
+  width: 100%;
+  padding: 35px 215px 0;
+  @include display-flex(row, space-between, center);
+}
+
+.palette {
+  width: 210px;
+  height: 210px;
+  @include display-flex(row, flex-start, flex-start);
+  flex-wrap: wrap;
+  border-radius: 8px;
+  cursor: pointer;
+
+    &:hover {
+      transition: $transition;
+      transform: scale(1.1);
+    }
+}
+
+.color-item {
+  width: 105px;
+  height: 105px;
+}
+
+.color-item:nth-child(1) { border-radius: 8px 0 0 0; }
+.color-item:nth-child(2) { border-radius: 0 8px 0 0; }
+.color-item:nth-child(3) { border-radius: 0 0 0 8px; }
+.color-item:nth-child(4) { border-radius: 0 0 8px 0; }
+
+.view-style-block {
+  width: 100%;
+  padding: 35px 215px 0;
+  @include display-flex(row, space-between, center);
+}
+
+.style-block {
+  @include display-flex(column, 'flex-start', 'flex-start');
+}
+
+.style-item {
+  width: 150px;
+  height: 150px;
+  margin: 0 0 35px;
+  background: #EBECF0;
+  border-radius: 8px;
+}

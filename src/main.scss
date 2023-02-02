@@ -21,6 +21,7 @@
 }
 
 $color_white: #ffffff;
+$color_white-gray: #EBECF0;
 $color_gray: #4F4F4F;
 $color_purple: #8E42FF;
 $color_green: #01887A;
@@ -73,3 +74,4 @@ body {
 @import 'pages/main/mainContent.style';
 @import 'pages/designPage/designPageHeader.style';
 @import 'pages/designPage/disignePageContent.style';
+@import 'pages/questionPages/questionPages.style';
