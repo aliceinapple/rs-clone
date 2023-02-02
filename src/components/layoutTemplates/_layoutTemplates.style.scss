@@ -11,7 +11,7 @@
 .template-text {
   outline: none;
   &:focus {
-    border: 1px solid rgb(151, 29, 29);
+    border: 1px solid rgba(233, 10, 10, 0.679);
     border-radius: 8px;
   }
 }
@@ -20,8 +20,8 @@
   width: 10px;
   height: 10px;
   position: absolute;
-  background-color: white;
-  border: 1px solid black;
+  background-color: rgba(233, 10, 10, 0.679);
+  display: none;
 }
 
 .resize-handle-nw {

@@ -43,46 +43,6 @@ export function dragNdrop(container: HTMLDivElement) {
   });
 }
 
-// export function resize(element: HTMLDivElement, handle: HTMLDivElement) {
-//   let isResizing = false;
-//   let startingWidth: number, startingHeight: number, startingX: number, startingY: number;
-
-//   element.addEventListener('click', () => {
-//     handle.style.display = 'block';
-//   });
-
-//   document.body.addEventListener('click', (event) => {
-//     const target = event.target;
-
-//     if (target instanceof HTMLDivElement) {
-//       if (target !== element) {
-//         handle.style.display = 'none';
-//       }
-//     }
-//   });
-
-//   handle.addEventListener('mousedown', (event) => {
-//     isResizing = true;
-//     startingWidth = element.offsetWidth;
-//     startingHeight = element.offsetHeight;
-//     startingX = event.clientX;
-//     startingY = event.clientY;
-//   });
-//   document.addEventListener('mousemove', (event) => {
-//     if (!isResizing) return;
-//     const deltaX = event.clientX - startingX;
-//     const deltaY = event.clientY - startingY;
-//     element.style.width = startingWidth + deltaX + 'px';
-//     element.style.height = startingHeight + deltaY + 'px';
-
-//     handle.style.width = startingWidth + deltaX + 'px';
-//     handle.style.height = startingHeight + deltaY + 'px';
-//   });
-//   document.addEventListener('mouseup', () => {
-//     isResizing = false;
-//   });
-// }
-
 export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: HTMLDivElement[]) {
   for (const handle of resizeHandles) {
     handle.addEventListener('mousedown', function (event) {
@@ -126,4 +86,20 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
       document.addEventListener('mouseup', stopResize);
     });
   }
+}
+
+export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) {
+  element.addEventListener('click', () => {
+    handles.forEach((handle) => (handle.style.display = 'block'));
+  });
+
+  document.body.addEventListener('click', (event) => {
+    const target = event.target;
+
+    if (target instanceof HTMLDivElement) {
+      if (target !== element) {
+        handles.forEach((handle) => (handle.style.display = 'none'));
+      }
+    }
+  });
 }

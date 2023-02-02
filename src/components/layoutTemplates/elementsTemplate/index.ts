@@ -1,6 +1,4 @@
-// import { resize } from '../elementsActions';
-
-import { makeResizable } from '../elementsActions';
+import { makeResizable, showHandles } from '../elementsActions';
 
 export const defaultTexsts = {
   title: 'Добавить заголовок',
@@ -66,9 +64,9 @@ export function createTemplateShape(
   const element: HTMLDivElement = document.createElement('div');
   element.classList.add('template-element');
 
-  const handle: HTMLDivElement[] = createResizeHandle();
+  const handles: HTMLDivElement[] = createResizeHandle();
 
-  element.append(...handle);
+  element.append(...handles);
 
   element.style.width = width;
   element.style.height = height;
@@ -83,7 +81,8 @@ export function createTemplateShape(
     element.style.border = border;
   }
 
-  makeResizable(element, handle);
+  makeResizable(element, handles);
+  showHandles(element, handles);
 
   return element;
 }
@@ -92,9 +91,9 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   const element: HTMLDivElement = document.createElement('div');
   element.classList.add('template-element');
 
-  const handle: HTMLDivElement[] = createResizeHandle();
+  const handles: HTMLDivElement[] = createResizeHandle();
 
-  element.append(...handle);
+  element.append(...handles);
 
   element.style.background = img;
   element.style.backgroundSize = 'contain';
@@ -105,7 +104,8 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.left = x;
   element.style.top = y;
 
-  makeResizable(element, handle);
+  makeResizable(element, handles);
+  showHandles(element, handles);
 
   return element;
 }
