@@ -55,7 +55,7 @@ class BusinessCardTemplates {
     const title2 = createTemplateText('300px', 'Noto Sans', '24px', '#3E544F', '350px', '130px', 'center');
     title2.innerHTML = defaultTexsts.title;
 
-    const image = createTemplateImg('400px', '400px', '-90px', '120px', `url(${flowers})`);
+    const image = createTemplateImg('400px', '400px', '-90px', '145px', `url(${flowers})`);
     const image2 = createTemplateImg('100px', '100px', '450px', '200px', `url(${qrCode})`);
 
     return card.add(title, title2, image, image2);

@@ -1,4 +1,6 @@
-import { resize } from '../elementsActions';
+// import { resize } from '../elementsActions';
+
+import { makeResizable } from '../elementsActions';
 
 export const defaultTexsts = {
   title: 'Добавить заголовок',
@@ -7,13 +9,22 @@ export const defaultTexsts = {
          Добавить заголовок`,
 };
 
-function createHandle(width: string, height: string): HTMLDivElement {
-  const handle: HTMLDivElement = document.createElement('div');
-  handle.classList.add('handle');
-  handle.style.width = width;
-  handle.style.height = height;
+function createResizeHandle(): HTMLDivElement[] {
+  const handleNw: HTMLDivElement = document.createElement('div');
+  handleNw.classList.add('resize-handle', 'resize-handle-nw');
 
-  return handle;
+  const handleNe: HTMLDivElement = document.createElement('div');
+  handleNe.classList.add('resize-handle', 'resize-handle-ne');
+
+  const handleSw: HTMLDivElement = document.createElement('div');
+  handleSw.classList.add('resize-handle', 'resize-handle-sw');
+
+  const handleSe: HTMLDivElement = document.createElement('div');
+  handleSe.classList.add('resize-handle', 'resize-handle-se');
+
+  const handles = [handleNe, handleNw, handleSe, handleSw];
+
+  return handles;
 }
 
 export function createTemplateText(
@@ -26,9 +37,10 @@ export function createTemplateText(
   textAlign?: string,
 ): HTMLDivElement {
   const text: HTMLDivElement = document.createElement('div');
+  text.classList.add('template-text');
 
   text.setAttribute('contentEditable', 'true');
-  text.style.position = 'absolute';
+
   text.style.width = width;
   text.style.fontFamily = fontFamily;
   text.style.fontSize = fontSize;
@@ -52,12 +64,12 @@ export function createTemplateShape(
   borderRadius?: string,
 ) {
   const element: HTMLDivElement = document.createElement('div');
+  element.classList.add('template-element');
 
-  const handle: HTMLDivElement = createHandle(width, height);
+  const handle: HTMLDivElement[] = createResizeHandle();
 
-  element.appendChild(handle);
+  element.append(...handle);
 
-  element.style.position = 'absolute';
   element.style.width = width;
   element.style.height = height;
   element.style.left = x;
@@ -71,26 +83,29 @@ export function createTemplateShape(
     element.style.border = border;
   }
 
-  resize(element, handle);
+  makeResizable(element, handle);
+
   return element;
 }
 
 export function createTemplateImg(width: string, height: string, x: string, y: string, img: string): HTMLDivElement {
   const element: HTMLDivElement = document.createElement('div');
+  element.classList.add('template-element');
 
-  const handle: HTMLDivElement = createHandle(width, height);
+  const handle: HTMLDivElement[] = createResizeHandle();
 
-  element.appendChild(handle);
+  element.append(...handle);
 
   element.style.background = img;
   element.style.backgroundSize = 'contain';
   element.style.backgroundRepeat = 'no-repeat';
-  element.style.position = 'absolute';
+
   element.style.width = width;
   element.style.height = height;
   element.style.left = x;
   element.style.top = y;
 
-  resize(element, handle);
+  makeResizable(element, handle);
+
   return element;
 }
