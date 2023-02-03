@@ -37,12 +37,40 @@ export class App {
     }
   }
 
+  private enableRouteChange() {
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.slice(1);
+      App.renderNewPage(hash);
+    });
+  }
+
   constructor() {
     this.mainPage = new MainPage('main-page');
   }
 
   renderPage() {
+    this.enableRouteChange();
     App.renderNewPage('main-page');
     updateURL('main-page');
   }
 }
+
+containerForContent.addEventListener('click', (event) => {
+  const item = event.target;
+  const clickedItem = item as HTMLElement;
+
+  if (clickedItem.closest('.banner__btn-create-logo')) {
+    App.renderNewPage('info-business-page');
+    updateURL('info-business-page');
+  }
+
+  if (clickedItem.closest('#btn-next__about-business')) {
+    App.renderNewPage('color-select-page');
+    updateURL('color-select-page');
+  }
+
+  if (clickedItem.closest('#btn-next__color-select')) {
+    App.renderNewPage('style-select-page');
+    updateURL('style-select-page');
+  }
+});

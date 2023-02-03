@@ -148,8 +148,9 @@ export class DesignePage extends Page {
 const container = document.querySelector('.content');
 container?.addEventListener('click', (event) => {
   const item = event.target;
+  const clickedItem = item as HTMLElement;
 
-  if ((item as HTMLElement).closest('.btn-for-hiding')) {
+  if (clickedItem.closest('.btn-for-hiding')) {
     const hidingPanel = document.querySelector('.designe-page__hiding-panel');
     hidingPanel?.classList.toggle('hiding-panel_hidden');
   }

@@ -23,6 +23,7 @@ const createPageInfoAboutBusiness = () => {
   });
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
+  btnNextQuestion.setAttribute('id', 'btn-next__about-business');
   btnNextQuestionBlock.append(btnNextQuestion);
 
 
@@ -62,6 +63,7 @@ const createColorSelectionPage = () => {
 
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
+  btnNextQuestion.setAttribute('id', 'btn-next__color-select');
   btnNextQuestionBlock.append(btnNextQuestion);
 
   container.append(question, colorPaletteBlock, btnNextQuestionBlock);
@@ -95,6 +97,7 @@ const createStyleLogoPage = () => {
 
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Получить результат');
+  btnNextQuestion.setAttribute('id', 'btn-next__style-select');
   btnNextQuestionBlock.append(btnNextQuestion);
 
   container.append(question, styleBlock, btnNextQuestionBlock);
