@@ -54,9 +54,12 @@ const createMainContent = () => {
   const wrapper = createHtmlElement('div', 'main__wrapper');
 
   const banner = createHtmlElement('div', 'banner');
-  banner.textContent = '';
-  const templatesBlock = createHtmlElement('div', 'templates-block');
+  const bannerTextBlock = createHtmlElement('div', 'banner__text-block');
+  const btnCreateLogo = createButtonElement('banner__btn-create-logo', 'Создать логотип');
+  banner.append(bannerTextBlock, btnCreateLogo);
+
   
+  const templatesBlock = createHtmlElement('div', 'templates-block');
   templatesNames.forEach((item, index) => {
     const card = createViewTemplates(`card-${index + 1}`, index, item);
     templatesBlock.append(card);
