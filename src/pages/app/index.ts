@@ -6,6 +6,7 @@ import { DesignePage } from '../designPage';
 import { InfoBusinessPage } from '../questionPages';
 import { ColorSelectPage } from '../questionPages';
 import { StyleSelectPage } from '../questionPages';
+import { LogoResultPage } from '../logoResultPage';
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -28,6 +29,8 @@ export class App {
       page = new ColorSelectPage(idPage);
     } else if (idPage.includes(PagesId.StyleSelectPage)) {
       page = new StyleSelectPage(idPage);
+    } else if (idPage.includes(PagesId.LogoResultPage)) {
+      page = new LogoResultPage(PagesId.LogoResultPage);
     }
 
     if (page) {
@@ -72,6 +75,11 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('#btn-next__color-select')) {
     App.renderNewPage(PagesId.StyleSelectPage);
     updateURL(PagesId.StyleSelectPage);
+  }
+
+  if (clickedItem.closest('#btn-next__style-select')) {
+    App.renderNewPage(PagesId.LogoResultPage);
+    updateURL(PagesId.LogoResultPage);
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Postcard}`)) {

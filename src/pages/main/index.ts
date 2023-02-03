@@ -7,7 +7,7 @@ import card2 from '../../assets/card/card-2.png';
 import card3 from '../../assets/card/card-3.png';
 import card4 from '../../assets/card/card-4.png';
 
-const createMainHeader = () => {
+export const createMainHeader = () => {
   const header = createHtmlElement('div', 'main-header');
   const headerWrapper = createHtmlElement('div', 'main-header__wrapper');
 
