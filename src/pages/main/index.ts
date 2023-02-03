@@ -1,5 +1,6 @@
 import { createHtmlElement, createButtonElement } from '../../utils';
 import { createLogInButton } from '../../components/buttons/index';
+import Page from '../../components/pageTemplates';
 
 import card1 from '../../assets/card/card-1.png';
 import card2 from '../../assets/card/card-2.png';
@@ -75,12 +76,20 @@ const createMainContent = () => {
   main.append(wrapper);
   return main;
 };
+export class MainPage extends Page {
+  private createContent() {
+    const header = createMainHeader();
+    const main = createMainContent();
 
-export const renderMainPage = () => {
-  const container = document.querySelector('.content');
-  const header = createMainHeader();
-  const main = createMainContent();
+    return {
+      header,
+      main,
+    };
+  }
 
-  container?.append(header, main);
-  return container;
-};
+  render() {
+    const content = this.createContent();
+    this.container.append(content.header, content.main);
+    return this.container;
+  }
+}

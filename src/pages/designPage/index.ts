@@ -1,6 +1,7 @@
 import { createHtmlElement } from '../../utils';
 import { createLogInButton } from '../../components/buttons/index';
 import { createlinkForBackOnMainPage } from '../../components/header/index';
+import Page from '../../components/pageTemplates';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -126,15 +127,23 @@ const createDesignePageMainContent = () => {
   container.append(sideMenu, hidingPanel, paintBlock);
   return container;
 };
+export class DesignePage extends Page {
+  private createContent() {
+    const header = createDesignPageHeader();
+    const main = createDesignePageMainContent();
 
-export const renderDesignePage = () => {
-  const container = document.querySelector('.content');
-  const header = createDesignPageHeader();
-  const main = createDesignePageMainContent();
+    return {
+      header,
+      main,
+    };
+  }
 
-  container?.append(header, main);
-  return container;
-};
+  render() {
+    const content = this.createContent();
+    this.container.append(content.header, content.main);
+    return this.container;
+  }
+}
 
 const container = document.querySelector('.content');
 container?.addEventListener('click', (event) => {
