@@ -96,7 +96,7 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.append(...handles);
 
   element.style.background = img;
-  element.style.backgroundSize = 'contain';
+  element.style.backgroundSize = '100% 100%';
   element.style.backgroundRepeat = 'no-repeat';
 
   element.style.width = width;

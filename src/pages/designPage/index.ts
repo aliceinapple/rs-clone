@@ -3,6 +3,7 @@ import { createLogInButton } from '../../components/buttons/index';
 import { createlinkForBackOnMainPage } from '../../components/header/index';
 import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
+import { businessCardsPanelTemplates } from '../../components/layoutTemplates';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -29,7 +30,7 @@ const createDesignPageHeader = () => {
   const btnBlock = createHtmlElement('div', 'header__btn-block');
   const btn = createLogInButton();
   btnBlock.append(btn);
- 
+
   headerWrapper.append(controlBlock, title, btnBlock);
   header.append(headerWrapper);
   return header;
@@ -40,7 +41,7 @@ const createSideMenuElement = (classBlock: string, classIco: string, classTest: 
   const ico = createHtmlElement('div', `side-menu__${classIco}`);
   const title = createHtmlElement('p', `side-menu__${classTest}`);
   title.textContent = text;
-  
+
   block.append(ico, title);
   return block;
 };
@@ -51,7 +52,6 @@ const createSideMenu = () => {
   const designBlock = createSideMenuElement('designe-block', 'ico-designe', 'designe-block-title', 'Дизайн');
   const elementBlock = createSideMenuElement('element-block', 'ico-element', 'element-block-title', 'Элемент');
   const textBlock = createSideMenuElement('text-block', 'ico-text', 'text-block-title', 'Текст');
-  
 
   container.append(designBlock, elementBlock, textBlock);
   return container;
@@ -66,6 +66,8 @@ const createHidingPanelForPostcard = () => {
 const createHidingPanelForVisitCars = () => {
   const container = createHtmlElement('div', 'hiding-panel__visit-card-block');
 
+  container.append(businessCardsPanelTemplates);
+
   return container;
 };
 
@@ -74,7 +76,6 @@ const createHidingPanelForResume = () => {
 
   return container;
 };
-
 
 const createHidingPanel = (typeDesigne: string) => {
   const container = createHtmlElement('div', 'designe-page__hiding-panel');
@@ -142,8 +143,10 @@ const createPaintBlock = () => {
   const controlPanel = createPainControlPanel();
   const btnForHiding = createButtonForHiding();
   const wrapper = createHtmlElement('div', 'paint-block__wrapper');
-  const canvasElement: HTMLCanvasElement = document.createElement('canvas');
-  wrapper.append(btnForHiding, canvasElement);
+  // const canvasElement: HTMLCanvasElement = document.createElement('canvas');
+  const canvas: HTMLDivElement = document.createElement('div');
+  canvas.classList.add('layout-canvas');
+  wrapper.append(btnForHiding, canvas);
 
   container.append(controlPanel, wrapper);
   return container;

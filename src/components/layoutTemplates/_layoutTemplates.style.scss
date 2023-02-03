@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');
+
 .handle {
   border: 2px solid red;
   display: none;
@@ -6,6 +12,7 @@
 .template-text,
 .template-element {
   position: absolute;
+  line-height: 1.2;
 }
 
 .template-text {
@@ -46,4 +53,17 @@
   bottom: -5px;
   right: -5px;
   cursor: se-resize;
+}
+
+.layout-templates {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 0 50px;
+
+  img:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: $transition;
+  }
 }

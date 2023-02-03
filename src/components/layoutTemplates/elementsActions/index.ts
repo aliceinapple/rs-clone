@@ -53,28 +53,48 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
       const startY = event.clientY;
       const startWidth = parseInt(window.getComputedStyle(resizableElement).width, 10);
       const startHeight = parseInt(window.getComputedStyle(resizableElement).height, 10);
+      const startLeft = parseInt(window.getComputedStyle(resizableElement).left, 10);
+      const startTop = parseInt(window.getComputedStyle(resizableElement).top, 10);
+      const startRight = parseInt(window.getComputedStyle(resizableElement).right, 10);
+      const startBottom = parseInt(window.getComputedStyle(resizableElement).bottom, 10);
 
       function resize(e: MouseEvent) {
         let newWidth;
         let newHeight;
+        let newLeft = startLeft;
+        let newTop = startTop;
+        let newRight = startRight;
+        let newBottom = startBottom;
 
-        if (handleClass.includes('w')) {
+        if (handleClass === 'resize-handle-nw') {
           newWidth = startWidth + (-e.clientX + startX);
-        }
-        if (handleClass.includes('e')) {
-          newWidth = startWidth + (e.clientX - startX);
-        }
-        if (handleClass.includes('n')) {
           newHeight = startHeight + (-e.clientY + startY);
+          newLeft = startLeft + (e.clientX - startX);
+          newTop = startTop + (e.clientY - startY);
         }
-        if (handleClass.includes('s')) {
+        if (handleClass === 'resize-handle-ne') {
+          newWidth = startWidth + (e.clientX - startX);
+          newHeight = startHeight + (-e.clientY + startY);
+          newRight = startRight + (-e.clientX + startX);
+          newTop = startTop + (e.clientY - startY);
+        }
+        if (handleClass === 'resize-handle-sw') {
+          newWidth = startWidth + (-e.clientX + startX);
+          newHeight = startHeight + (e.clientY - startY);
+          newLeft = startLeft + (e.clientX - startX);
+          newBottom = startBottom + (-e.clientY + startY);
+        }
+        if (handleClass === 'resize-handle-se') {
+          newWidth = startWidth + (e.clientX - startX);
           newHeight = startHeight + (e.clientY - startY);
         }
 
-        console.log(newHeight);
-
         resizableElement.style.width = `${newWidth}px`;
         resizableElement.style.height = `${newHeight}px`;
+        resizableElement.style.left = `${newLeft}px`;
+        resizableElement.style.top = `${newTop}px`;
+        resizableElement.style.right = `${newRight}px`;
+        resizableElement.style.bottom = `${newBottom}px`;
       }
       function stopResize() {
         document.removeEventListener('mousemove', resize);
@@ -97,7 +117,7 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) 
     const target = event.target;
 
     if (target instanceof HTMLDivElement) {
-      if (target !== element) {
+      if (target !== element && !target.classList[0].includes('resize-handle')) {
         handles.forEach((handle) => (handle.style.display = 'none'));
       }
     }
