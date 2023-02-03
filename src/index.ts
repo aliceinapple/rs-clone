@@ -5,14 +5,21 @@ import 'normalize.css';
 //import { renderMainPage } from './pages/main';
 //renderMainPage();
 
-//import { renderDesignePage } from './pages/designPage/index';
-//renderDesignePage();
+// import { renderMainPage } from './pages/main';
+// renderMainPage();
 
-//import { renderPageInfoAboutBusiness } from './pages/questionPages';
-//renderPageInfoAboutBusiness();
+// import { renderDesignePage } from './pages/designPage/index';
+// renderDesignePage();
 
-//import { renderColorSelectionPage } from './pages/questionPages';
-//renderColorSelectionPage();
+// import { renderPageInfoAboutBusiness } from './pages/questionPages';
+// renderPageInfoAboutBusiness();
+
+// import { renderColorSelectionPage } from './pages/questionPages';
+// renderColorSelectionPage();
+
 
 //import { renderStyleLogoPage } from './pages/questionPages';
 //renderStyleLogoPage();
+
+// import { renderStyleLogoPage } from './pages/questionPages';
+// renderStyleLogoPage();
