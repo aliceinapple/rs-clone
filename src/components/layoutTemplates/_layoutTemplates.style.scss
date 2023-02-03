@@ -1,0 +1,49 @@
+.handle {
+  border: 2px solid red;
+  display: none;
+}
+
+.template-text,
+.template-element {
+  position: absolute;
+}
+
+.template-text {
+  outline: none;
+  &:focus {
+    border: 1px solid rgba(233, 10, 10, 0.679);
+    border-radius: 8px;
+  }
+}
+
+.resize-handle {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background-color: rgba(233, 10, 10, 0.679);
+  display: none;
+}
+
+.resize-handle-nw {
+  top: -5px;
+  left: -5px;
+  cursor: nw-resize;
+}
+
+.resize-handle-ne {
+  top: -5px;
+  right: -5px;
+  cursor: ne-resize;
+}
+
+.resize-handle-sw {
+  bottom: -5px;
+  left: -5px;
+  cursor: sw-resize;
+}
+
+.resize-handle-se {
+  bottom: -5px;
+  right: -5px;
+  cursor: se-resize;
+}

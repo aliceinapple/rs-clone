@@ -1,3 +1,8 @@
+export interface MainCardTemplate {
+  width: string;
+  height: string;
+}
+
 export interface ITemplates {
   id: number,
   src: string,
@@ -7,4 +12,3 @@ export interface ITemplates {
   textColor: string,
   textSize: string
 }
-  

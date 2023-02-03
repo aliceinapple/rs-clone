@@ -2,6 +2,8 @@ import './index.html';
 import './main.scss';
 import 'normalize.css';
 
+//import { renderMainPage } from './pages/main';
+//renderMainPage();
 
 // import { renderMainPage } from './pages/main';
 // renderMainPage();
@@ -15,6 +17,9 @@ import 'normalize.css';
 // import { renderColorSelectionPage } from './pages/questionPages';
 // renderColorSelectionPage();
 
+
+//import { renderStyleLogoPage } from './pages/questionPages';
+//renderStyleLogoPage();
+
 // import { renderStyleLogoPage } from './pages/questionPages';
 // renderStyleLogoPage();
-
