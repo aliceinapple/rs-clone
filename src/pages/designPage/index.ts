@@ -1,6 +1,8 @@
 import { createHtmlElement } from '../../utils';
 import { createLogInButton } from '../../components/buttons/index';
 import { createlinkForBackOnMainPage } from '../../components/header/index';
+import Page from '../../components/pageTemplates';
+import { TypesDesigne } from '../../types/enums';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -55,8 +57,38 @@ const createSideMenu = () => {
   return container;
 };
 
-const createHidingPanel = () => {
+const createHidingPanelForPostcard = () => {
+  const container = createHtmlElement('div', 'hiding-panel__postcard-block');
+
+  return container;
+};
+
+const createHidingPanelForVisitCars = () => {
+  const container = createHtmlElement('div', 'hiding-panel__visit-card-block');
+
+  return container;
+};
+
+const createHidingPanelForResume = () => {
+  const container = createHtmlElement('div', 'hiding-panel__resume-block');
+
+  return container;
+};
+
+
+const createHidingPanel = (typeDesigne: string) => {
   const container = createHtmlElement('div', 'designe-page__hiding-panel');
+
+  if (typeDesigne === TypesDesigne.Postcard) {
+    const content = createHidingPanelForPostcard();
+    container.append(content);
+  } else if (typeDesigne === TypesDesigne.VisitCard) {
+    const content = createHidingPanelForVisitCars();
+    container.append(content);
+  } else if (typeDesigne === TypesDesigne.Resume) {
+    const content = createHidingPanelForResume();
+    container.append(content);
+  }
 
   return container;
 };
@@ -117,30 +149,46 @@ const createPaintBlock = () => {
   return container;
 };
 
-const createDesignePageMainContent = () => {
+const createDesignePageMainContent = (typeDesigne: string) => {
   const container = createHtmlElement('div', 'designe-page__contetn');
   const sideMenu = createSideMenu();
-  const hidingPanel = createHidingPanel();
+  const hidingPanel = createHidingPanel(typeDesigne);
   const paintBlock = createPaintBlock();
 
   container.append(sideMenu, hidingPanel, paintBlock);
   return container;
 };
+export class DesignePage extends Page {
+  typeDesigne: string;
 
-export const renderDesignePage = () => {
-  const container = document.querySelector('.content');
-  const header = createDesignPageHeader();
-  const main = createDesignePageMainContent();
+  constructor(id: string, typeDesigne: string) {
+    super(id);
+    this.typeDesigne = typeDesigne;
+  }
 
-  container?.append(header, main);
-  return container;
-};
+  private createContent() {
+    const header = createDesignPageHeader();
+    const main = createDesignePageMainContent(this.typeDesigne);
+
+    return {
+      header,
+      main,
+    };
+  }
+
+  render() {
+    const content = this.createContent();
+    this.container.append(content.header, content.main);
+    return this.container;
+  }
+}
 
 const container = document.querySelector('.content');
 container?.addEventListener('click', (event) => {
   const item = event.target;
+  const clickedItem = item as HTMLElement;
 
-  if ((item as HTMLElement).closest('.btn-for-hiding')) {
+  if (clickedItem.closest('.btn-for-hiding')) {
     const hidingPanel = document.querySelector('.designe-page__hiding-panel');
     hidingPanel?.classList.toggle('hiding-panel_hidden');
   }

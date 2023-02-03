@@ -11,6 +11,13 @@
   height: 250px;
   border-radius: 8px;
   background: $gradient;
+  @include display-flex(column, center, center);
+}
+
+.banner__btn-create-logo {
+  width: 200px;
+  height: 40px;
+  border-radius: 4px;
 }
 
 .templates-block {

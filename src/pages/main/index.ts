@@ -1,12 +1,13 @@
 import { createHtmlElement, createButtonElement } from '../../utils';
 import { createLogInButton } from '../../components/buttons/index';
+import Page from '../../components/pageTemplates';
 
 import card1 from '../../assets/card/card-1.png';
 import card2 from '../../assets/card/card-2.png';
 import card3 from '../../assets/card/card-3.png';
 import card4 from '../../assets/card/card-4.png';
 
-const createMainHeader = () => {
+export const createMainHeader = () => {
   const header = createHtmlElement('div', 'main-header');
   const headerWrapper = createHtmlElement('div', 'main-header__wrapper');
 
@@ -32,7 +33,7 @@ const createMainHeader = () => {
   return header;
 };
 
-const templatesNames = ['Открытка', 'Логотип', 'Визитная карточка', 'Резюме'];
+const templatesNames = [['Открытка', 'postcard'], ['Логотип', 'logotype'], ['Визитная карточка', 'visit-card'], ['Резюме', 'resume']];
 const templatesImg = [card1, card2, card3, card4];
 
 const createViewTemplates = (className: string, id: number, text: string) => {
@@ -53,11 +54,15 @@ const createMainContent = () => {
   const wrapper = createHtmlElement('div', 'main__wrapper');
 
   const banner = createHtmlElement('div', 'banner');
-  banner.textContent = '';
-  const templatesBlock = createHtmlElement('div', 'templates-block');
+  const bannerTextBlock = createHtmlElement('div', 'banner__text-block');
+  const btnCreateLogo = createButtonElement('banner__btn-create-logo', 'Создать логотип');
+  banner.append(bannerTextBlock, btnCreateLogo);
+
   
+  const templatesBlock = createHtmlElement('div', 'templates-block');
   templatesNames.forEach((item, index) => {
-    const card = createViewTemplates(`card-${index + 1}`, index, item);
+    const card = createViewTemplates(`card-${index + 1}`, index, item[0]);
+    card.setAttribute('id', `${item[1]}`);
     templatesBlock.append(card);
   });
 
@@ -75,12 +80,20 @@ const createMainContent = () => {
   main.append(wrapper);
   return main;
 };
+export class MainPage extends Page {
+  private createContent() {
+    const header = createMainHeader();
+    const main = createMainContent();
 
-export const renderMainPage = () => {
-  const container = document.querySelector('.content');
-  const header = createMainHeader();
-  const main = createMainContent();
+    return {
+      header,
+      main,
+    };
+  }
 
-  container?.append(header, main);
-  return container;
-};
+  render() {
+    const content = this.createContent();
+    this.container.append(content.header, content.main);
+    return this.container;
+  }
+}

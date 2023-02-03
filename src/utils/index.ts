@@ -12,3 +12,17 @@ export const createButtonElement = (className: string, content: string) => {
 
   return btn;
 };
+
+export function updateURL(pageId: string, URL = '') {
+  if (history.pushState) {
+    if (history.state && history.state.url === `#${pageId}/${URL}`) {
+      return;
+    } else {
+      const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+      const newUrl = `${baseUrl}#${pageId}/${URL}`;
+      history.pushState({ url: `#${pageId}/${URL}` }, '', `${newUrl}`);
+    }
+  } else {
+    console.warn('History API не поддерживается');
+  }
+}

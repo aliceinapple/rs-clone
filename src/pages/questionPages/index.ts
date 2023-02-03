@@ -1,7 +1,8 @@
 import { createHtmlElement, createButtonElement } from '../../utils';
 import { createHeader } from '../../components/header';
+import Page from '../../components/pageTemplates';
 
-export const createPageInfoAboutBusiness = () => {
+const createPageInfoAboutBusiness = () => {
   const container = createHtmlElement('div', 'page-question');
 
   const question = createHtmlElement('div', 'question');
@@ -22,6 +23,7 @@ export const createPageInfoAboutBusiness = () => {
   });
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
+  btnNextQuestion.setAttribute('id', 'btn-next__about-business');
   btnNextQuestionBlock.append(btnNextQuestion);
 
 
@@ -61,6 +63,7 @@ const createColorSelectionPage = () => {
 
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
+  btnNextQuestion.setAttribute('id', 'btn-next__color-select');
   btnNextQuestionBlock.append(btnNextQuestion);
 
   container.append(question, colorPaletteBlock, btnNextQuestionBlock);
@@ -94,35 +97,58 @@ const createStyleLogoPage = () => {
 
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Получить результат');
+  btnNextQuestion.setAttribute('id', 'btn-next__style-select');
   btnNextQuestionBlock.append(btnNextQuestion);
 
   container.append(question, styleBlock, btnNextQuestionBlock);
   return container;
 };
+export class InfoBusinessPage extends Page {
+  private createContent() {
+    const header = createHeader('Создание индивидуального логотипа');
+    const main = createPageInfoAboutBusiness();
 
-export const renderPageInfoAboutBusiness = () => {
-  const container = document.querySelector('.content');
-  const header = createHeader('Создание индивидуального логотипа');
-  const main = createPageInfoAboutBusiness();
+    return {
+      header,
+      main,
+    };
+  }
 
-  container?.append(header, main);
-  return container;
-};
+  render() {
+    const content = this.createContent();
+    this.container.append(content.header, content.main);
+    return this.container;
+  }
+}
+export class ColorSelectPage extends Page {
+  private createContent() {
+    const header = createHeader('Создание индивидуального логотипа');
+    const main = createColorSelectionPage();
+    return {
+      header,
+      main,
+    };
+  }
 
-export const renderColorSelectionPage = () => {
-  const container = document.querySelector('.content');
-  const header = createHeader('Создание индивидуального логотипа');
-  const main = createColorSelectionPage();
+  render() {
+    const content = this.createContent();
+    this.container.append(content.header, content.main);
+    return this.container;
+  }
+}
+export class StyleSelectPage extends Page {
+  private createContent() {
+    const header = createHeader('Создание индивидуального логотипа');
+    const main = createStyleLogoPage();
+    return {
+      header,
+      main,
+    };
+  }
 
-  container?.append(header, main);
-  return container;
-};
-
-export const renderStyleLogoPage = () => {
-  const container = document.querySelector('.content');
-  const header = createHeader('Создание индивидуального логотипа');
-  const main = createStyleLogoPage();
-
-  container?.append(header, main);
-  return container;
-};
+  render() {
+    const content = this.createContent();
+    this.container.append(content.header, content.main);
+    return this.container;
+  }
+}
