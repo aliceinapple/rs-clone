@@ -14,14 +14,14 @@ export class App {
 
   private mainPage: MainPage;
 
-  static renderNewPage(idPage: string) {
+  static renderNewPage(idPage: string, typeDesigne?: string) {
     App.container.innerHTML = '';
     let page: Page | null = null;
 
     if (idPage.includes(PagesId.MainPage)) {
       page = new MainPage(idPage);
     } else if (idPage.includes(PagesId.DesignePage)) {
-      page = new DesignePage(idPage);
+      page = new DesignePage(idPage, typeDesigne as string);
     } else if (idPage.includes(PagesId.InfoBusinessPage)) {
       page = new InfoBusinessPage(idPage);
     } else if (idPage.includes(PagesId.ColorSelectPage)) {
