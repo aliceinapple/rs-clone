@@ -1,4 +1,4 @@
-import { PagesId } from '../../types/enums';
+import { PagesId, TypesDesigne } from '../../types/enums';
 import { updateURL } from '../../utils';
 import Page from '../../components/pageTemplates';
 import { MainPage } from '../main';
@@ -60,17 +60,32 @@ containerForContent.addEventListener('click', (event) => {
   const clickedItem = item as HTMLElement;
 
   if (clickedItem.closest('.banner__btn-create-logo')) {
-    App.renderNewPage('info-business-page');
-    updateURL('info-business-page');
+    App.renderNewPage(PagesId.InfoBusinessPage);
+    updateURL(PagesId.InfoBusinessPage);
   }
 
   if (clickedItem.closest('#btn-next__about-business')) {
-    App.renderNewPage('color-select-page');
-    updateURL('color-select-page');
+    App.renderNewPage(PagesId.ColorSelectPage);
+    updateURL(PagesId.ColorSelectPage);
   }
 
   if (clickedItem.closest('#btn-next__color-select')) {
-    App.renderNewPage('style-select-page');
-    updateURL('style-select-page');
+    App.renderNewPage(PagesId.StyleSelectPage);
+    updateURL(PagesId.StyleSelectPage);
+  }
+
+  if (clickedItem.closest(`#${TypesDesigne.Postcard}`)) {
+    App.renderNewPage(PagesId.DesignePage, TypesDesigne.Postcard);
+    updateURL(PagesId.DesignePage);
+  }
+
+  if (clickedItem.closest(`#${TypesDesigne.Resume}`)) {
+    App.renderNewPage(PagesId.DesignePage, TypesDesigne.Resume);
+    updateURL(PagesId.DesignePage);
+  }
+
+  if (clickedItem.closest(`#${TypesDesigne.VisitCard}`)) {
+    App.renderNewPage(PagesId.DesignePage, TypesDesigne.VisitCard);
+    updateURL(PagesId.DesignePage);
   }
 });

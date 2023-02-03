@@ -33,7 +33,7 @@ const createMainHeader = () => {
   return header;
 };
 
-const templatesNames = ['Открытка', 'Логотип', 'Визитная карточка', 'Резюме'];
+const templatesNames = [['Открытка', 'postcard'], ['Логотип', 'logotype'], ['Визитная карточка', 'visit-card'], ['Резюме', 'resume']];
 const templatesImg = [card1, card2, card3, card4];
 
 const createViewTemplates = (className: string, id: number, text: string) => {
@@ -61,7 +61,8 @@ const createMainContent = () => {
   
   const templatesBlock = createHtmlElement('div', 'templates-block');
   templatesNames.forEach((item, index) => {
-    const card = createViewTemplates(`card-${index + 1}`, index, item);
+    const card = createViewTemplates(`card-${index + 1}`, index, item[0]);
+    card.setAttribute('id', `${item[1]}`);
     templatesBlock.append(card);
   });
 

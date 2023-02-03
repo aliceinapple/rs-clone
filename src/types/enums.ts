@@ -9,5 +9,5 @@ export const enum PagesId {
 export const enum TypesDesigne {
   Resume = 'resume',
   VisitCard = 'visit-card',
-  Postcard = 'postcatd',
+  Postcard = 'postcard',
 }
