@@ -23,14 +23,15 @@ export function sortLogoByScope() {
       resultArray = templatesMidecal;
       break;
     default:
-      console.log('default');
+      return;
   }
   return resultArray;
 }
 
 export function sortLogoTemplates() {
   const result = sortLogoByScope();
-  const filterStyle = result.filter(item => item.style === logoParameters.style && item.color === logoParameters.color);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const filterStyle = result!.filter(item => item.style === logoParameters.style && item.color === logoParameters.color);
   let resultArray: ITemplates[] = [];
   while (resultArray.length != 2) {
     const index = getRandomInt(filterStyle.length);    
@@ -58,4 +59,35 @@ export function checkBusinessPage() {
     logoParameters.scope = (document.querySelector('.type-of-activity') as HTMLSelectElement).value;
   }
 }
-  
+
+export function checkFontFamily(scope: string) {
+  let resultFont: string[] = [];
+  let fontsScope: string[] = [];
+  const fontsArt = ['Aboreto', 'Dancing Script', 'Kaushan Script', 'Tangerine'];
+  const fontsIt = ['Changa', 'Maven Pro', 'Quantico', 'Wallpoet'];
+  const fontsFood = ['Cabin Sketch', 'Caveat Brush', 'Merienda One', 'Trirong'];
+  const fontsMedical = ['Bellota', 'IM Fell English SC', 'Italiana', 'Jacques Francois Shadow'];
+  switch (scope) {
+    case 'art': 
+      fontsScope = fontsArt;
+      break;
+    case 'food':
+      fontsScope = fontsFood;
+      break;
+    case 'it':
+      fontsScope = fontsIt;
+      break;
+    case 'medical':
+      fontsScope = fontsMedical;
+      break;
+    default:
+      return;
+  }
+
+  while (resultFont.length != 1) {
+    const index = getRandomInt(4);    
+    resultFont.push(fontsScope[index]);    
+    resultFont = resultFont.filter((v, i, arr) => arr.indexOf(v) == i);
+  }
+  return resultFont;
+}

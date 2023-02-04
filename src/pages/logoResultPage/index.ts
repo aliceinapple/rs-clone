@@ -1,4 +1,4 @@
-import { logoParameters, sortLogoTemplates } from '../../components/logoGeneration';
+import { checkFontFamily, logoParameters, sortLogoTemplates } from '../../components/logoGeneration';
 import Page from '../../components/pageTemplates';
 import { createButtonElement, createHtmlElement, createImageElement } from '../../utils';
 import { createMainHeader } from '../main';
@@ -15,7 +15,12 @@ const createLogoResultPageContent = () => {
     const text = createHtmlElement('p', 'logo-result-text');
     text.innerHTML = logoParameters.name;
     text.style.color = item.textColor;
-    text.style.fontSize = item.textSize;
+    if (logoParameters.name.length > 16) {
+      text.style.fontSize = '40px';
+    } else {
+      text.style.fontSize = '55px';
+    }
+    text.style.fontFamily = `${checkFontFamily(item.scope)}`;
     card.append(img, text);
     content.append(card);
   });
