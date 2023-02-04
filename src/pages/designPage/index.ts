@@ -4,6 +4,7 @@ import { createlinkForBackOnMainPage } from '../../components/header/index';
 import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
 import { businessCardsPanelTemplates } from '../../components/layoutTemplates';
+import { targetTextElement } from '../../components/layoutTemplates/elementsActions';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -112,12 +113,28 @@ const createPainControlPanel = () => {
   select.append(option);
 
   const fontSizeBlock = createHtmlElement('div', 'font-size-block');
-  const fontSizeInput = createHtmlElement('div', 'font-size-block__input');
-  fontSizeInput.textContent = '16';
+  const fontSizeInput = createHtmlElement('input', 'font-size-block__input') as HTMLInputElement;
+  fontSizeInput.value = '16';
   const fontSizePlus = createHtmlElement('div', 'font-size-block__plus');
   fontSizePlus.textContent = '+';
   const fontSizeMinus = createHtmlElement('div', 'font-size-block__minus');
   fontSizeMinus.textContent = '-';
+
+  fontSizePlus.addEventListener('click', () => {
+    fontSizeInput.value = String(Number(fontSizeInput.value) + 1);
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+
+  fontSizeMinus.addEventListener('click', () => {
+    fontSizeInput.value = String(Number(fontSizeInput.value) - 1);
+    if (Number(fontSizeInput.value) < 2) fontSizeInput.value = '1';
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+
+  fontSizeInput.addEventListener('input', () => {
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+
   fontSizeBlock.append(fontSizeMinus, fontSizeInput, fontSizePlus);
 
   const fontStyleBlock = createHtmlElement('div', 'font-style-block');
@@ -132,6 +149,52 @@ const createPainControlPanel = () => {
   const right = createHtmlElement('div', 'text-align-block__right');
   const center = createHtmlElement('div', 'text-align-block__center');
   const left = createHtmlElement('div', 'text-align-block__left');
+
+  underlined.addEventListener('click', () => {
+    underlined.classList.toggle('selected');
+    if (targetTextElement) {
+      if (underlined.classList.contains('selected')) {
+        targetTextElement.style.textDecoration = 'underline';
+      } else {
+        targetTextElement.style.textDecoration = 'none';
+      }
+    }
+  });
+
+  bold.addEventListener('click', () => {
+    bold.classList.toggle('selected');
+    if (targetTextElement) {
+      if (bold.classList.contains('selected')) {
+        targetTextElement.style.fontWeight = '900';
+      } else {
+        targetTextElement.style.fontWeight = '100';
+      }
+    }
+  });
+
+  italic.addEventListener('click', () => {
+    italic.classList.toggle('selected');
+    if (targetTextElement) {
+      if (italic.classList.contains('selected')) {
+        targetTextElement.style.fontStyle = 'italic';
+      } else {
+        targetTextElement.style.fontStyle = 'normal';
+      }
+    }
+  });
+
+  left.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'left';
+  });
+
+  right.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'right';
+  });
+
+  center.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'center';
+  });
+
   textAlidnBlock.append(left, center, right);
 
   container.append(select, fontSizeBlock, fontStyleBlock, line, textAlidnBlock);

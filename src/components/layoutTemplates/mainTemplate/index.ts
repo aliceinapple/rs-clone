@@ -1,5 +1,5 @@
 import { MainCardTemplate } from '../../../types/interfaces';
-import { copyElement, deleteElement } from '../elementsActions';
+import { copyElement, deleteElement, setTargetTextElement } from '../elementsActions';
 
 export class Template {
   data: MainCardTemplate;
@@ -15,6 +15,7 @@ export class Template {
     container.style.height = this.data.height;
     deleteElement(container);
     copyElement(container);
+    setTargetTextElement(container);
 
     return container;
   }

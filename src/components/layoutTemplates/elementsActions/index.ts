@@ -143,7 +143,12 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) 
         target = target.parentElement as HTMLDivElement;
       }
 
-      if (target.classList[0] && target !== element && !target.classList[0].includes('resize-handle')) {
+      if (
+        target.classList[0] &&
+        target !== element &&
+        !target.classList[0].includes('resize-handle') &&
+        !target.closest('.paint-block__control-panel')
+      ) {
         handles.forEach((handle) => (handle.style.display = 'none'));
       }
     }
@@ -193,6 +198,21 @@ export function copyElement(template: HTMLDivElement) {
       showHandles(copy, divElements);
 
       if (copiedElement) pasteElement.appendChild(copy);
+    }
+  });
+}
+
+export let targetTextElement: HTMLDivElement | null;
+
+export function setTargetTextElement(field: HTMLDivElement) {
+  field.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target instanceof HTMLDivElement) {
+      if (target.hasAttribute('contentEditable')) {
+        targetTextElement = target;
+      } else {
+        targetTextElement = null;
+      }
     }
   });
 }
