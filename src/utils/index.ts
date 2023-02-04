@@ -13,6 +13,14 @@ export const createButtonElement = (className: string, content: string) => {
   return btn;
 };
 
+export const createImageElement = (className: string, scope: string, id: number) => {
+  const img: HTMLImageElement = document.createElement('img');
+  img.classList.add(className);
+  img.src = require(`../assets/templates/${scope}/${id}.png`);
+
+  return img;
+};
+
 export function updateURL(pageId: string, URL = '') {
   if (history.pushState) {
     if (history.state && history.state.url === `#${pageId}/${URL}`) {
@@ -25,4 +33,8 @@ export function updateURL(pageId: string, URL = '') {
   } else {
     console.warn('History API не поддерживается');
   }
+}
+
+export function getRandomInt(max: number) {
+  return Math.floor(Math.random() * Math.floor(max));
 }

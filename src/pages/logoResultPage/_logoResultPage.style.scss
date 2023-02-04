@@ -1,0 +1,20 @@
+.logo-result-page {
+    width: 100%;
+    // padding: 150px 0 50px;
+    @include display-flex(column, space-between, center);
+}
+.logo-result-content {
+    width: 100%;
+    gap: 10px;
+    @include display-flex(row, center, center);
+}
+
+.logo-result-card {
+    position: relative;
+    @include display-flex(column, center, center);
+}
+
+.logo-result-text {
+    position: absolute;
+    top: 350px;
+}

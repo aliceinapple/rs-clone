@@ -7,6 +7,7 @@ import { InfoBusinessPage } from '../questionPages';
 import { ColorSelectPage } from '../questionPages';
 import { StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
+import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -68,13 +69,31 @@ containerForContent.addEventListener('click', (event) => {
   }
 
   if (clickedItem.closest('#btn-next__about-business')) {
-    App.renderNewPage(PagesId.ColorSelectPage);
-    updateURL(PagesId.ColorSelectPage);
+    const next = checkBusinessPage();
+    if (next) {
+      App.renderNewPage(PagesId.ColorSelectPage);
+      updateURL(PagesId.ColorSelectPage);
+    } else {
+      console.log('введите все поля');
+    }
+    
+  }
+
+  if (clickedItem.closest('.color-palette-block')) {
+    const parentBlock = clickedItem.closest('.palette') as HTMLDivElement;
+    checkColorPage(parentBlock.id);
+    (document.querySelector('#btn-next__color-select') as HTMLButtonElement).disabled = false;
   }
 
   if (clickedItem.closest('#btn-next__color-select')) {
     App.renderNewPage(PagesId.StyleSelectPage);
     updateURL(PagesId.StyleSelectPage);
+  }
+
+  if (clickedItem.closest('.view-style-block')) {
+    const parentBlock = clickedItem.closest('.style-item') as HTMLDivElement;
+    checkStylePage(parentBlock.id);
+    (document.querySelector('#btn-next__style-select') as HTMLButtonElement).disabled = false;
   }
 
   if (clickedItem.closest('#btn-next__style-select')) {
@@ -97,3 +116,4 @@ containerForContent.addEventListener('click', (event) => {
     updateURL(PagesId.DesignePage);
   }
 });
+

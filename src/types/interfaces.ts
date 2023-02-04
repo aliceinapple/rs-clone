@@ -12,3 +12,10 @@ export interface ITemplates {
   textColor: string,
   textSize: string
 }
+
+export interface ILogoParameters {
+  name: string;
+  scope: string;
+  color: string;
+  style: string;
+}

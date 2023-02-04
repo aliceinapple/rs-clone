@@ -16,7 +16,7 @@ const createPageInfoAboutBusiness = () => {
   const typeOfActivity: HTMLSelectElement = document.createElement('select');
   typeOfActivity.classList.add('type-of-activity');
   const options = ['Выберите сферу деятельности', 'Медицина', 'IT', 'Искусство/Дизайн', 'Рестораны/Еда'];
-  options.forEach(element => {
+  options.forEach((element) => {
     const option: HTMLOptionElement = document.createElement('option');
     option.textContent = element;
     typeOfActivity.append(option);
@@ -36,8 +36,9 @@ const colorsPalettePastel = ['#D0ECF5', '#CFEAC0', '#FAEDD3', '#F8D2E3'];
 const colorsPaletteBright = ['#31D468', '#00CFD8', '#F57600', '#F3AE21'];
 const colorsPaletteDark = ['#2C344A', '#4A5329', '#744037', '#79562D'];
 
-const createPalette = (palette: string[], containerClass: string) => {
+const createPalette = (palette: string[], containerClass: string, id: string) => {
   const container = createHtmlElement('div', containerClass);
+  container.setAttribute('id', id);
   container.classList.add('palette');
   palette.forEach(color => {
     const colorItem = createHtmlElement('div', 'color-item');
@@ -55,26 +56,29 @@ const createColorSelectionPage = () => {
   question.textContent = 'Выберите цветовую схему';
 
   const colorPaletteBlock = createHtmlElement('div', 'color-palette-block');
-  const paletteWhiteBlask = createPalette(colorsPaletteWhiteBlack, 'palette-white-black');
-  const palettePaste = createPalette(colorsPalettePastel, 'palette-pastel');
-  const paletteBright = createPalette(colorsPaletteBright, 'palette-bright');
-  const paletteDark = createPalette(colorsPaletteDark, 'palette-Ddrk');
-  colorPaletteBlock.append(paletteWhiteBlask, palettePaste, paletteBright, paletteDark);
+  const paletteWhiteBlack = createPalette(colorsPaletteWhiteBlack, 'palette-white-black', 'blackWhite');
+  const palettePaste = createPalette(colorsPalettePastel, 'palette-pastel', 'white');
+  const paletteBright = createPalette(colorsPaletteBright, 'palette-bright', 'bright');
+  const paletteDark = createPalette(colorsPaletteDark, 'palette-Ddrk', 'black');
+
+  colorPaletteBlock.append(paletteWhiteBlack, palettePaste, paletteBright, paletteDark);
 
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
   btnNextQuestion.setAttribute('id', 'btn-next__color-select');
+  btnNextQuestion.disabled = true;
   btnNextQuestionBlock.append(btnNextQuestion);
 
   container.append(question, colorPaletteBlock, btnNextQuestionBlock);
   return container;
 };
 
-const createViewStyle = (styleBlocClass: string, styleItemClass: string, styleName: string) => {
+const createViewStyle = (styleBlocClass: string, styleItemClass: string, styleName: string, id: string) => {
   const styleBlock = createHtmlElement('div', styleBlocClass);
   styleBlock.classList.add('style-block');
   const styleItem = createHtmlElement('div', styleItemClass);
   styleItem.classList.add('style-item');
+  styleItem.setAttribute('id', id);
   const styleTitle = createHtmlElement('p', 'style-name');
   styleTitle.textContent = styleName;
 
@@ -89,15 +93,16 @@ const createStyleLogoPage = () => {
   question.textContent = 'Выберите стиль логотипа';
 
   const styleBlock = createHtmlElement('div', 'view-style-block');
-  const style1 = createViewStyle('style-block-1', 'style-1', 'Минимализм');
-  const style2 = createViewStyle('style-block-2', 'style-2', 'Строгий');
-  const style3 = createViewStyle('style-block-3', 'style-3', 'Лёгкий');
-  const style4 = createViewStyle('style-block-4', 'style-4', 'Броский');
+  const style1 = createViewStyle('style-block-1', 'style-1', 'Минимализм', 'minimalism');
+  const style2 = createViewStyle('style-block-2', 'style-2', 'Строгий', 'strong');
+  const style3 = createViewStyle('style-block-3', 'style-3', 'Лёгкий', 'light');
+  const style4 = createViewStyle('style-block-4', 'style-4', 'Броский', 'catchy');
   styleBlock.append(style1, style2, style3, style4);
 
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Получить результат');
   btnNextQuestion.setAttribute('id', 'btn-next__style-select');
+  btnNextQuestion.disabled = true;
   btnNextQuestionBlock.append(btnNextQuestion);
 
   container.append(question, styleBlock, btnNextQuestionBlock);
@@ -152,3 +157,4 @@ export class StyleSelectPage extends Page {
     return this.container;
   }
 }
+
