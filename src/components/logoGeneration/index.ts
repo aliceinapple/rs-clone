@@ -5,11 +5,11 @@ import { templatesMidecal } from '../../data/templatesMedical';
 import { ILogoParameters, ITemplates } from '../../types/interfaces';
 import { getRandomInt } from '../../utils';
 
-export const parametSort = {} as ILogoParameters;
+export const logoParameters = {} as ILogoParameters;
 
 export function sortLogoByScope() {
   let resultArray: ITemplates[] = [];
-  switch (parametSort.scope) {
+  switch (logoParameters.scope) {
     case 'Искусство/Дизайн': 
       resultArray = templatesArt;
       break;
@@ -30,7 +30,7 @@ export function sortLogoByScope() {
 
 export function sortLogoTemplates() {
   const result = sortLogoByScope();
-  const filterStyle = result.filter(item => item.style === parametSort.style && item.color === parametSort.color);
+  const filterStyle = result.filter(item => item.style === logoParameters.style && item.color === logoParameters.color);
   let resultArray: ITemplates[] = [];
   while (resultArray.length != 2) {
     const index = getRandomInt(filterStyle.length);    
@@ -41,27 +41,21 @@ export function sortLogoTemplates() {
 }
 
 export function checkColorPage(id: string) {
-  parametSort.color = id;
-  console.log(id);
-  
+  logoParameters.color = id;
+  (document.querySelector('#btn-next__color-select') as HTMLButtonElement).disabled = false;
 }
   
 export function checkStylePage(id: string) {
-  parametSort.style = id;
-  console.log(id);
-  
+  logoParameters.style = id;
+  (document.querySelector('#btn-next__style-select') as HTMLButtonElement).disabled = false;  
 }
 
 export function checkBusinessPage() {
-  let nextQuestion = false;
   if ((document.querySelector('.input-name-company') as HTMLInputElement).value !== '' && 
     (document.querySelector('.type-of-activity') as HTMLSelectElement).value !== 'Выберите сферу деятельности') {
-    nextQuestion = true;
-    parametSort.name = (document.querySelector('.input-name-company') as HTMLInputElement).value;
-    parametSort.scope = (document.querySelector('.type-of-activity') as HTMLSelectElement).value;
-  } else {
-    nextQuestion = false;
+    (document.querySelector('#btn-next__about-business') as HTMLButtonElement).disabled = false;
+    logoParameters.name = (document.querySelector('.input-name-company') as HTMLInputElement).value;
+    logoParameters.scope = (document.querySelector('.type-of-activity') as HTMLSelectElement).value;
   }
-  return nextQuestion;
 }
   

@@ -2,6 +2,7 @@ import { createHtmlElement, createButtonElement } from '../../utils';
 import { createHeader } from '../../components/header';
 import Page from '../../components/pageTemplates';
 
+
 const createPageInfoAboutBusiness = () => {
   const container = createHtmlElement('div', 'page-question');
 
@@ -24,6 +25,7 @@ const createPageInfoAboutBusiness = () => {
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
   const btnNextQuestion = createButtonElement('btn-next-question', 'Продолжить');
   btnNextQuestion.setAttribute('id', 'btn-next__about-business');
+  btnNextQuestion.disabled = true;
   btnNextQuestionBlock.append(btnNextQuestion);
 
 
@@ -73,11 +75,34 @@ const createColorSelectionPage = () => {
   return container;
 };
 
+const renderStyleIcons = (id: string) => {
+  let icons: string;
+  switch (id) {
+    case 'minimalism': 
+      icons = require('../../assets/ico/ico_style-minimalism.png');
+      break;
+    case 'strong':
+      icons = require('../../assets/ico/ico_style-strong.png');
+      break;
+    case 'light':
+      icons = require('../../assets/ico/ico_style-light.png');
+      break;
+    case 'catchy':
+      icons = require('../../assets/ico/ico_style-catchy.png');
+      break;
+    default:
+      return;
+  }
+  return icons;
+};
+
 const createViewStyle = (styleBlocClass: string, styleItemClass: string, styleName: string, id: string) => {
   const styleBlock = createHtmlElement('div', styleBlocClass);
   styleBlock.classList.add('style-block');
   const styleItem = createHtmlElement('div', styleItemClass);
   styleItem.classList.add('style-item');
+  styleItem.style.backgroundImage = `url(${renderStyleIcons(id)})`;
+  styleItem.style.backgroundSize = 'cover';
   styleItem.setAttribute('id', id);
   const styleTitle = createHtmlElement('p', 'style-name');
   styleTitle.textContent = styleName;
@@ -94,7 +119,7 @@ const createStyleLogoPage = () => {
 
   const styleBlock = createHtmlElement('div', 'view-style-block');
   const style1 = createViewStyle('style-block-1', 'style-1', 'Минимализм', 'minimalism');
-  const style2 = createViewStyle('style-block-2', 'style-2', 'Строгий', 'strong');
+  const style2 = createViewStyle('style-block-2', 'style-2', 'Серьёзный', 'strong');
   const style3 = createViewStyle('style-block-3', 'style-3', 'Лёгкий', 'light');
   const style4 = createViewStyle('style-block-4', 'style-4', 'Броский', 'catchy');
   styleBlock.append(style1, style2, style3, style4);

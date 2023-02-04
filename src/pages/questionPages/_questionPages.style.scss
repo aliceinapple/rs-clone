@@ -62,6 +62,12 @@
       box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.20);
       transition: $transition;
     }
+
+    &:disabled {
+      background-color: $color_gray;
+      transition: none;
+      box-shadow: none;
+    }
 }
 
 .color-palette-block {
@@ -101,7 +107,8 @@
 }
 
 .style-block {
-  @include display-flex(column, 'flex-start', 'flex-start');
+  @include display-flex(column, 'flex-start', 'center');
+  align-items: center;
 }
 
 .style-item {
@@ -110,4 +117,10 @@
   margin: 0 0 35px;
   background: #EBECF0;
   border-radius: 8px;
-}
+  cursor: pointer;
+
+    &:hover {
+      transition: $transition;
+      transform: scale(1.1);
+    }
+} 

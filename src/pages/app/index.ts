@@ -67,22 +67,19 @@ containerForContent.addEventListener('click', (event) => {
     App.renderNewPage(PagesId.InfoBusinessPage);
     updateURL(PagesId.InfoBusinessPage);
   }
+  
+  if (clickedItem.className === ('input-name-company') || clickedItem.className === ('type-of-activity')) {
+    checkBusinessPage();
+  }
 
   if (clickedItem.closest('#btn-next__about-business')) {
-    const next = checkBusinessPage();
-    if (next) {
-      App.renderNewPage(PagesId.ColorSelectPage);
-      updateURL(PagesId.ColorSelectPage);
-    } else {
-      console.log('введите все поля');
-    }
-    
+    App.renderNewPage(PagesId.ColorSelectPage);
+    updateURL(PagesId.ColorSelectPage);
   }
 
   if (clickedItem.closest('.color-palette-block')) {
     const parentBlock = clickedItem.closest('.palette') as HTMLDivElement;
-    checkColorPage(parentBlock.id);
-    (document.querySelector('#btn-next__color-select') as HTMLButtonElement).disabled = false;
+    if (parentBlock !== null) checkColorPage(parentBlock.id);
   }
 
   if (clickedItem.closest('#btn-next__color-select')) {
@@ -92,8 +89,7 @@ containerForContent.addEventListener('click', (event) => {
 
   if (clickedItem.closest('.view-style-block')) {
     const parentBlock = clickedItem.closest('.style-item') as HTMLDivElement;
-    checkStylePage(parentBlock.id);
-    (document.querySelector('#btn-next__style-select') as HTMLButtonElement).disabled = false;
+    if (parentBlock !== null) checkStylePage(parentBlock.id);
   }
 
   if (clickedItem.closest('#btn-next__style-select')) {

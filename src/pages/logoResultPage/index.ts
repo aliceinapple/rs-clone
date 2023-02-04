@@ -1,4 +1,4 @@
-import { parametSort, sortLogoTemplates } from '../../components/logoGeneration';
+import { logoParameters, sortLogoTemplates } from '../../components/logoGeneration';
 import Page from '../../components/pageTemplates';
 import { createButtonElement, createHtmlElement, createImageElement } from '../../utils';
 import { createMainHeader } from '../main';
@@ -13,7 +13,7 @@ const createLogoResultPageContent = () => {
     const card = createHtmlElement('div', 'logo-result-card');
     const img = createImageElement('logo-result-img', item.scope, item.id);
     const text = createHtmlElement('p', 'logo-result-text');
-    text.innerHTML = parametSort.name;
+    text.innerHTML = logoParameters.name;
     text.style.color = item.textColor;
     text.style.fontSize = item.textSize;
     card.append(img, text);
