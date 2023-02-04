@@ -7,6 +7,7 @@ import { InfoBusinessPage } from '../questionPages';
 import { ColorSelectPage } from '../questionPages';
 import { StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
+import { renderLogInModal } from '../../components/modalLogIn';
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -95,5 +96,9 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest(`#${TypesDesigne.VisitCard}`)) {
     App.renderNewPage(PagesId.DesignePage, TypesDesigne.VisitCard);
     updateURL(PagesId.DesignePage);
+  }
+
+  if (clickedItem.closest('.btn-log__ico')) {
+    renderLogInModal();
   }
 });

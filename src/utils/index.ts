@@ -13,6 +13,15 @@ export const createButtonElement = (className: string, content: string) => {
   return btn;
 };
 
+export const createInputElement = (type: string, placeholde: string, className: string) => {
+  const input: HTMLInputElement = document.createElement('input');
+  input.type = type;
+  input.placeholder = placeholde;
+  input.classList.add(className);
+
+  return input;
+};
+
 export function updateURL(pageId: string, URL = '') {
   if (history.pushState) {
     if (history.state && history.state.url === `#${pageId}/${URL}`) {

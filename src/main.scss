@@ -65,6 +65,7 @@ body {
 .content {
   width: 100%;
   height: calc(100% - 70px);
+  position: relative;
 }
 
 @import 'components/footer/footer.style';
@@ -77,3 +78,5 @@ body {
 @import 'pages/questionPages/questionPages.style';
 @import 'components/layoutTemplates/layoutTemplates.style';
 @import 'pages/logoResultPage/logoResultPage.style';
+@import 'components/modalLogIn/modalLogIn.style';
+@import 'pages/personalAccountPage/personalAccount.style';
