@@ -1,4 +1,5 @@
 import { MainCardTemplate } from '../../../types/interfaces';
+import { deleteElement } from '../elementsActions';
 
 export class Template {
   data: MainCardTemplate;
@@ -12,6 +13,7 @@ export class Template {
     container.classList.add('container');
     container.style.width = this.data.width;
     container.style.height = this.data.height;
+    deleteElement(container);
 
     return container;
   }

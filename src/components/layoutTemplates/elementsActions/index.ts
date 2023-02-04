@@ -12,6 +12,13 @@ export function dragNdrop(container: HTMLDivElement) {
     selectedElement = event.target;
     initialX = event.clientX;
     initialY = event.clientY;
+
+    if (selectedElement instanceof HTMLDivElement) {
+      if (selectedElement.hasAttribute('contentEditable')) {
+        selectedElement = selectedElement.parentElement;
+      }
+    }
+
     if (
       selectedElement instanceof HTMLDivElement &&
       !selectedElement.classList.contains('container') &&
@@ -66,6 +73,21 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
         let newRight = startRight;
         let newBottom = startBottom;
 
+        if (handleClass === 'resize-handle-n') {
+          newHeight = startHeight + (-e.clientY + startY);
+          newTop = startTop + (e.clientY - startY);
+        }
+        if (handleClass === 'resize-handle-e') {
+          newWidth = startWidth + (e.clientX - startX);
+        }
+        if (handleClass === 'resize-handle-s') {
+          newHeight = startHeight + (e.clientY - startY);
+        }
+        if (handleClass === 'resize-handle-w') {
+          newWidth = startWidth + (-e.clientX + startX);
+          newLeft = startLeft + (e.clientX - startX);
+        }
+
         if (handleClass === 'resize-handle-nw') {
           newWidth = startWidth + (-e.clientX + startX);
           newHeight = startHeight + (-e.clientY + startY);
@@ -114,12 +136,35 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) 
   });
 
   document.body.addEventListener('click', (event) => {
-    const target = event.target;
+    let target = event.target as HTMLDivElement;
 
     if (target instanceof HTMLDivElement) {
-      if (target !== element && !target.classList[0].includes('resize-handle')) {
+      if (target.hasAttribute('contentEditable')) {
+        target = target.parentElement as HTMLDivElement;
+      }
+
+      if (target.classList[0] && target !== element && !target.classList[0].includes('resize-handle')) {
         handles.forEach((handle) => (handle.style.display = 'none'));
       }
     }
+  });
+}
+
+export function deleteElement(template: HTMLDivElement) {
+  template.addEventListener('click', (event) => {
+    let target = event.target;
+
+    if (target instanceof HTMLDivElement) {
+      if (target.hasAttribute('contentEditable')) {
+        target = target.parentElement as HTMLDivElement;
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Delete')
+        if (target instanceof HTMLDivElement) {
+          if (target.parentElement === template) template.removeChild(target);
+        }
+    });
   });
 }

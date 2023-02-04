@@ -20,12 +20,33 @@ function createResizeHandle(): HTMLDivElement[] {
   const handleSe: HTMLDivElement = document.createElement('div');
   handleSe.classList.add('resize-handle', 'resize-handle-se');
 
-  const handles = [handleNe, handleNw, handleSe, handleSw];
+  const handleN: HTMLDivElement = document.createElement('div');
+  handleN.classList.add('resize-handle', 'resize-handle-n');
+
+  const handleE: HTMLDivElement = document.createElement('div');
+  handleE.classList.add('resize-handle', 'resize-handle-e');
+
+  const handleS: HTMLDivElement = document.createElement('div');
+  handleS.classList.add('resize-handle', 'resize-handle-s');
+
+  const handleW: HTMLDivElement = document.createElement('div');
+  handleW.classList.add('resize-handle', 'resize-handle-w');
+
+  const handles = [handleNe, handleNw, handleSe, handleSw, handleN, handleE, handleS, handleW];
 
   return handles;
 }
 
-export function createTemplateText(
+export function createTemplateText(textContent: string) {
+  const text = document.createElement('div');
+  text.style.height = '100%';
+  text.innerHTML = textContent;
+  text.setAttribute('contentEditable', 'true');
+
+  return text;
+}
+
+export function createTemplateTextArea(
   width: string,
   fontFamily: string,
   fontSize: string,
@@ -37,7 +58,9 @@ export function createTemplateText(
   const text: HTMLDivElement = document.createElement('div');
   text.classList.add('template-text');
 
-  text.setAttribute('contentEditable', 'true');
+  const handles: HTMLDivElement[] = createResizeHandle();
+
+  text.append(...handles);
 
   text.style.width = width;
   text.style.fontFamily = fontFamily;
@@ -49,6 +72,9 @@ export function createTemplateText(
   if (textAlign) {
     text.style.textAlign = textAlign;
   }
+
+  makeResizable(text, handles);
+  showHandles(text, handles);
 
   return text;
 }

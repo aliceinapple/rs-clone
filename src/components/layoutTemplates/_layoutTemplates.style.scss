@@ -4,11 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');
 
-.handle {
-  border: 2px solid red;
-  display: none;
-}
-
 .template-text,
 .template-element {
   position: absolute;
@@ -16,7 +11,10 @@
 }
 
 .template-text {
-  outline: none;
+  div[contentEditable='true'] {
+    outline: none;
+  }
+
   &:focus {
     border: 1px solid rgba(233, 10, 10, 0.679);
     border-radius: 8px;
@@ -53,6 +51,38 @@
   bottom: -5px;
   right: -5px;
   cursor: se-resize;
+}
+
+.resize-handle-n {
+  width: 20px;
+  height: 5px;
+  top: -5px;
+  right: calc(50% - 10px);
+  cursor: n-resize;
+}
+
+.resize-handle-s {
+  width: 20px;
+  height: 5px;
+  bottom: -5px;
+  right: calc(50% - 10px);
+  cursor: s-resize;
+}
+
+.resize-handle-e {
+  width: 5px;
+  height: 20px;
+  right: -5px;
+  bottom: calc(50% - 10px);
+  cursor: e-resize;
+}
+
+.resize-handle-w {
+  width: 5px;
+  height: 20px;
+  left: -5px;
+  bottom: calc(50% - 10px);
+  cursor: w-resize;
 }
 
 .layout-templates {
