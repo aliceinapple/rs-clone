@@ -151,20 +151,48 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) 
 }
 
 export function deleteElement(template: HTMLDivElement) {
+  let target: HTMLDivElement;
+
   template.addEventListener('click', (event) => {
-    let target = event.target;
+    target = event.target as HTMLDivElement;
 
-    if (target instanceof HTMLDivElement) {
-      if (target.hasAttribute('contentEditable')) {
-        target = target.parentElement as HTMLDivElement;
-      }
+    if (target.hasAttribute('contentEditable')) {
+      target = target.parentElement as HTMLDivElement;
     }
+  });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Delete')
-        if (target instanceof HTMLDivElement) {
-          if (target.parentElement === template) template.removeChild(target);
-        }
-    });
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Delete') if (target.parentElement === template) template.removeChild(target);
+  });
+}
+
+export function copyElement(template: HTMLDivElement) {
+  let target: HTMLDivElement;
+  template.addEventListener('click', (event) => {
+    target = event.target as HTMLDivElement;
+
+    if (target.hasAttribute('contentEditable')) {
+      target = target.parentElement as HTMLDivElement;
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    let copiedElement = target as Node;
+
+    if (e.ctrlKey && e.key === 'c') {
+      copiedElement = target.cloneNode(true);
+    } else if (e.ctrlKey && e.key === 'v') {
+      e.preventDefault();
+      const pasteElement = template;
+      const copy = copiedElement.cloneNode(true) as HTMLDivElement;
+
+      const handles = copy.querySelectorAll('.resize-handle');
+      const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+
+      makeResizable(copy, divElements);
+      showHandles(copy, divElements);
+
+      if (copiedElement) pasteElement.appendChild(copy);
+    }
   });
 }
