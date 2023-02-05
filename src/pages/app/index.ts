@@ -7,6 +7,7 @@ import { InfoBusinessPage } from '../questionPages';
 import { ColorSelectPage } from '../questionPages';
 import { StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
+import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -66,15 +67,29 @@ containerForContent.addEventListener('click', (event) => {
     App.renderNewPage(PagesId.InfoBusinessPage);
     updateURL(PagesId.InfoBusinessPage);
   }
+  
+  if (clickedItem.className === ('input-name-company') || clickedItem.className === ('type-of-activity')) {
+    checkBusinessPage();
+  }
 
   if (clickedItem.closest('#btn-next__about-business')) {
     App.renderNewPage(PagesId.ColorSelectPage);
     updateURL(PagesId.ColorSelectPage);
   }
 
+  if (clickedItem.closest('.color-palette-block')) {
+    const parentBlock = clickedItem.closest('.palette') as HTMLDivElement;
+    if (parentBlock !== null) checkColorPage(parentBlock.id);
+  }
+
   if (clickedItem.closest('#btn-next__color-select')) {
     App.renderNewPage(PagesId.StyleSelectPage);
     updateURL(PagesId.StyleSelectPage);
+  }
+
+  if (clickedItem.closest('.view-style-block')) {
+    const parentBlock = clickedItem.closest('.style-item') as HTMLDivElement;
+    if (parentBlock !== null) checkStylePage(parentBlock.id);
   }
 
   if (clickedItem.closest('#btn-next__style-select')) {
@@ -97,3 +112,4 @@ containerForContent.addEventListener('click', (event) => {
     updateURL(PagesId.DesignePage);
   }
 });
+
