@@ -21,14 +21,14 @@
 }
 
 $color_white: #ffffff;
-$color_white-gray: #EBECF0;
-$color_gray: #4F4F4F;
-$color_purple: #8E42FF;
-$color_green: #01887A;
-$color_black: #18191B;
+$color_white-gray: #ebecf0;
+$color_gray: #4f4f4f;
+$color_purple: #8e42ff;
+$color_green: #01887a;
+$color_black: #18191b;
 $color_dark-gray: #252627;
 
-$gradient: linear-gradient(91.91deg, #01C2CD 0%, #3A69DF 50.22%, #7D2AE7 100%);
+$gradient: linear-gradient(91.91deg, #01c2cd 0%, #3a69df 50.22%, #7d2ae7 100%);
 $container-padding: 0 35px;
 $transition: all 0.2s ease-in-out;
 
@@ -36,6 +36,7 @@ $transition: all 0.2s ease-in-out;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 a {
@@ -58,7 +59,7 @@ body {
 }
 
 .wrapper {
-  max-width: 1440px;
+  width: 100%;
   margin: 0 auto;
 }
 
