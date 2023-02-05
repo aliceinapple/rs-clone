@@ -1,3 +1,5 @@
+import { createElementTools } from '../elementsTemplate';
+
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
   let isDragging = false;
@@ -130,9 +132,10 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
   }
 }
 
-export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) {
+export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[], elementTools: HTMLDivElement) {
   element.addEventListener('click', () => {
     handles.forEach((handle) => (handle.style.display = 'block'));
+    elementTools.style.display = 'flex';
   });
 
   document.body.addEventListener('click', (event) => {
@@ -147,9 +150,11 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) 
         target.classList[0] &&
         target !== element &&
         !target.classList[0].includes('resize-handle') &&
-        !target.closest('.paint-block__control-panel')
+        !target.closest('.paint-block__control-panel') &&
+        target !== elementTools
       ) {
         handles.forEach((handle) => (handle.style.display = 'none'));
+        elementTools.style.display = 'none';
       }
     }
   });
@@ -193,9 +198,10 @@ export function copyElement(template: HTMLDivElement) {
 
       const handles = copy.querySelectorAll('.resize-handle');
       const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+      const tools = copy.querySelector('.element-tools') as HTMLDivElement;
 
       makeResizable(copy, divElements);
-      showHandles(copy, divElements);
+      showHandles(copy, divElements, tools);
 
       if (copiedElement) pasteElement.appendChild(copy);
     }
@@ -243,4 +249,49 @@ export function checkTextStyle(
   }
 
   if (element) fontSize.value = element.style.fontSize.replace('px', '');
+}
+
+export function addElementToolsActions(
+  element: HTMLDivElement,
+  copy: HTMLDivElement,
+  del: HTMLDivElement,
+  color: HTMLInputElement,
+  bgColor: HTMLInputElement,
+) {
+  copy.addEventListener('click', () => {
+    const parent = element.parentElement;
+    const copyElem = element.cloneNode(true) as HTMLDivElement;
+
+    const handles = copyElem.querySelectorAll('.resize-handle');
+    const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+
+    const tools = copyElem.querySelector('.element-tools');
+    if (tools) copyElem.removeChild(tools);
+
+    const copyTools = createElementTools(copyElem);
+    copyElem.appendChild(copyTools);
+
+    makeResizable(copyElem, divElements);
+    showHandles(copyElem, divElements, copyTools);
+
+    parent?.appendChild(copyElem);
+  });
+
+  del.addEventListener('click', () => {
+    const parent = element.parentElement;
+    parent?.removeChild(element);
+  });
+
+  color.addEventListener('input', () => {
+    const child = element.querySelector('[contentEditable = "true"]') as HTMLDivElement;
+    if (child) {
+      child.style.color = color.value;
+    } else {
+      element.style.border = `${parseInt(element.style.border)}px solid ${color.value}`;
+    }
+  });
+
+  bgColor.addEventListener('input', () => {
+    element.style.background = bgColor.value;
+  });
 }

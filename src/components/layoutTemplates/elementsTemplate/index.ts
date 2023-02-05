@@ -1,4 +1,4 @@
-import { makeResizable, showHandles } from '../elementsActions';
+import { addElementToolsActions, makeResizable, showHandles } from '../elementsActions';
 
 export const defaultTexsts = {
   title: 'Добавить заголовок',
@@ -37,35 +37,38 @@ function createResizeHandle(): HTMLDivElement[] {
   return handles;
 }
 
-function createElementTools(element: HTMLDivElement): HTMLDivElement {
+export function createElementTools(element: HTMLDivElement): HTMLDivElement {
   const tools = document.createElement('div');
   tools.classList.add('element-tools');
 
   const copy = document.createElement('div');
   copy.classList.add('element-tools_copy');
+  copy.setAttribute('data-tooltip-elem', 'копировать');
 
   const del = document.createElement('div');
   del.classList.add('element-tools_delete');
+  del.setAttribute('data-tooltip-elem', 'удалить');
 
   const color = document.createElement('input');
   color.setAttribute('type', 'color');
   color.classList.add('element-tools_color');
+  color.setAttribute('data-tooltip-elem', 'цвет');
 
-  // copy.addEventListener('click', () => {
-  //   copyElement(container);
-  // });
+  const bgColor = document.createElement('input');
+  bgColor.setAttribute('type', 'color');
+  bgColor.classList.add('element-tools_bgColor');
+  bgColor.setAttribute('data-tooltip-elem', 'заливка');
+  bgColor.value = '#FFFFFF';
 
-  del.addEventListener('click', () => {
-    const parent = element.parentElement;
-    parent?.removeChild(element);
-  });
+  addElementToolsActions(element, copy, del, color, bgColor);
 
-  color.addEventListener('input', (event) => {
-    const target = event.target;
-    if (target instanceof HTMLDivElement) target.style.color = color.value;
-  });
-
-  tools.append(copy, del, color);
+  if (element.className.includes('template-img')) {
+    tools.append(copy, del);
+  } else if (element.className.includes('template-shape')) {
+    tools.append(copy, del, color, bgColor);
+  } else {
+    tools.append(copy, del, color);
+  }
 
   return tools;
 }
@@ -107,7 +110,7 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   text.style.top = y;
 
   makeResizable(text, handles);
-  showHandles(text, handles);
+  showHandles(text, handles, elementTools);
 
   return text;
 }
@@ -121,11 +124,12 @@ export function createTemplateShape(
   borderRadius?: string,
 ) {
   const element: HTMLDivElement = document.createElement('div');
-  element.classList.add('template-element');
+  element.classList.add('template-element', 'template-shape');
 
   const handles: HTMLDivElement[] = createResizeHandle();
+  const elementTools = createElementTools(element);
 
-  element.append(...handles);
+  element.append(...handles, elementTools);
 
   element.style.width = width;
   element.style.height = height;
@@ -141,18 +145,19 @@ export function createTemplateShape(
   }
 
   makeResizable(element, handles);
-  showHandles(element, handles);
+  showHandles(element, handles, elementTools);
 
   return element;
 }
 
 export function createTemplateImg(width: string, height: string, x: string, y: string, img: string): HTMLDivElement {
   const element: HTMLDivElement = document.createElement('div');
-  element.classList.add('template-element');
+  element.classList.add('template-element', 'template-img');
 
   const handles: HTMLDivElement[] = createResizeHandle();
+  const elementTools = createElementTools(element);
 
-  element.append(...handles);
+  element.append(...handles, elementTools);
 
   element.style.background = img;
   element.style.backgroundSize = '100% 100%';
@@ -164,7 +169,7 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.top = y;
 
   makeResizable(element, handles);
-  showHandles(element, handles);
+  showHandles(element, handles, elementTools);
 
   return element;
 }
