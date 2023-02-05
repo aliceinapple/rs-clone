@@ -216,3 +216,31 @@ export function setTargetTextElement(field: HTMLDivElement) {
     }
   });
 }
+
+export function checkTextStyle(
+  element: HTMLDivElement | null,
+  underline: HTMLDivElement,
+  bold: HTMLDivElement,
+  italic: HTMLDivElement,
+  fontSize: HTMLInputElement,
+) {
+  if (element && element.style.textDecoration === 'underline') {
+    underline.classList.add('selected');
+  } else {
+    underline.classList.remove('selected');
+  }
+
+  if (element && element.style.fontWeight === '900') {
+    bold.classList.add('selected');
+  } else {
+    bold.classList.remove('selected');
+  }
+
+  if (element && element.style.fontStyle === 'italic') {
+    italic.classList.add('selected');
+  } else {
+    italic.classList.remove('selected');
+  }
+
+  if (element) fontSize.value = element.style.fontSize.replace('px', '');
+}

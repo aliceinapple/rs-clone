@@ -5,9 +5,8 @@
 }
 
 .designe-page__side-menu {
-  width: 80px;
   height: 100%;
-  padding: 17px 0 0;
+  padding: 17px 10px 0 10px;
   background-color: $color_black;
   color: rgba(255, 255, 255, 0.5);
   @include display-flex(column, flex-start, center);
@@ -39,16 +38,18 @@
 }
 
 .designe-page__hiding-panel {
-  width: 350px;
+  max-width: 350px;
   height: 100%;
   padding: 50px 0;
   background-color: $color_dark-gray;
+  overflow: hidden;
+  transition: max-width 1s ease-out;
   @include display-flex(column, space-between, center);
 }
 
 .hiding-panel_hidden {
-  transition: $transition;
-  display: none;
+  max-width: 0;
+  transition: max-width 0.5s ease-out;
 }
 
 .designe-page__btn-for-hiding {
@@ -71,7 +72,9 @@
 }
 
 .paint-block__wrapper {
-  @include display-flex(row, flex-start, center);
+  display: grid;
+  grid-template-columns: 15px auto;
+  align-items: center;
 }
 
 .paint-block__control-panel {
@@ -119,6 +122,9 @@
   border-right: 1px solid rgba(79, 79, 79, 0.3);
   border-left: 1px solid rgba(79, 79, 79, 0.3);
   @include display-flex(row, center, center);
+  &:hover {
+    background: $color_white-gray;
+  }
 }
 
 .font-size-block__plus,
@@ -127,6 +133,12 @@
   height: 32px;
   @include display-flex(row, center, center);
   cursor: pointer;
+  &:hover {
+    background: $color_white-gray;
+  }
+  &:active {
+    background: $color_light-gray;
+  }
 }
 
 .font-style-block {
@@ -135,16 +147,54 @@
   @include display-flex(row, space-between, center);
 }
 
+.font-style-block__underlined,
+.font-style-block__bold,
+.font-style-block__italic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  &:hover {
+    background: $color_white-gray;
+    border-radius: 4px;
+  }
+}
+
 .font-style-block__underlined {
-  @include ico-style(28px, 28px, 'assets/ico/ico-text-format-rounded.png');
+  &::after {
+    font-size: 20px;
+    text-decoration: underline;
+    content: 'A';
+  }
+  // @include ico-style(28px, 28px, 'assets/ico/ico-text-format-rounded.png');
 }
 
 .font-style-block__bold {
-  @include ico-style(28px, 28px, 'assets/ico/ico_text-bold.png');
+  &::after {
+    font-size: 20px;
+    font-weight: 900;
+    content: 'B';
+  }
+  // @include ico-style(28px, 28px, 'assets/ico/ico_text-bold.png');
 }
 
 .font-style-block__italic {
-  @include ico-style(28px, 28px, 'assets/ico/ico_text-italic.png');
+  &::after {
+    font-style: italic;
+    font-size: 20px;
+    content: 'I';
+  }
+  // @include ico-style(28px, 28px, 'assets/ico/ico_text-italic.png');
+}
+
+.selected {
+  background: $color_light-gray;
+  border-radius: 4px;
+  &:hover {
+    background: $color_light-gray;
+  }
 }
 
 .text-align-block {
@@ -162,4 +212,26 @@
 
 .text-align-block__left {
   @include ico-style(24px, 24px, 'assets/ico/ico_text-align-left.png');
+}
+
+.text-align-block__right,
+.text-align-block__center,
+.text-align-block__left {
+  display: flex;
+  justify-content: center;
+  &:active {
+    box-shadow: 0px 0px 0px 4px $color_light-gray;
+    border-radius: 4px;
+  }
+}
+
+[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  padding: 5px;
+  top: 120px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.742);
+  color: $color_white;
+  border-radius: 4px;
 }

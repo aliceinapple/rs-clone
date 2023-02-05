@@ -37,41 +37,74 @@ function createResizeHandle(): HTMLDivElement[] {
   return handles;
 }
 
-export function createTemplateText(textContent: string) {
+function createElementTools(element: HTMLDivElement): HTMLDivElement {
+  const tools = document.createElement('div');
+  tools.classList.add('element-tools');
+
+  const copy = document.createElement('div');
+  copy.classList.add('element-tools_copy');
+
+  const del = document.createElement('div');
+  del.classList.add('element-tools_delete');
+
+  const color = document.createElement('input');
+  color.setAttribute('type', 'color');
+  color.classList.add('element-tools_color');
+
+  // copy.addEventListener('click', () => {
+  //   copyElement(container);
+  // });
+
+  del.addEventListener('click', () => {
+    const parent = element.parentElement;
+    parent?.removeChild(element);
+  });
+
+  color.addEventListener('input', (event) => {
+    const target = event.target;
+    if (target instanceof HTMLDivElement) target.style.color = color.value;
+  });
+
+  tools.append(copy, del, color);
+
+  return tools;
+}
+
+export function createTemplateText(
+  textContent: string,
+  fontFamily: string,
+  fontSize: string,
+  color: string,
+  textAlign?: string,
+) {
   const text = document.createElement('div');
   text.style.height = '100%';
   text.innerHTML = textContent;
   text.setAttribute('contentEditable', 'true');
 
-  return text;
-}
-
-export function createTemplateTextArea(
-  width: string,
-  fontFamily: string,
-  fontSize: string,
-  color: string,
-  x: string,
-  y: string,
-  textAlign?: string,
-): HTMLDivElement {
-  const text: HTMLDivElement = document.createElement('div');
-  text.classList.add('template-text');
-
-  const handles: HTMLDivElement[] = createResizeHandle();
-
-  text.append(...handles);
-
-  text.style.width = width;
   text.style.fontFamily = fontFamily;
   text.style.fontSize = fontSize;
   text.style.color = color;
-  text.style.left = x;
-  text.style.top = y;
 
   if (textAlign) {
     text.style.textAlign = textAlign;
   }
+
+  return text;
+}
+
+export function createTemplateTextArea(width: string, x: string, y: string): HTMLDivElement {
+  const text: HTMLDivElement = document.createElement('div');
+  text.classList.add('template-text');
+
+  const handles: HTMLDivElement[] = createResizeHandle();
+  const elementTools = createElementTools(text);
+
+  text.append(...handles, elementTools);
+
+  text.style.width = width;
+  text.style.left = x;
+  text.style.top = y;
 
   makeResizable(text, handles);
   showHandles(text, handles);

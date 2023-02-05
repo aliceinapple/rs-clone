@@ -4,7 +4,7 @@ import { createlinkForBackOnMainPage } from '../../components/header/index';
 import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
 import { businessCardsPanelTemplates } from '../../components/layoutTemplates';
-import { targetTextElement } from '../../components/layoutTemplates/elementsActions';
+import { checkTextStyle, targetTextElement } from '../../components/layoutTemplates/elementsActions';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -116,8 +116,10 @@ const createPainControlPanel = () => {
   const fontSizeInput = createHtmlElement('input', 'font-size-block__input') as HTMLInputElement;
   fontSizeInput.value = '16';
   const fontSizePlus = createHtmlElement('div', 'font-size-block__plus');
+  fontSizePlus.setAttribute('data-tooltip', 'увеличить размер шрифта');
   fontSizePlus.textContent = '+';
   const fontSizeMinus = createHtmlElement('div', 'font-size-block__minus');
+  fontSizeMinus.setAttribute('data-tooltip', 'уменьшить размер шрифта');
   fontSizeMinus.textContent = '-';
 
   fontSizePlus.addEventListener('click', () => {
@@ -138,17 +140,23 @@ const createPainControlPanel = () => {
   fontSizeBlock.append(fontSizeMinus, fontSizeInput, fontSizePlus);
 
   const fontStyleBlock = createHtmlElement('div', 'font-style-block');
-  const underlined = createHtmlElement('div', 'font-style-block__underlined');
-  const bold = createHtmlElement('div', 'font-style-block__bold');
-  const italic = createHtmlElement('div', 'font-style-block__italic');
+  const underlined = createHtmlElement('div', 'font-style-block__underlined') as HTMLDivElement;
+  underlined.setAttribute('data-tooltip', 'подчеркнутый');
+  const bold = createHtmlElement('div', 'font-style-block__bold') as HTMLDivElement;
+  bold.setAttribute('data-tooltip', 'жирный');
+  const italic = createHtmlElement('div', 'font-style-block__italic') as HTMLDivElement;
+  italic.setAttribute('data-tooltip', 'курсив');
   fontStyleBlock.append(underlined, bold, italic);
 
   const line = createHtmlElement('div', 'vertical-line');
 
   const textAlidnBlock = createHtmlElement('div', 'text-align-block');
   const right = createHtmlElement('div', 'text-align-block__right');
+  right.setAttribute('data-tooltip', 'выровнять по правому краю');
   const center = createHtmlElement('div', 'text-align-block__center');
+  center.setAttribute('data-tooltip', 'выровнять по центру');
   const left = createHtmlElement('div', 'text-align-block__left');
+  left.setAttribute('data-tooltip', 'выровнять по левому краю');
 
   underlined.addEventListener('click', () => {
     underlined.classList.toggle('selected');
@@ -180,6 +188,13 @@ const createPainControlPanel = () => {
       } else {
         targetTextElement.style.fontStyle = 'normal';
       }
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target === targetTextElement) {
+      checkTextStyle(targetTextElement, underlined, bold, italic, fontSizeInput);
     }
   });
 
