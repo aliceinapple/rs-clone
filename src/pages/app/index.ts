@@ -8,6 +8,7 @@ import { ColorSelectPage } from '../questionPages';
 import { StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
 import { renderLogInModal } from '../../components/modalLogIn';
+import { openRegistrationModal, closingModal } from '../../components/modalLogIn';
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -100,5 +101,10 @@ containerForContent.addEventListener('click', (event) => {
 
   if (clickedItem.closest('.btn-log__ico')) {
     renderLogInModal();
+    closingModal();
+  }
+
+  if (clickedItem.closest('.question-block__question-link-registration')) {
+    openRegistrationModal();
   }
 });

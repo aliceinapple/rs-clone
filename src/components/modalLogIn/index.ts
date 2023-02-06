@@ -164,12 +164,35 @@ export const renderLogInModal = () => {
 
   const opasity = createHtmlElement('div', 'opasity-container');
   const modal = createHtmlElement('div', 'modal');
-  const modalContent = createRegistrationModal();
+  const modalContent = createLogInModal();
   modal.append(modalContent);
   opasity.append(modal);
 
   container.append(opasity);
-  addEventListenerForForm();
   return container;
+};
+
+export const openRegistrationModal = () => {
+  const modal = document.querySelector('.modal') as HTMLElement;
+  modal.innerHTML = '';
+  const modalContent = createRegistrationModal();
+  addEventListenerForForm();
+
+  modal.append(modalContent);
+  return modal;
+};
+
+export const closingModal = () => {
+  const modal = document.querySelector<HTMLElement>('.opasity-container');
+  if (!modal) return;
+  modal.addEventListener('click', (event) => {
+    const item = event.target as HTMLElement;
+    if (!item) return;
+
+    const classes = item.classList;
+    if (classes.contains('opasity-container')) {
+      modal.remove();
+    }
+  });
 };
 
