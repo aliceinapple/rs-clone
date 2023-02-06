@@ -21,6 +21,7 @@ export const createInputElementForModal = (boxClassName: string, type: string, p
   input.placeholder = placeholde;
   input.classList.add(className);
   input.setAttribute('data-reg', dataReg);
+  input.setAttribute('name', className);
   
   inputBox.append(input);
   return inputBox;

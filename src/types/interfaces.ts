@@ -12,3 +12,12 @@ export interface ITemplates {
   textColor: string,
   textSize: string
 }
+
+export interface User {
+  id: number,
+  name: string,
+  logo: string,
+  email: string,
+  password: string,
+  links: string[];
+}

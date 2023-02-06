@@ -9,6 +9,8 @@ import { StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
 import { renderLogInModal } from '../../components/modalLogIn';
 import { openRegistrationModal, closingModal } from '../../components/modalLogIn';
+import { PersonalAccountPage } from '../personalAccountPage';
+import { validation } from '../../components/modalLogIn';
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -33,6 +35,8 @@ export class App {
       page = new StyleSelectPage(idPage);
     } else if (idPage.includes(PagesId.LogoResultPage)) {
       page = new LogoResultPage(PagesId.LogoResultPage);
+    } else if (idPage.includes(PagesId.PersonalAccountPage)) {
+      page = new PersonalAccountPage(PagesId.PersonalAccountPage);
     }
 
     if (page) {
@@ -106,5 +110,14 @@ containerForContent.addEventListener('click', (event) => {
 
   if (clickedItem.closest('.question-block__question-link-registration')) {
     openRegistrationModal();
+  }
+
+  if (clickedItem.closest('.registration__bnt')) {
+    event.preventDefault();
+    const form = document.querySelector('.modal__registration') as HTMLFormElement;
+    if (validation(form) === true) {
+      App.renderNewPage(PagesId.PersonalAccountPage);
+      updateURL(PagesId.PersonalAccountPage);
+    }
   }
 });

@@ -37,7 +37,7 @@ export const createLogInModal = () => {
 
 export const createRegistrationModal = () => {
   const container = createHtmlElement('form', 'modal__registration');
-  container.setAttribute('action', '#');
+  container.setAttribute('action', '/#');
   container.setAttribute('novalidate', 'novalidate');
   const title = createHtmlElement('p', 'modal__title');
   title.textContent = 'Регистрация';
@@ -82,7 +82,7 @@ const removeErrorStyle = (input: HTMLInputElement) => {
   }
 };
 
-const validation = (form: HTMLFormElement) => {
+export const validation = (form: HTMLFormElement) => {
   let result = true;
 
   form.querySelectorAll('input').forEach(input => {
@@ -147,14 +147,15 @@ const validation = (form: HTMLFormElement) => {
 };
 
 const addEventListenerForForm = () => {
-  const form = document.querySelector<HTMLFormElement>('.modal__registration');
-  if (!form) return;
+  const form = document.querySelector('.modal__registration') as HTMLFormElement;
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log(validation(form));
+
     if (validation(form) === true) {
       console.log('ok');
+    } else {
+      console.log('error');
     }
   });
 };
@@ -176,9 +177,9 @@ export const openRegistrationModal = () => {
   const modal = document.querySelector('.modal') as HTMLElement;
   modal.innerHTML = '';
   const modalContent = createRegistrationModal();
-  addEventListenerForForm();
-
+  
   modal.append(modalContent);
+  addEventListenerForForm();
   return modal;
 };
 
