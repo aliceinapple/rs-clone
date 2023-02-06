@@ -13,9 +13,20 @@ export interface ITemplates {
   textSize: string
 }
 
+
+export interface User {
+  id: number,
+  name: string,
+  logo: string,
+  email: string,
+  password: string,
+  links: string[];
+}
+
 export interface ILogoParameters {
   name: string;
   scope: string;
   color: string;
   style: string;
 }
+

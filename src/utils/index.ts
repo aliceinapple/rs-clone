@@ -13,6 +13,26 @@ export const createButtonElement = (className: string, content: string) => {
   return btn;
 };
 
+
+export const createInputElementForModal = (boxClassName: string, type: string, placeholde: string, className: string, dataReg: string) => {
+  const inputBox: HTMLElement = document.createElement('div');
+  inputBox.classList.add(boxClassName);
+  const input: HTMLInputElement = document.createElement('input');
+  input.type = type;
+  input.placeholder = placeholde;
+  input.classList.add(className);
+  input.setAttribute('data-reg', dataReg);
+  input.setAttribute('name', className);
+  
+  inputBox.append(input);
+  return inputBox;
+};
+
+export const dataRegName = '^[а-яА-ЯёЁa-zA-Z]';
+export const dataRegEmail = '^([a-z0-9_-]+[.])*[a-z0-9_-]+@[a-z0-9_-]+([.][a-z0-9_-]+)*[.][a-z]{2,6}$';
+export const dataRegLogin = '^[а-яА-ЯёЁa-zA-Z0-9]';
+export const dataRegPassword = '^.{6,}$';
+
 export const createImageElement = (className: string, scope: string, id: number) => {
   const img: HTMLImageElement = document.createElement('img');
   img.classList.add(className);
@@ -20,6 +40,7 @@ export const createImageElement = (className: string, scope: string, id: number)
 
   return img;
 };
+
 
 export function updateURL(pageId: string, URL = '') {
   if (history.pushState) {
