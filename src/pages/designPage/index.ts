@@ -4,7 +4,13 @@ import { createlinkForBackOnMainPage } from '../../components/header/index';
 import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
 import { businessCardsPanelTemplates } from '../../components/layoutTemplates';
-import { targetTextElement } from '../../components/layoutTemplates/elementsActions';
+import {
+  checkTextStyle,
+  fontAlignBtnsActions,
+  fontSizeBtnsActions,
+  fontStyleBtnsActions,
+  targetTextElement,
+} from '../../components/layoutTemplates/elementsActions';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -103,101 +109,87 @@ const createButtonForHiding = () => {
   return container;
 };
 
+const fontFamilyList = ['Open Sans', 'Montserrat', 'Nunito', 'Pacifico', 'Caveat', 'Noto Sans'];
+
+export function createFontFamilyOptions(select: HTMLSelectElement, fontFamily: string[]) {
+  for (let i = 0; i < fontFamily.length; i++) {
+    const option: HTMLOptionElement = document.createElement('option');
+    option.textContent = fontFamily[i];
+    select.append(option);
+  }
+}
+
 const createPainControlPanel = () => {
   const container = createHtmlElement('div', 'paint-block__control-panel');
 
   const select: HTMLSelectElement = document.createElement('select');
   select.classList.add('select');
-  const option: HTMLOptionElement = document.createElement('option');
-  option.textContent = 'Open Sans';
-  select.append(option);
+
+  createFontFamilyOptions(select, fontFamilyList);
+
+  select.addEventListener('change', () => {
+    if (targetTextElement) targetTextElement.style.fontFamily = select.value;
+  });
 
   const fontSizeBlock = createHtmlElement('div', 'font-size-block');
   const fontSizeInput = createHtmlElement('input', 'font-size-block__input') as HTMLInputElement;
   fontSizeInput.value = '16';
-  const fontSizePlus = createHtmlElement('div', 'font-size-block__plus');
+  const fontSizePlus = createHtmlElement('div', 'font-size-block__plus') as HTMLDivElement;
+  fontSizePlus.setAttribute('data-tooltip', 'увеличить размер шрифта');
   fontSizePlus.textContent = '+';
-  const fontSizeMinus = createHtmlElement('div', 'font-size-block__minus');
+  const fontSizeMinus = createHtmlElement('div', 'font-size-block__minus') as HTMLDivElement;
+  fontSizeMinus.setAttribute('data-tooltip', 'уменьшить размер шрифта');
   fontSizeMinus.textContent = '-';
-
-  fontSizePlus.addEventListener('click', () => {
-    fontSizeInput.value = String(Number(fontSizeInput.value) + 1);
-    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-  });
-
-  fontSizeMinus.addEventListener('click', () => {
-    fontSizeInput.value = String(Number(fontSizeInput.value) - 1);
-    if (Number(fontSizeInput.value) < 2) fontSizeInput.value = '1';
-    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-  });
-
-  fontSizeInput.addEventListener('input', () => {
-    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-  });
 
   fontSizeBlock.append(fontSizeMinus, fontSizeInput, fontSizePlus);
 
   const fontStyleBlock = createHtmlElement('div', 'font-style-block');
-  const underlined = createHtmlElement('div', 'font-style-block__underlined');
-  const bold = createHtmlElement('div', 'font-style-block__bold');
-  const italic = createHtmlElement('div', 'font-style-block__italic');
+  const underlined = createHtmlElement('div', 'font-style-block__underlined') as HTMLDivElement;
+  underlined.setAttribute('data-tooltip', 'подчеркнутый');
+  const bold = createHtmlElement('div', 'font-style-block__bold') as HTMLDivElement;
+  bold.setAttribute('data-tooltip', 'жирный');
+  const italic = createHtmlElement('div', 'font-style-block__italic') as HTMLDivElement;
+  italic.setAttribute('data-tooltip', 'курсив');
   fontStyleBlock.append(underlined, bold, italic);
 
   const line = createHtmlElement('div', 'vertical-line');
 
   const textAlidnBlock = createHtmlElement('div', 'text-align-block');
-  const right = createHtmlElement('div', 'text-align-block__right');
-  const center = createHtmlElement('div', 'text-align-block__center');
-  const left = createHtmlElement('div', 'text-align-block__left');
+  const right = createHtmlElement('div', 'text-align-block__right') as HTMLDivElement;
+  right.setAttribute('data-tooltip', 'выровнять по правому краю');
+  const center = createHtmlElement('div', 'text-align-block__center') as HTMLDivElement;
+  center.setAttribute('data-tooltip', 'выровнять по центру');
+  const left = createHtmlElement('div', 'text-align-block__left') as HTMLDivElement;
+  left.setAttribute('data-tooltip', 'выровнять по левому краю');
 
-  underlined.addEventListener('click', () => {
-    underlined.classList.toggle('selected');
-    if (targetTextElement) {
-      if (underlined.classList.contains('selected')) {
-        targetTextElement.style.textDecoration = 'underline';
-      } else {
-        targetTextElement.style.textDecoration = 'none';
-      }
+  const backgroundColor = document.createElement('div');
+  backgroundColor.classList.add('background-color-block');
+  const colorInput = document.createElement('input');
+  colorInput.setAttribute('data-tooltip', 'цвет фона');
+  colorInput.setAttribute('type', 'color');
+  colorInput.value = '#4f4f4f';
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target === targetTextElement) {
+      checkTextStyle(targetTextElement, underlined, bold, italic, fontSizeInput);
     }
   });
 
-  bold.addEventListener('click', () => {
-    bold.classList.toggle('selected');
-    if (targetTextElement) {
-      if (bold.classList.contains('selected')) {
-        targetTextElement.style.fontWeight = '900';
-      } else {
-        targetTextElement.style.fontWeight = '100';
-      }
-    }
+  colorInput.addEventListener('input', () => {
+    const background = document.querySelector('.container');
+    if (background && background instanceof HTMLDivElement) background.style.background = colorInput.value;
   });
 
-  italic.addEventListener('click', () => {
-    italic.classList.toggle('selected');
-    if (targetTextElement) {
-      if (italic.classList.contains('selected')) {
-        targetTextElement.style.fontStyle = 'italic';
-      } else {
-        targetTextElement.style.fontStyle = 'normal';
-      }
-    }
-  });
+  fontSizeBtnsActions(fontSizePlus, fontSizeMinus, fontSizeInput);
+  fontStyleBtnsActions(underlined, bold, italic);
+  fontAlignBtnsActions(left, right, center);
 
-  left.addEventListener('click', () => {
-    if (targetTextElement) targetTextElement.style.textAlign = 'left';
-  });
-
-  right.addEventListener('click', () => {
-    if (targetTextElement) targetTextElement.style.textAlign = 'right';
-  });
-
-  center.addEventListener('click', () => {
-    if (targetTextElement) targetTextElement.style.textAlign = 'center';
-  });
+  backgroundColor.appendChild(colorInput);
 
   textAlidnBlock.append(left, center, right);
 
-  container.append(select, fontSizeBlock, fontStyleBlock, line, textAlidnBlock);
+  container.append(select, fontSizeBlock, fontStyleBlock, line, textAlidnBlock, backgroundColor);
   return container;
 };
 

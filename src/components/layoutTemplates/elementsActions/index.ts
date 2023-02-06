@@ -1,3 +1,5 @@
+import { createElementTools } from '../elementsTemplate';
+
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
   let isDragging = false;
@@ -130,9 +132,10 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
   }
 }
 
-export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) {
+export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[], elementTools: HTMLDivElement) {
   element.addEventListener('click', () => {
     handles.forEach((handle) => (handle.style.display = 'block'));
+    elementTools.style.display = 'flex';
   });
 
   document.body.addEventListener('click', (event) => {
@@ -147,9 +150,11 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[]) 
         target.classList[0] &&
         target !== element &&
         !target.classList[0].includes('resize-handle') &&
-        !target.closest('.paint-block__control-panel')
+        !target.closest('.paint-block__control-panel') &&
+        target.parentElement !== elementTools
       ) {
         handles.forEach((handle) => (handle.style.display = 'none'));
+        elementTools.style.display = 'none';
       }
     }
   });
@@ -194,8 +199,14 @@ export function copyElement(template: HTMLDivElement) {
       const handles = copy.querySelectorAll('.resize-handle');
       const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
 
+      const tools = copy.querySelector('.element-tools') as HTMLDivElement;
+      if (tools) copy.removeChild(tools);
+
+      const copyTools = createElementTools(copy);
+      copy.appendChild(copyTools);
+
       makeResizable(copy, divElements);
-      showHandles(copy, divElements);
+      showHandles(copy, divElements, copyTools);
 
       if (copiedElement) pasteElement.appendChild(copy);
     }
@@ -214,5 +225,176 @@ export function setTargetTextElement(field: HTMLDivElement) {
         targetTextElement = null;
       }
     }
+  });
+}
+
+export function checkTextStyle(
+  element: HTMLDivElement | null,
+  underline: HTMLDivElement,
+  bold: HTMLDivElement,
+  italic: HTMLDivElement,
+  fontSize: HTMLInputElement,
+) {
+  if (element && element.style.textDecoration === 'underline') {
+    underline.classList.add('selected');
+  } else {
+    underline.classList.remove('selected');
+  }
+
+  if (element && element.style.fontWeight === '900') {
+    bold.classList.add('selected');
+  } else {
+    bold.classList.remove('selected');
+  }
+
+  if (element && element.style.fontStyle === 'italic') {
+    italic.classList.add('selected');
+  } else {
+    italic.classList.remove('selected');
+  }
+
+  if (element) fontSize.value = element.style.fontSize.replace('px', '');
+}
+
+export function addElementToolsActions(
+  element: HTMLDivElement,
+  copy: HTMLDivElement,
+  del: HTMLDivElement,
+  color: HTMLInputElement,
+  bgColor: HTMLInputElement,
+  front: HTMLDivElement,
+  back: HTMLDivElement,
+) {
+  copy.addEventListener('click', () => {
+    const parent = element.parentElement;
+    const copyElem = element.cloneNode(true) as HTMLDivElement;
+
+    const handles = copyElem.querySelectorAll('.resize-handle');
+    const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+
+    const tools = copyElem.querySelector('.element-tools');
+    if (tools) copyElem.removeChild(tools);
+
+    const copyTools = createElementTools(copyElem);
+    copyElem.appendChild(copyTools);
+
+    makeResizable(copyElem, divElements);
+    showHandles(copyElem, divElements, copyTools);
+
+    parent?.appendChild(copyElem);
+  });
+
+  del.addEventListener('click', () => {
+    const parent = element.parentElement;
+    parent?.removeChild(element);
+  });
+
+  color.addEventListener('input', () => {
+    const child = element.querySelector('[contentEditable = "true"]') as HTMLDivElement;
+    if (child) {
+      child.style.color = color.value;
+    } else {
+      element.style.border = `${parseInt(element.style.border)}px solid ${color.value}`;
+    }
+  });
+
+  bgColor.addEventListener('input', () => {
+    element.style.background = bgColor.value;
+  });
+
+  front.addEventListener('click', () => {
+    const maxZIndex: number[] = [];
+    const parent = element.parentElement;
+    const children = parent?.querySelectorAll('.template-element');
+    if (children)
+      for (const child of children) {
+        if (child instanceof HTMLDivElement) {
+          maxZIndex.push(Number(child.style.zIndex));
+        }
+      }
+
+    if (Number(element.style.zIndex) > Math.max(...maxZIndex)) {
+      element.style.zIndex = String(Math.max(...maxZIndex));
+      return;
+    }
+    element.style.zIndex = String(Number(element.style.zIndex) + 1);
+  });
+
+  back.addEventListener('click', () => {
+    if (Number(element.style.zIndex) === 0) {
+      element.style.zIndex = '1';
+      return;
+    }
+    element.style.zIndex = String(Number(element.style.zIndex) - 1);
+  });
+}
+
+export function fontSizeBtnsActions(
+  fontSizePlus: HTMLDivElement,
+  fontSizeMinus: HTMLDivElement,
+  fontSizeInput: HTMLInputElement,
+) {
+  fontSizePlus.addEventListener('click', () => {
+    fontSizeInput.value = String(Number(fontSizeInput.value) + 1);
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+
+  fontSizeMinus.addEventListener('click', () => {
+    fontSizeInput.value = String(Number(fontSizeInput.value) - 1);
+    if (Number(fontSizeInput.value) < 2) fontSizeInput.value = '1';
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+
+  fontSizeInput.addEventListener('input', () => {
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+}
+
+export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivElement, italic: HTMLDivElement) {
+  underlined.addEventListener('click', () => {
+    underlined.classList.toggle('selected');
+    if (targetTextElement) {
+      if (underlined.classList.contains('selected')) {
+        targetTextElement.style.textDecoration = 'underline';
+      } else {
+        targetTextElement.style.textDecoration = 'none';
+      }
+    }
+  });
+
+  bold.addEventListener('click', () => {
+    bold.classList.toggle('selected');
+    if (targetTextElement) {
+      if (bold.classList.contains('selected')) {
+        targetTextElement.style.fontWeight = '900';
+      } else {
+        targetTextElement.style.fontWeight = '100';
+      }
+    }
+  });
+
+  italic.addEventListener('click', () => {
+    italic.classList.toggle('selected');
+    if (targetTextElement) {
+      if (italic.classList.contains('selected')) {
+        targetTextElement.style.fontStyle = 'italic';
+      } else {
+        targetTextElement.style.fontStyle = 'normal';
+      }
+    }
+  });
+}
+
+export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement, center: HTMLDivElement) {
+  left.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'left';
+  });
+
+  right.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'right';
+  });
+
+  center.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'center';
   });
 }
