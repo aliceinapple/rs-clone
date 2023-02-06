@@ -3,7 +3,11 @@ import { createLogInButton } from '../../components/buttons/index';
 import { createlinkForBackOnMainPage } from '../../components/header/index';
 import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
-import { businessCardsPanelTemplates } from '../../components/layoutTemplates';
+import {
+  businessCardsPanelTemplates,
+  elementPanelTemplates,
+  textPanelTemplates,
+} from '../../components/layoutTemplates';
 import {
   checkTextStyle,
   fontAlignBtnsActions,
@@ -11,6 +15,8 @@ import {
   fontStyleBtnsActions,
   targetTextElement,
 } from '../../components/layoutTemplates/elementsActions';
+import { fontFamilyList } from '../../data/layoutTemplateData';
+import { BusinessCardTemplates } from '../../components/layoutTemplates/businessCard';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -27,6 +33,14 @@ const createDesignPageHeader = () => {
   saveBlock.append(saveIco);
   const removeBlock = createHtmlElement('div', 'design-header__remove-block');
   const removeIco = createHtmlElement('div', 'remove-block__ico');
+
+  removeIco.addEventListener('click', () => {
+    const canvas = document.querySelector('.layout-canvas');
+    if (canvas) canvas.innerHTML = '';
+    const template = new BusinessCardTemplates();
+    canvas?.append(template.createEmptyTemplate());
+  });
+
   removeBlock.append(removeIco);
 
   controlBlock.append(link, arrowBlock, saveBlock, removeBlock);
@@ -59,6 +73,42 @@ const createSideMenu = () => {
   const designBlock = createSideMenuElement('designe-block', 'ico-designe', 'designe-block-title', 'Дизайн');
   const elementBlock = createSideMenuElement('element-block', 'ico-element', 'element-block-title', 'Элемент');
   const textBlock = createSideMenuElement('text-block', 'ico-text', 'text-block-title', 'Текст');
+
+  designBlock.addEventListener('click', () => {
+    designBlock.classList.add('active-block');
+    elementBlock.classList.remove('active-block');
+    textBlock.classList.remove('active-block');
+
+    const block = document.querySelector('.hiding-panel__visit-card-block');
+    if (block) {
+      block.innerHTML = '';
+      block.append(businessCardsPanelTemplates);
+    }
+  });
+
+  elementBlock.addEventListener('click', () => {
+    elementBlock.classList.add('active-block');
+    designBlock.classList.remove('active-block');
+    textBlock.classList.remove('active-block');
+
+    const block = document.querySelector('.hiding-panel__visit-card-block');
+    if (block) {
+      block.innerHTML = '';
+      block.append(elementPanelTemplates);
+    }
+  });
+
+  textBlock.addEventListener('click', () => {
+    textBlock.classList.add('active-block');
+    elementBlock.classList.remove('active-block');
+    designBlock.classList.remove('active-block');
+
+    const block = document.querySelector('.hiding-panel__visit-card-block');
+    if (block) {
+      block.innerHTML = '';
+      block.append(textPanelTemplates);
+    }
+  });
 
   container.append(designBlock, elementBlock, textBlock);
   return container;
@@ -108,8 +158,6 @@ const createButtonForHiding = () => {
   container.append(btn);
   return container;
 };
-
-const fontFamilyList = ['Open Sans', 'Montserrat', 'Nunito', 'Pacifico', 'Caveat', 'Noto Sans'];
 
 export function createFontFamilyOptions(select: HTMLSelectElement, fontFamily: string[]) {
   for (let i = 0; i < fontFamily.length; i++) {
@@ -172,7 +220,7 @@ const createPainControlPanel = () => {
   document.addEventListener('click', (event) => {
     const target = event.target;
     if (target === targetTextElement) {
-      checkTextStyle(targetTextElement, underlined, bold, italic, fontSizeInput);
+      checkTextStyle(targetTextElement, underlined, bold, italic, fontSizeInput, select);
     }
   });
 
@@ -198,9 +246,12 @@ const createPaintBlock = () => {
   const controlPanel = createPainControlPanel();
   const btnForHiding = createButtonForHiding();
   const wrapper = createHtmlElement('div', 'paint-block__wrapper');
-  // const canvasElement: HTMLCanvasElement = document.createElement('canvas');
   const canvas: HTMLDivElement = document.createElement('div');
   canvas.classList.add('layout-canvas');
+
+  const template = new BusinessCardTemplates();
+  canvas.append(template.createEmptyTemplate());
+
   wrapper.append(btnForHiding, canvas);
 
   container.append(controlPanel, wrapper);

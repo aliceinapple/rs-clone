@@ -234,6 +234,7 @@ export function checkTextStyle(
   bold: HTMLDivElement,
   italic: HTMLDivElement,
   fontSize: HTMLInputElement,
+  select: HTMLSelectElement,
 ) {
   if (element && element.style.textDecoration === 'underline') {
     underline.classList.add('selected');
@@ -254,6 +255,11 @@ export function checkTextStyle(
   }
 
   if (element) fontSize.value = element.style.fontSize.replace('px', '');
+
+  if (element) {
+    const font = element.style.fontFamily.replace(/['"]+/g, '');
+    select.value = font;
+  }
 }
 
 export function addElementToolsActions(

@@ -6,7 +6,6 @@
 
 .designe-page__side-menu {
   height: 100%;
-  padding: 17px 10px 0 10px;
   background-color: $color_black;
   color: rgba(255, 255, 255, 0.5);
   @include display-flex(column, flex-start, center);
@@ -17,11 +16,13 @@
 .side-menu__element-block,
 .side-menu__text-block {
   @include display-flex(column, center, center);
-  margin: 0 0 33px 0;
+  padding: 15px;
+  width: 100%;
   cursor: pointer;
 }
 
-.side-menu__designe-block {
+.active-block {
+  background: $color_dark-gray;
   color: $color_white;
 }
 
@@ -38,18 +39,18 @@
 }
 
 .designe-page__hiding-panel {
-  max-width: 350px;
+  width: 400px;
   height: 100%;
   padding: 50px 0;
   background-color: $color_dark-gray;
   overflow: hidden;
-  transition: max-width 1s ease-out;
+  transition: width 1s ease-out;
   @include display-flex(column, space-between, center);
 }
 
 .hiding-panel_hidden {
-  max-width: 0;
-  transition: max-width 0.5s ease-out;
+  width: 0;
+  transition: width 0.5s ease-out;
 }
 
 .designe-page__btn-for-hiding {

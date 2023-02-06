@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');
-
 .template-text,
 .template-element {
   position: absolute;
@@ -85,6 +79,10 @@
 
 .layout-templates {
   padding: 0 50px;
+
+  img {
+    margin-bottom: 20px;
+  }
 
   img:hover {
     cursor: pointer;
@@ -185,5 +183,62 @@
   &::-webkit-color-swatch {
     border: none;
     border-radius: 4px;
+  }
+}
+
+.template-elements-block {
+  display: grid;
+  max-height: 700px;
+  grid-template-columns: auto auto;
+  padding: 0 25px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: $color_dark-gray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $color_gray;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $color_dark-gray;
+  }
+}
+
+.template-elements-block__element {
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+    transition: $transition;
+  }
+}
+
+.template-text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 20px;
+  line-height: 1.2;
+  color: white;
+  text-align: center;
+
+  div {
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.02);
+      transition: $transition;
+    }
   }
 }

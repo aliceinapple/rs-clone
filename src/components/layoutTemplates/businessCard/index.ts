@@ -4,12 +4,12 @@ import {
   createTemplateShape,
   createTemplateText,
   createTemplateTextArea,
-  defaultTexsts,
 } from '../elementsTemplate';
 import { Template } from '../mainTemplate';
 import mountains from '../../../assets/templateImages/mountains.png';
 import flowers from '../../../assets/templateImages/flowers.png';
 import qrCode from '../../../assets/templateImages/qrCode.png';
+import { defaultTexsts } from '../../../data/layoutTemplateData';
 
 export class BusinessCard {
   fieldSize = {
@@ -45,6 +45,11 @@ export class BusinessCard {
 //Business cards templates
 
 export class BusinessCardTemplates {
+  createEmptyTemplate() {
+    const card = new BusinessCard('white');
+    return card.add();
+  }
+
   createTemplate1() {
     const card = new BusinessCard('black');
 

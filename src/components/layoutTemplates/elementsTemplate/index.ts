@@ -2,13 +2,6 @@ import { addElementToolsActions, makeResizable, showHandles } from '../elementsA
 
 let idNumber = 0;
 
-export const defaultTexsts = {
-  title: 'Добавить заголовок',
-  info: `123 - 456 - 7890
-         hello@reallygreatsite.com
-         Добавить заголовок`,
-};
-
 function createResizeHandle(): HTMLDivElement[] {
   const handleNw: HTMLDivElement = document.createElement('div');
   handleNw.classList.add('resize-handle', 'resize-handle-nw');
