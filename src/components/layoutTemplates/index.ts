@@ -1,75 +1,50 @@
-import { BusinessCard } from './businessCard';
-import { createTemplateImg, createTemplateShape, createTemplateText, defaultTexsts } from './elementsTemplate';
-import mountains from '../../assets/templateImages/mountains.png';
-import flowers from '../../assets/templateImages/flowers.png';
-import qrCode from '../../assets/templateImages/qrCode.png';
+import businessCard_1 from '../../assets/templateImages/businessCard_1.png';
+import businessCard_2 from '../../assets/templateImages/businessCard_2.png';
+import businessCard_3 from '../../assets/templateImages/businessCard_3.png';
+import businessCard_4 from '../../assets/templateImages/businessCard_4.png';
+import { BusinessCardTemplates } from './businessCard';
 
-class BusinessCardTemplates {
-  createTemplate1() {
-    const card = new BusinessCard('black');
+function createPanelTemplates(img1: string, img2: string, img3: string, img4: string) {
+  const templates = document.createElement('div');
 
-    const title = createTemplateText('300px', 'Montserrat', '48px', 'white', '25px', '140px', 'center');
-    title.innerHTML = defaultTexsts.title;
+  const image1 = document.createElement('img');
+  image1.setAttribute('src', img1);
+  image1.id = '1';
 
-    const info = createTemplateText('250px', 'Montserrat', '20px', 'white', '390px', '150px', 'center');
-    info.innerHTML = defaultTexsts.info;
+  const image2 = document.createElement('img');
+  image2.setAttribute('src', img2);
+  image2.id = '2';
 
-    const square = createTemplateShape('180px', '180px', '85px', '110px', '2px solid white');
+  const image3 = document.createElement('img');
+  image3.setAttribute('src', img3);
+  image3.id = '3';
 
-    const line = createTemplateShape('2px', '300px', '349px', '50px');
-    line.style.background = 'white';
+  const image4 = document.createElement('img');
+  image4.setAttribute('src', img4);
+  image4.id = '4';
 
-    return card.add(title, info, square, line);
-  }
+  templates.classList.add('layout-templates');
 
-  createTemplate2() {
-    const card = new BusinessCard('#FCCE7A');
+  templates.append(image1, image2, image3, image4);
 
-    const title = createTemplateText('300px', 'Nunito', '48px', '#4F4F4F', '300px', '110px', 'center');
-    title.innerHTML = defaultTexsts.title;
-
-    const info = createTemplateText('250px', 'Nunito', '20px', '#4F4F4F', '60px', '290px');
-    info.innerHTML = defaultTexsts.info;
-
-    const circle = createTemplateShape('230px', '230px', '400px', '50px', '5px solid rgba(79, 79, 79, 0.3)', '50%');
-
-    return card.add(title, info, circle);
-  }
-
-  createTemplate3() {
-    const card = new BusinessCard('#6987D3');
-
-    const title = createTemplateText('300px', 'Pacifico', '32px', 'white', '200px', '260px', 'center');
-    title.innerHTML = defaultTexsts.title;
-
-    const image = createTemplateImg('150px', '150px', '275px', '100px', `url(${mountains})`);
-
-    return card.add(title, image);
-  }
-
-  createTemplate4() {
-    const card = new BusinessCard('white');
-
-    const title = createTemplateText('300px', 'Caveat', '32px', '#3E544F', '350px', '70px', 'center');
-    title.innerHTML = defaultTexsts.title;
-    const title2 = createTemplateText('300px', 'Noto Sans', '24px', '#3E544F', '350px', '130px', 'center');
-    title2.innerHTML = defaultTexsts.title;
-
-    const image = createTemplateImg('400px', '400px', '-90px', '145px', `url(${flowers})`);
-    const image2 = createTemplateImg('100px', '100px', '450px', '200px', `url(${qrCode})`);
-
-    return card.add(title, title2, image, image2);
-  }
-
-  render() {
-    document.body.append(
-      this.createTemplate1(),
-      this.createTemplate2(),
-      this.createTemplate3(),
-      this.createTemplate4(),
-    );
-  }
+  return templates;
 }
 
-const create = new BusinessCardTemplates();
-create.render();
+export const businessCardsPanelTemplates = createPanelTemplates(
+  businessCard_1,
+  businessCard_2,
+  businessCard_3,
+  businessCard_4,
+);
+
+businessCardsPanelTemplates.addEventListener('click', (event) => {
+  const canvas = document.querySelector('.layout-canvas');
+  if (canvas) canvas.innerHTML = '';
+  const target = event.target;
+  const template = new BusinessCardTemplates();
+
+  if (target instanceof HTMLImageElement) {
+    const card = template.render(target?.id);
+    canvas?.append(card);
+  }
+});

@@ -13,6 +13,7 @@ export interface ITemplates {
   textSize: string
 }
 
+
 export interface User {
   id: number,
   name: string,
@@ -21,3 +22,11 @@ export interface User {
   password: string,
   links: string[];
 }
+
+export interface ILogoParameters {
+  name: string;
+  scope: string;
+  color: string;
+  style: string;
+}
+

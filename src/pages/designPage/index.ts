@@ -3,6 +3,14 @@ import { createLogInButton } from '../../components/buttons/index';
 import { createlinkForBackOnMainPage } from '../../components/header/index';
 import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
+import { businessCardsPanelTemplates } from '../../components/layoutTemplates';
+import {
+  checkTextStyle,
+  fontAlignBtnsActions,
+  fontSizeBtnsActions,
+  fontStyleBtnsActions,
+  targetTextElement,
+} from '../../components/layoutTemplates/elementsActions';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -29,7 +37,7 @@ const createDesignPageHeader = () => {
   const btnBlock = createHtmlElement('div', 'header__btn-block');
   const btn = createLogInButton();
   btnBlock.append(btn);
- 
+
   headerWrapper.append(controlBlock, title, btnBlock);
   header.append(headerWrapper);
   return header;
@@ -40,7 +48,7 @@ const createSideMenuElement = (classBlock: string, classIco: string, classTest: 
   const ico = createHtmlElement('div', `side-menu__${classIco}`);
   const title = createHtmlElement('p', `side-menu__${classTest}`);
   title.textContent = text;
-  
+
   block.append(ico, title);
   return block;
 };
@@ -51,7 +59,6 @@ const createSideMenu = () => {
   const designBlock = createSideMenuElement('designe-block', 'ico-designe', 'designe-block-title', 'Дизайн');
   const elementBlock = createSideMenuElement('element-block', 'ico-element', 'element-block-title', 'Элемент');
   const textBlock = createSideMenuElement('text-block', 'ico-text', 'text-block-title', 'Текст');
-  
 
   container.append(designBlock, elementBlock, textBlock);
   return container;
@@ -66,6 +73,8 @@ const createHidingPanelForPostcard = () => {
 const createHidingPanelForVisitCars = () => {
   const container = createHtmlElement('div', 'hiding-panel__visit-card-block');
 
+  container.append(businessCardsPanelTemplates);
+
   return container;
 };
 
@@ -74,7 +83,6 @@ const createHidingPanelForResume = () => {
 
   return container;
 };
-
 
 const createHidingPanel = (typeDesigne: string) => {
   const container = createHtmlElement('div', 'designe-page__hiding-panel');
@@ -101,39 +109,87 @@ const createButtonForHiding = () => {
   return container;
 };
 
+const fontFamilyList = ['Open Sans', 'Montserrat', 'Nunito', 'Pacifico', 'Caveat', 'Noto Sans'];
+
+export function createFontFamilyOptions(select: HTMLSelectElement, fontFamily: string[]) {
+  for (let i = 0; i < fontFamily.length; i++) {
+    const option: HTMLOptionElement = document.createElement('option');
+    option.textContent = fontFamily[i];
+    select.append(option);
+  }
+}
+
 const createPainControlPanel = () => {
   const container = createHtmlElement('div', 'paint-block__control-panel');
 
   const select: HTMLSelectElement = document.createElement('select');
   select.classList.add('select');
-  const option: HTMLOptionElement = document.createElement('option');
-  option.textContent = 'Open Sans';
-  select.append(option);
+
+  createFontFamilyOptions(select, fontFamilyList);
+
+  select.addEventListener('change', () => {
+    if (targetTextElement) targetTextElement.style.fontFamily = select.value;
+  });
 
   const fontSizeBlock = createHtmlElement('div', 'font-size-block');
-  const fontSizeInput = createHtmlElement('div', 'font-size-block__input');
-  fontSizeInput.textContent = '16';
-  const fontSizePlus = createHtmlElement('div', 'font-size-block__plus');
+  const fontSizeInput = createHtmlElement('input', 'font-size-block__input') as HTMLInputElement;
+  fontSizeInput.value = '16';
+  const fontSizePlus = createHtmlElement('div', 'font-size-block__plus') as HTMLDivElement;
+  fontSizePlus.setAttribute('data-tooltip', 'увеличить размер шрифта');
   fontSizePlus.textContent = '+';
-  const fontSizeMinus = createHtmlElement('div', 'font-size-block__minus');
+  const fontSizeMinus = createHtmlElement('div', 'font-size-block__minus') as HTMLDivElement;
+  fontSizeMinus.setAttribute('data-tooltip', 'уменьшить размер шрифта');
   fontSizeMinus.textContent = '-';
+
   fontSizeBlock.append(fontSizeMinus, fontSizeInput, fontSizePlus);
 
   const fontStyleBlock = createHtmlElement('div', 'font-style-block');
-  const underlined = createHtmlElement('div', 'font-style-block__underlined');
-  const bold = createHtmlElement('div', 'font-style-block__bold');
-  const italic = createHtmlElement('div', 'font-style-block__italic');
+  const underlined = createHtmlElement('div', 'font-style-block__underlined') as HTMLDivElement;
+  underlined.setAttribute('data-tooltip', 'подчеркнутый');
+  const bold = createHtmlElement('div', 'font-style-block__bold') as HTMLDivElement;
+  bold.setAttribute('data-tooltip', 'жирный');
+  const italic = createHtmlElement('div', 'font-style-block__italic') as HTMLDivElement;
+  italic.setAttribute('data-tooltip', 'курсив');
   fontStyleBlock.append(underlined, bold, italic);
 
   const line = createHtmlElement('div', 'vertical-line');
 
   const textAlidnBlock = createHtmlElement('div', 'text-align-block');
-  const right = createHtmlElement('div', 'text-align-block__right');
-  const center = createHtmlElement('div', 'text-align-block__center');
-  const left = createHtmlElement('div', 'text-align-block__left');
+  const right = createHtmlElement('div', 'text-align-block__right') as HTMLDivElement;
+  right.setAttribute('data-tooltip', 'выровнять по правому краю');
+  const center = createHtmlElement('div', 'text-align-block__center') as HTMLDivElement;
+  center.setAttribute('data-tooltip', 'выровнять по центру');
+  const left = createHtmlElement('div', 'text-align-block__left') as HTMLDivElement;
+  left.setAttribute('data-tooltip', 'выровнять по левому краю');
+
+  const backgroundColor = document.createElement('div');
+  backgroundColor.classList.add('background-color-block');
+  const colorInput = document.createElement('input');
+  colorInput.setAttribute('data-tooltip', 'цвет фона');
+  colorInput.setAttribute('type', 'color');
+  colorInput.value = '#4f4f4f';
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target === targetTextElement) {
+      checkTextStyle(targetTextElement, underlined, bold, italic, fontSizeInput);
+    }
+  });
+
+  colorInput.addEventListener('input', () => {
+    const background = document.querySelector('.container');
+    if (background && background instanceof HTMLDivElement) background.style.background = colorInput.value;
+  });
+
+  fontSizeBtnsActions(fontSizePlus, fontSizeMinus, fontSizeInput);
+  fontStyleBtnsActions(underlined, bold, italic);
+  fontAlignBtnsActions(left, right, center);
+
+  backgroundColor.appendChild(colorInput);
+
   textAlidnBlock.append(left, center, right);
 
-  container.append(select, fontSizeBlock, fontStyleBlock, line, textAlidnBlock);
+  container.append(select, fontSizeBlock, fontStyleBlock, line, textAlidnBlock, backgroundColor);
   return container;
 };
 
@@ -142,8 +198,10 @@ const createPaintBlock = () => {
   const controlPanel = createPainControlPanel();
   const btnForHiding = createButtonForHiding();
   const wrapper = createHtmlElement('div', 'paint-block__wrapper');
-  const canvasElement: HTMLCanvasElement = document.createElement('canvas');
-  wrapper.append(btnForHiding, canvasElement);
+  // const canvasElement: HTMLCanvasElement = document.createElement('canvas');
+  const canvas: HTMLDivElement = document.createElement('div');
+  canvas.classList.add('layout-canvas');
+  wrapper.append(btnForHiding, canvas);
 
   container.append(controlPanel, wrapper);
   return container;
