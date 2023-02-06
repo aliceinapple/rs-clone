@@ -1,4 +1,3 @@
-import { addElementHistory } from '../elementHistory';
 import { addElementToolsActions, makeResizable, showHandles } from '../elementsActions';
 
 let idNumber = 0;
@@ -139,8 +138,6 @@ export function createTemplateShape(
 
   element.id = String(idNumber);
   idNumber++;
-
-  addElementHistory(element);
 
   const handles: HTMLDivElement[] = createResizeHandle();
   const elementTools = createElementTools(element);

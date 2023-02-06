@@ -328,3 +328,73 @@ export function addElementToolsActions(
     element.style.zIndex = String(Number(element.style.zIndex) - 1);
   });
 }
+
+export function fontSizeBtnsActions(
+  fontSizePlus: HTMLDivElement,
+  fontSizeMinus: HTMLDivElement,
+  fontSizeInput: HTMLInputElement,
+) {
+  fontSizePlus.addEventListener('click', () => {
+    fontSizeInput.value = String(Number(fontSizeInput.value) + 1);
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+
+  fontSizeMinus.addEventListener('click', () => {
+    fontSizeInput.value = String(Number(fontSizeInput.value) - 1);
+    if (Number(fontSizeInput.value) < 2) fontSizeInput.value = '1';
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+
+  fontSizeInput.addEventListener('input', () => {
+    if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+  });
+}
+
+export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivElement, italic: HTMLDivElement) {
+  underlined.addEventListener('click', () => {
+    underlined.classList.toggle('selected');
+    if (targetTextElement) {
+      if (underlined.classList.contains('selected')) {
+        targetTextElement.style.textDecoration = 'underline';
+      } else {
+        targetTextElement.style.textDecoration = 'none';
+      }
+    }
+  });
+
+  bold.addEventListener('click', () => {
+    bold.classList.toggle('selected');
+    if (targetTextElement) {
+      if (bold.classList.contains('selected')) {
+        targetTextElement.style.fontWeight = '900';
+      } else {
+        targetTextElement.style.fontWeight = '100';
+      }
+    }
+  });
+
+  italic.addEventListener('click', () => {
+    italic.classList.toggle('selected');
+    if (targetTextElement) {
+      if (italic.classList.contains('selected')) {
+        targetTextElement.style.fontStyle = 'italic';
+      } else {
+        targetTextElement.style.fontStyle = 'normal';
+      }
+    }
+  });
+}
+
+export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement, center: HTMLDivElement) {
+  left.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'left';
+  });
+
+  right.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'right';
+  });
+
+  center.addEventListener('click', () => {
+    if (targetTextElement) targetTextElement.style.textAlign = 'center';
+  });
+}
