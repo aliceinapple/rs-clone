@@ -95,13 +95,16 @@
 
 .layout-canvas {
   justify-self: center;
+  box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.15);
 }
 
 .element-tools {
-  position: absolute;
+  position: fixed;
   display: none;
-  padding: 5px 10px;
-  top: -60px;
+  flex-direction: column;
+  padding: 10px;
+  top: 160px;
+  right: 1%;
   border-radius: 8px;
   align-items: center;
   justify-content: center;
@@ -135,13 +138,39 @@
   }
 }
 
+.element-tools_front {
+  @include ico-style(24px, 24px, 'assets/ico/ico_element-tool-front.png');
+  &:hover {
+    box-shadow: 0px 0px 0px 4px $color_white-gray;
+    border-radius: 4px;
+  }
+  &:active {
+    box-shadow: 0px 0px 0px 4px $color_light-gray;
+    border-radius: 4px;
+  }
+}
+
+.element-tools_back {
+  @include ico-style(24px, 24px, 'assets/ico/ico_element-tool-back.png');
+  &:hover {
+    box-shadow: 0px 0px 0px 4px $color_white-gray;
+    border-radius: 4px;
+  }
+  &:active {
+    box-shadow: 0px 0px 0px 4px $color_light-gray;
+    border-radius: 4px;
+  }
+}
+
 .element-tools_color,
 .element-tools_bgColor {
   outline: none;
   border: none;
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  border: 1px solid $color_light-gray;
   border-radius: 4px;
-  width: 24px;
-  height: 24px;
   cursor: pointer;
   &:hover {
     box-shadow: 0px 0px 0px 4px $color_white-gray;
@@ -149,6 +178,13 @@
   }
   &:active {
     box-shadow: 0px 0px 0px 4px $color_light-gray;
+    border-radius: 4px;
+  }
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  &::-webkit-color-swatch {
+    border: none;
     border-radius: 4px;
   }
 }

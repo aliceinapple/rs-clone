@@ -151,7 +151,7 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[], 
         target !== element &&
         !target.classList[0].includes('resize-handle') &&
         !target.closest('.paint-block__control-panel') &&
-        target !== elementTools
+        target.parentElement !== elementTools
       ) {
         handles.forEach((handle) => (handle.style.display = 'none'));
         elementTools.style.display = 'none';
@@ -198,10 +198,15 @@ export function copyElement(template: HTMLDivElement) {
 
       const handles = copy.querySelectorAll('.resize-handle');
       const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+
       const tools = copy.querySelector('.element-tools') as HTMLDivElement;
+      if (tools) copy.removeChild(tools);
+
+      const copyTools = createElementTools(copy);
+      copy.appendChild(copyTools);
 
       makeResizable(copy, divElements);
-      showHandles(copy, divElements, tools);
+      showHandles(copy, divElements, copyTools);
 
       if (copiedElement) pasteElement.appendChild(copy);
     }
@@ -257,6 +262,8 @@ export function addElementToolsActions(
   del: HTMLDivElement,
   color: HTMLInputElement,
   bgColor: HTMLInputElement,
+  front: HTMLDivElement,
+  back: HTMLDivElement,
 ) {
   copy.addEventListener('click', () => {
     const parent = element.parentElement;
@@ -293,5 +300,31 @@ export function addElementToolsActions(
 
   bgColor.addEventListener('input', () => {
     element.style.background = bgColor.value;
+  });
+
+  front.addEventListener('click', () => {
+    const maxZIndex: number[] = [];
+    const parent = element.parentElement;
+    const children = parent?.querySelectorAll('.template-element');
+    if (children)
+      for (const child of children) {
+        if (child instanceof HTMLDivElement) {
+          maxZIndex.push(Number(child.style.zIndex));
+        }
+      }
+
+    if (Number(element.style.zIndex) > Math.max(...maxZIndex)) {
+      element.style.zIndex = String(Math.max(...maxZIndex));
+      return;
+    }
+    element.style.zIndex = String(Number(element.style.zIndex) + 1);
+  });
+
+  back.addEventListener('click', () => {
+    if (Number(element.style.zIndex) === 0) {
+      element.style.zIndex = '1';
+      return;
+    }
+    element.style.zIndex = String(Number(element.style.zIndex) - 1);
   });
 }

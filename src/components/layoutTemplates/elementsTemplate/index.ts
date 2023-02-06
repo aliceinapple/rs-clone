@@ -1,4 +1,7 @@
+import { addElementHistory } from '../elementHistory';
 import { addElementToolsActions, makeResizable, showHandles } from '../elementsActions';
+
+let idNumber = 0;
 
 export const defaultTexsts = {
   title: 'Добавить заголовок',
@@ -43,7 +46,7 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
 
   const copy = document.createElement('div');
   copy.classList.add('element-tools_copy');
-  copy.setAttribute('data-tooltip-elem', 'копировать');
+  copy.setAttribute('data-tooltip-elem', 'дублировать');
 
   const del = document.createElement('div');
   del.classList.add('element-tools_delete');
@@ -60,14 +63,21 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
   bgColor.setAttribute('data-tooltip-elem', 'заливка');
   bgColor.value = '#FFFFFF';
 
-  addElementToolsActions(element, copy, del, color, bgColor);
+  const front = document.createElement('div');
+  front.classList.add('element-tools_front');
+  front.setAttribute('data-tooltip-elem', 'переместить вперед');
+  const back = document.createElement('div');
+  back.classList.add('element-tools_back');
+  back.setAttribute('data-tooltip-elem', 'переместить назад');
+
+  addElementToolsActions(element, copy, del, color, bgColor, front, back);
 
   if (element.className.includes('template-img')) {
-    tools.append(copy, del);
+    tools.append(copy, del, front, back);
   } else if (element.className.includes('template-shape')) {
-    tools.append(copy, del, color, bgColor);
+    tools.append(copy, del, color, bgColor, front, back);
   } else {
-    tools.append(copy, del, color);
+    tools.append(copy, del, color, front, back);
   }
 
   return tools;
@@ -108,6 +118,7 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   text.style.width = width;
   text.style.left = x;
   text.style.top = y;
+  text.style.zIndex = '2';
 
   makeResizable(text, handles);
   showHandles(text, handles, elementTools);
@@ -126,6 +137,11 @@ export function createTemplateShape(
   const element: HTMLDivElement = document.createElement('div');
   element.classList.add('template-element', 'template-shape');
 
+  element.id = String(idNumber);
+  idNumber++;
+
+  addElementHistory(element);
+
   const handles: HTMLDivElement[] = createResizeHandle();
   const elementTools = createElementTools(element);
 
@@ -135,6 +151,7 @@ export function createTemplateShape(
   element.style.height = height;
   element.style.left = x;
   element.style.top = y;
+  element.style.zIndex = '2';
 
   if (borderRadius) {
     element.style.borderRadius = borderRadius;
@@ -167,6 +184,7 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.height = height;
   element.style.left = x;
   element.style.top = y;
+  element.style.zIndex = '2';
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);
