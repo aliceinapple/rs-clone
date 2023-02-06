@@ -10,11 +10,83 @@
 }
 
 .modal {
-  width: 300px;
-  height: 400px;
-  background-color: $color_white-gray;
+  padding: 30px 25px;
+  border-radius: 4px;
+  background-color: $color_white;
 }
 
-.modal__autorization {
+.modal__autorization,
+.modal__registration {
   @include display-flex(column, center,center);
+}
+
+.modal__title {
+  @include font-size(25px, 30px, 600);
+  color: $color_purple;
+  margin: 0 0 15px;
+}
+
+.modal__input-box {
+  padding: 10px 0;
+}
+.autorization__login,
+.autorization__password,
+.registration__name,
+.registration__email,
+.registration__login,
+.registration__password,
+.registration__password {
+  width: 260px;
+  height: 40px;
+  padding: 0 0 0 10px;
+  border-radius: 4px;
+  border: 0.5px solid $color_purple;
+  background-color: $color_white-gray;
+  outline: none;
+}
+
+.autorization__bnt,
+.registration__bnt {
+  width: 200px;
+  height: 40px;
+  margin: 15px 0;
+  color: $color_white;
+  background: $gradient;
+  border-radius: 4px;
+  @include font-size(18px, 20px, 600);
+
+  &:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.20);
+    transition: $transition;
+  }
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.20);
+    transition: $transition;
+  }
+}
+
+.autorization__question-block {
+  @include display-flex(column, center,center);
+  padding: 70px 0 0;
+}
+
+.question-block__question-link-registration {
+  cursor: pointer;
+
+    &:hover {
+      color: $color_purple;
+      transition: $transition;
+    }
+}
+
+.input_error .input {
+  border: 1.7px solid red;
+}
+
+.input_error .input_error-text {
+  font-size: 12px;
+  color: red;
 }

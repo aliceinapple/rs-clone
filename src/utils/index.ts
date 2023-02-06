@@ -13,14 +13,20 @@ export const createButtonElement = (className: string, content: string) => {
   return btn;
 };
 
-export const createInputElement = (type: string, placeholde: string, className: string) => {
+export const createInputElement = (boxClassName: string, type: string, placeholde: string, className: string) => {
+  const inputBox: HTMLElement = document.createElement('div');
+  inputBox.classList.add(boxClassName);
   const input: HTMLInputElement = document.createElement('input');
   input.type = type;
   input.placeholder = placeholde;
   input.classList.add(className);
-
-  return input;
+  
+  inputBox.append(input);
+  return inputBox;
 };
+
+export const dataRegName = '[а-яА-ЯёЁa-zA-Z]';
+export const dataRegEmail = '^([a-z0-9_-]+[.])*[a-z0-9_-]+@[a-z0-9_-]+([.][a-z0-9_-]+)*[.][a-z]{2,6}$''
 
 export function updateURL(pageId: string, URL = '') {
   if (history.pushState) {
