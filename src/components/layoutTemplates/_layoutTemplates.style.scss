@@ -82,6 +82,7 @@
 
   img {
     margin-bottom: 20px;
+    border-radius: 4px;
   }
 
   img:hover {
@@ -192,6 +193,7 @@
   grid-template-columns: auto auto;
   padding: 0 25px;
   overflow-y: scroll;
+  gap: 5px;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -231,8 +233,8 @@
   text-align: center;
 
   div {
-    border: 1px solid white;
-    border-radius: 8px;
+    background: $color_gray;
+    border-radius: 4px;
     padding: 10px;
     width: 100%;
     cursor: pointer;
@@ -240,5 +242,28 @@
       transform: scale(1.02);
       transition: $transition;
     }
+  }
+}
+
+.template-text-block_shapes {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: none !important;
+
+  &:hover {
+    transform: none !important;
+  }
+
+  .template-text-block_circle,
+  .template-text-block_square {
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    background: none !important;
+  }
+
+  .template-text-block_circle {
+    border-radius: 50%;
   }
 }

@@ -372,9 +372,9 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
     bold.classList.toggle('selected');
     if (targetTextElement) {
       if (bold.classList.contains('selected')) {
-        targetTextElement.style.fontWeight = '900';
+        targetTextElement.style.fontWeight = 'bold';
       } else {
-        targetTextElement.style.fontWeight = '100';
+        targetTextElement.style.fontWeight = 'normal';
       }
     }
   });
@@ -404,3 +404,68 @@ export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement
     if (targetTextElement) targetTextElement.style.textAlign = 'center';
   });
 }
+
+// export function markElements(container: HTMLDivElement) {
+//   const elements = document.querySelectorAll('.template-element');
+//   let isDragging = false;
+//   let startX: number, startY: number, currentX: number, currentY: number;
+//   const selectBox = document.createElement('div');
+//   selectBox.style.position = 'absolute';
+//   selectBox.style.backgroundColor = 'rgba(0,0,0,0.1)';
+
+//   function updateSelection() {
+//     const left = Math.min(startX, currentX);
+//     const top = Math.min(startY, currentY);
+//     const width = Math.abs(startX - currentX);
+//     const height = Math.abs(startY - currentY);
+//     selectBox.style.left = `${left}px`;
+//     selectBox.style.top = `${top}px`;
+//     selectBox.style.width = `${width}px`;
+//     selectBox.style.height = `${height}px`;
+//   }
+
+//   function checkElementsInSelection() {
+//     for (const element of elements) {
+//       const elementRect = element.getBoundingClientRect();
+//       if (
+//         elementRect.left >= selectBox.offsetLeft &&
+//         elementRect.right <= selectBox.offsetLeft + selectBox.offsetWidth &&
+//         elementRect.top >= selectBox.offsetTop &&
+//         elementRect.bottom <= selectBox.offsetTop + selectBox.offsetHeight
+//       ) {
+//         element.classList.add('selected');
+//       } else {
+//         element.classList.remove('selected');
+//       }
+//     }
+//   }
+
+//   container.addEventListener('mousedown', (e) => {
+//     isDragging = true;
+//     startX = e.clientX;
+//     startY = e.clientY;
+//     document.body.appendChild(selectBox);
+//   });
+
+//   container.addEventListener('mousemove', (e) => {
+//     if (!isDragging) return;
+//     currentX = e.clientX;
+//     currentY = e.clientY;
+//     updateSelection();
+//   });
+
+//   container.addEventListener('mouseup', () => {
+//     isDragging = false;
+//     document.body.removeChild(selectBox);
+//     checkElementsInSelection();
+//   });
+// }
+
+// document.addEventListener('click', (event) => {
+//   const target = event.target;
+//   if (target instanceof HTMLDivElement) {
+//     if (target.classList.contains('container')) {
+//       markElements(target);
+//     }
+//   }
+// });

@@ -14,7 +14,6 @@ import { PersonalAccountPage } from '../personalAccountPage';
 import { validation } from '../../components/modalLogIn';
 import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
 
-
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
 export class App {
@@ -22,14 +21,18 @@ export class App {
 
   private mainPage: MainPage;
 
-  static renderNewPage(idPage: string, typeDesigne?: string) {
+  static renderNewPage(idPage: string) {
     App.container.innerHTML = '';
     let page: Page | null = null;
 
     if (idPage.includes(PagesId.MainPage)) {
       page = new MainPage(idPage);
-    } else if (idPage.includes(PagesId.DesignePage)) {
-      page = new DesignePage(idPage, typeDesigne as string);
+    } else if (idPage.includes(`${PagesId.DesignePage}/${TypesDesigne.VisitCard}`)) {
+      page = new DesignePage(idPage, TypesDesigne.VisitCard);
+    } else if (idPage.includes(`${PagesId.DesignePage}/${TypesDesigne.Postcard}`)) {
+      page = new DesignePage(idPage, TypesDesigne.Postcard);
+    } else if (idPage.includes(`${PagesId.DesignePage}/${TypesDesigne.Resume}`)) {
+      page = new DesignePage(idPage, TypesDesigne.Resume);
     } else if (idPage.includes(PagesId.InfoBusinessPage)) {
       page = new InfoBusinessPage(idPage);
     } else if (idPage.includes(PagesId.ColorSelectPage)) {
@@ -75,8 +78,8 @@ containerForContent.addEventListener('click', (event) => {
     App.renderNewPage(PagesId.InfoBusinessPage);
     updateURL(PagesId.InfoBusinessPage);
   }
-  
-  if (clickedItem.className === ('input-name-company') || clickedItem.className === ('type-of-activity')) {
+
+  if (clickedItem.className === 'input-name-company' || clickedItem.className === 'type-of-activity') {
     checkBusinessPage();
   }
 
@@ -106,18 +109,18 @@ containerForContent.addEventListener('click', (event) => {
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Postcard}`)) {
-    App.renderNewPage(PagesId.DesignePage, TypesDesigne.Postcard);
-    updateURL(PagesId.DesignePage);
+    App.renderNewPage(`${PagesId.DesignePage}/${TypesDesigne.Postcard}`);
+    updateURL(`${PagesId.DesignePage}/${TypesDesigne.Postcard}`);
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Resume}`)) {
-    App.renderNewPage(PagesId.DesignePage, TypesDesigne.Resume);
-    updateURL(PagesId.DesignePage);
+    App.renderNewPage(`${PagesId.DesignePage}/${TypesDesigne.Resume}`);
+    updateURL(`${PagesId.DesignePage}/${TypesDesigne.Resume}`);
   }
 
   if (clickedItem.closest(`#${TypesDesigne.VisitCard}`)) {
-    App.renderNewPage(PagesId.DesignePage, TypesDesigne.VisitCard);
-    updateURL(PagesId.DesignePage);
+    App.renderNewPage(`${PagesId.DesignePage}/${TypesDesigne.VisitCard}`);
+    updateURL(`${PagesId.DesignePage}/${TypesDesigne.VisitCard}`);
   }
 
   if (clickedItem.closest('.btn-log__ico')) {
@@ -138,4 +141,3 @@ containerForContent.addEventListener('click', (event) => {
     }
   }
 });
-
