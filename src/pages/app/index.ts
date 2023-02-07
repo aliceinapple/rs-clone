@@ -12,7 +12,7 @@ import { renderLogInModal } from '../../components/modalLogIn';
 import { openRegistrationModal, closingModal } from '../../components/modalLogIn';
 import { PersonalAccountPage } from '../personalAccountPage';
 import { validation } from '../../components/modalLogIn';
-import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
+import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
@@ -87,7 +87,7 @@ containerForContent.addEventListener('click', (event) => {
 
   if (clickedItem.closest('.color-palette-block')) {
     const parentBlock = clickedItem.closest('.palette') as HTMLDivElement;
-    if (parentBlock !== null) checkColorPage(parentBlock.id);
+    if (parentBlock !== null) checkColorPage(parentBlock.id, parentBlock);
   }
 
   if (clickedItem.closest('#btn-next__color-select')) {
@@ -97,12 +97,17 @@ containerForContent.addEventListener('click', (event) => {
 
   if (clickedItem.closest('.view-style-block')) {
     const parentBlock = clickedItem.closest('.style-item') as HTMLDivElement;
-    if (parentBlock !== null) checkStylePage(parentBlock.id);
+    if (parentBlock !== null) checkStylePage(parentBlock.id, parentBlock);
   }
 
   if (clickedItem.closest('#btn-next__style-select')) {
     App.renderNewPage(PagesId.LogoResultPage);
     updateURL(PagesId.LogoResultPage);
+  }
+
+  if (clickedItem.closest('.logo-result-content')) {
+    const parentBlock = clickedItem.closest('.logo-result-card') as HTMLDivElement;
+    if (parentBlock !== null) checkLogo(parentBlock);
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Postcard}`)) {

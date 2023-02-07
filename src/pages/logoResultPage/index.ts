@@ -1,10 +1,11 @@
+import { createHeader } from '../../components/header';
 import { checkFontFamily, logoParameters, sortLogoTemplates } from '../../components/logoGeneration';
 import Page from '../../components/pageTemplates';
 import { createButtonElement, createHtmlElement, createImageElement } from '../../utils';
-import { createMainHeader } from '../main';
+
 
 const createLogoResultPageContent = () => {
-  const container = createHtmlElement('div', 'logo-result-page');
+  const container = createHtmlElement('div', 'page-question-result');
   const question = createHtmlElement('div', 'question');
   question.textContent = 'Вы можете выбрать понравившийся вам логотип и скачать его';
   const content = createHtmlElement('div', 'logo-result-content');
@@ -25,8 +26,9 @@ const createLogoResultPageContent = () => {
     content.append(card);
   });
   const btnNextQuestionBlock = createHtmlElement('div', 'btn-next-question-block');
-  const btnNextQuestion = createButtonElement('btn-next-question', 'Выбрать логотип');
+  const btnNextQuestion = createButtonElement('btn-next-question', 'Скачать логотип');
   btnNextQuestion.setAttribute('id', 'btn-next__logo-select');
+  btnNextQuestion.disabled = true;
   btnNextQuestionBlock.append(btnNextQuestion);
   container.append(question, content, btnNextQuestionBlock);
   return container;
@@ -34,7 +36,7 @@ const createLogoResultPageContent = () => {
 
 export class LogoResultPage extends Page {
   private createContent() {
-    const header = createMainHeader();
+    const header = createHeader('Создание индивидуального логотипа');
     const main = createLogoResultPageContent();
 
     return {
