@@ -10,18 +10,14 @@ const createLogoResultPageContent = () => {
   question.textContent = 'Вы можете выбрать понравившийся вам логотип и скачать его';
   const content = createHtmlElement('div', 'logo-result-content');
   const result = sortLogoTemplates();
-  result.forEach(item => {
+  result.forEach((item, index) => {
     const card = createHtmlElement('div', 'logo-result-card');
     const img = createImageElement('logo-result-img', item.scope, item.id);
     const text = createHtmlElement('p', 'logo-result-text');
     text.innerHTML = logoParameters.name;
     text.style.color = item.textColor;
-    if (logoParameters.name.length > 16) {
-      text.style.fontSize = '40px';
-    } else {
-      text.style.fontSize = '55px';
-    }
     text.style.fontFamily = `${checkFontFamily(item.scope)}`;
+    card.setAttribute('id', `logo-${index + 1}`);
     card.append(img, text);
     content.append(card);
   });

@@ -30,3 +30,6 @@ export interface ILogoParameters {
   style: string;
 }
 
+export interface IImage {
+  image: HTMLImageElement;
+}

@@ -45,7 +45,7 @@ export const templatesFood: ITemplates[] = [
   { id: 42, src: '../assets/templates/food/42.png', scope: 'food', color: 'bright', style: 'light', textColor: '#B678E6', textSize: '35px' },
   { id: 43, src: '../assets/templates/food/43.png', scope: 'food', color: 'bright', style: 'strong', textColor: '#FADB5E', textSize: '35px' },
   { id: 44, src: '../assets/templates/food/44.png', scope: 'food', color: 'bright', style: 'strong', textColor: '#C6BCA0', textSize: '25px' },
-  { id: 45, src: '../assets/templates/food/45.png', scope: 'food', color: 'bright', style: 'strong', textColor: '#000000', textSize: '35px' },
+  { id: 45, src: '../assets/templates/food/45.png', scope: 'food', color: 'bright', style: 'strong', textColor: '#d1b0b0', textSize: '35px' },
   { id: 46, src: '../assets/templates/food/46.png', scope: 'food', color: 'bright', style: 'catchy', textColor: '#DDD2B3', textSize: '25px' },
   { id: 47, src: '../assets/templates/food/47.png', scope: 'food', color: 'bright', style: 'catchy', textColor: '#891E19', textSize: '35px' },
   { id: 48, src: '../assets/templates/food/48.png', scope: 'food', color: 'bright', style: 'catchy', textColor: '#701510', textSize: '35px' },

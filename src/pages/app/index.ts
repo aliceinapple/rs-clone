@@ -13,6 +13,7 @@ import { openRegistrationModal, closingModal } from '../../components/modalLogIn
 import { PersonalAccountPage } from '../personalAccountPage';
 import { validation } from '../../components/modalLogIn';
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
+import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
 
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
@@ -105,14 +106,19 @@ containerForContent.addEventListener('click', (event) => {
     updateURL(PagesId.LogoResultPage);
   }
 
-  if (clickedItem.closest('.logo-result-content')) {
+  if (clickedItem.closest('.logo-result-card')) {
     const parentBlock = clickedItem.closest('.logo-result-card') as HTMLDivElement;
     if (parentBlock !== null) checkLogo(parentBlock);
+    convertationToCanvas(parentBlock.id);
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Postcard}`)) {
     App.renderNewPage(PagesId.DesignePage, TypesDesigne.Postcard);
     updateURL(PagesId.DesignePage);
+  }
+
+  if (clickedItem.closest('#btn-next__logo-select')) {
+    saveImage(imageSaveSrc.image);
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Resume}`)) {
