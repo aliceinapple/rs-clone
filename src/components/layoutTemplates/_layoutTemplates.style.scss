@@ -80,6 +80,7 @@
 .layout-templates {
   padding: 0 0 0 25px;
   overflow-y: scroll;
+  max-height: 700px;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -288,9 +289,8 @@
   align-items: center;
   justify-content: center;
   background-image: url('assets/ico/ico_load_photo.png');
-  border: 1px solid $color_gray;
 
-  &:hover{
+  &:hover {
     box-shadow: 0 0 5px $color_gray;
   }
 }

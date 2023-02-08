@@ -33,7 +33,7 @@ export class BusinessCardTemplates {
     const info = createTemplateTextArea('280px', '390px', '150px');
     info.appendChild(createTemplateText(defaultTexsts.info, 'Montserrat', '20px', 'white', 'center'));
 
-    const square = createTemplateShape('180px', '180px', '85px', '110px', '2px solid white');
+    const square = createTemplateShape('180px', '180px', '85px', '110px', 'white');
 
     const line = createTemplateShape('2px', '300px', '349px', '50px');
     line.style.background = 'white';
@@ -50,7 +50,7 @@ export class BusinessCardTemplates {
     const info = createTemplateTextArea('250px', '60px', '290px');
     info.appendChild(createTemplateText(defaultTexsts.info, 'Nunito', '20px', '#4F4F4F'));
 
-    const circle = createTemplateShape('230px', '230px', '400px', '50px', '5px solid rgba(79, 79, 79, 0.3)', '50%');
+    const circle = createTemplateShape('230px', '230px', '400px', '50px', 'rgba(79, 79, 79, 0.3)', '50%');
 
     return card.add(title, info, circle);
   }

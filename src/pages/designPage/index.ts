@@ -129,7 +129,7 @@ const createSideMenu = () => {
 
     if (mainMenuContainer) {
       mainMenuContainer.innerHTML = '';
-      mainMenuContainer.append(getMenu(mainMenuContainer));
+      mainMenuContainer = getMenu(mainMenuContainer);
     }
   });
 

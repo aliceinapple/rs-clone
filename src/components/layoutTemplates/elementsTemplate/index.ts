@@ -1,4 +1,5 @@
-import { addElementToolsActions, makeResizable, showHandles } from '../elementsActions';
+import { elemStyleTemplates } from '../../../data/layoutTemplateData';
+import { addElementToolsActions, loadPhoto, makeResizable, showHandles } from '../elementsActions';
 
 let idNumber = 0;
 
@@ -53,7 +54,6 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
   bgColor.setAttribute('type', 'color');
   bgColor.classList.add('element-tools_bgColor');
   bgColor.setAttribute('data-tooltip-elem', 'заливка');
-  bgColor.value = '#FFFFFF';
 
   const front = document.createElement('div');
   front.classList.add('element-tools_front');
@@ -64,9 +64,9 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
 
   addElementToolsActions(element, copy, del, color, bgColor, front, back);
 
-  if (element.className.includes('template-img')) {
+  if (element?.className.includes('template-img')) {
     tools.append(copy, del, front, back);
-  } else if (element.className.includes('template-shape')) {
+  } else if (element?.className.includes('template-shape')) {
     tools.append(copy, del, color, bgColor, front, back);
   } else {
     tools.append(copy, del, color, front, back);
@@ -83,7 +83,6 @@ export function createTemplateText(
   textAlign?: string,
 ) {
   const text = document.createElement('div');
-  text.style.height = '100%';
   text.innerHTML = textContent;
   text.setAttribute('contentEditable', 'true');
 
@@ -110,7 +109,7 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   text.style.width = width;
   text.style.left = x;
   text.style.top = y;
-  text.style.zIndex = '2';
+  text.style.zIndex = elemStyleTemplates.zIndex;
 
   makeResizable(text, handles);
   showHandles(text, handles, elementTools);
@@ -123,7 +122,7 @@ export function createTemplateShape(
   height: string,
   x: string,
   y: string,
-  border?: string,
+  border = 'none',
   borderRadius?: string,
   fill?: string,
 ) {
@@ -142,15 +141,13 @@ export function createTemplateShape(
   element.style.height = height;
   element.style.left = x;
   element.style.top = y;
-  element.style.zIndex = '2';
+  element.style.zIndex = elemStyleTemplates.zIndex;
 
   if (borderRadius) {
     element.style.borderRadius = borderRadius;
   }
 
-  if (border) {
-    element.style.border = border;
-  }
+  element.style.border = `2px solid ${border}`;
 
   if (fill) {
     element.style.background = fill;
@@ -162,8 +159,8 @@ export function createTemplateShape(
   return element;
 }
 
-export function createTemplateImg(width: string, height: string, x: string, y: string, img?: string): HTMLDivElement {
-  const element: HTMLDivElement = document.createElement('div');
+export function createTemplateImg(width: string, height: string, x: string, y: string, img: string): HTMLDivElement {
+  let element: HTMLDivElement = document.createElement('div');
   element.classList.add('template-element', 'template-img');
 
   const handles: HTMLDivElement[] = createResizeHandle();
@@ -171,16 +168,21 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
 
   element.append(...handles, elementTools);
 
-  if (img) element.style.background = img;
-  element.style.backgroundSize = '100% 100%';
-  element.style.backgroundPosition = 'center';
-  element.style.backgroundRepeat = 'no-repeat';
+  if (img === elemStyleTemplates.isLoad) {
+    element = loadPhoto(element);
+  } else {
+    element.style.background = img;
+  }
+
+  element.style.backgroundSize = elemStyleTemplates.bgSize;
+  element.style.backgroundPosition = elemStyleTemplates.bgPosition;
+  element.style.backgroundRepeat = elemStyleTemplates.bgRepeat;
 
   element.style.width = width;
   element.style.height = height;
   element.style.left = x;
   element.style.top = y;
-  element.style.zIndex = '2';
+  element.style.zIndex = elemStyleTemplates.zIndex;
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);

@@ -1,7 +1,14 @@
 import { createTemplateImg, createTemplateShape, createTemplateText, createTemplateTextArea } from './elementsTemplate';
-import { defaultTexsts, tempElementsArr } from '../../data/layoutTemplateData';
+import { defaultTexsts, elemStyleTemplates, tempElementsArr } from '../../data/layoutTemplateData';
 
-export function createPanelTemplates(width: number, height: number, img1: string, img2: string, img3: string, img4: string) {
+export function createPanelTemplates(
+  width: number,
+  height: number,
+  img1: string,
+  img2: string,
+  img3: string,
+  img4: string,
+) {
   const templates = document.createElement('div');
 
   const image1 = document.createElement('img');
@@ -38,6 +45,7 @@ export function createPanelTemplates(width: number, height: number, img1: string
 function createTemplateElementsPanel(elements: string[]) {
   const templates = document.createElement('div');
   templates.classList.add('template-elements-block');
+
   for (let i = 0; i < elements.length; i++) {
     const imgDiv = document.createElement('div');
     imgDiv.classList.add('template-elements-block__element');
@@ -48,9 +56,16 @@ function createTemplateElementsPanel(elements: string[]) {
 
     imgDiv.addEventListener('click', () => {
       const container = document.querySelector('.container');
-      container?.appendChild(
-        createTemplateImg('150px', '150px', 'calc(50% - 75px)', 'calc(50% - 75px)', `url(${elements[i]})`),
-      );
+
+      if (elements[i].includes('ico_load_photo')) {
+        container?.appendChild(
+          createTemplateImg('150px', '150px', 'calc(50% - 75px)', 'calc(50% - 75px)', elemStyleTemplates.isLoad),
+        );
+      } else {
+        container?.appendChild(
+          createTemplateImg('150px', '150px', 'calc(50% - 75px)', 'calc(50% - 75px)', `url(${elements[i]})`),
+        );
+      }
     });
 
     templates.appendChild(imgDiv);
@@ -140,4 +155,3 @@ function createTemplateTextPanel() {
 
 export const elementPanelTemplates = createTemplateElementsPanel(tempElementsArr);
 export const textPanelTemplates = createTemplateTextPanel();
-

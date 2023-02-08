@@ -53,9 +53,21 @@ import thankU from '../assets/templateImages/thankU.png';
 import mountains from '../assets/templateImages/mountains.png';
 import flowers from '../assets/templateImages/flowers.png';
 import qrCode from '../assets/templateImages/qrCode.png';
+
+import loadPhoto from '../assets/ico/ico_load_photo.png';
+
 import { MainCardTemplate } from '../types/interfaces';
 
+export const elemStyleTemplates = {
+  isLoad: 'true',
+  bgSize: '100% 100%',
+  bgPosition: 'center',
+  bgRepeat: 'no-repeat',
+  zIndex: '2',
+};
+
 export const tempElementsArr = [
+  loadPhoto,
   girl,
   girl_2,
   cats,

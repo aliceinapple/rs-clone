@@ -1,4 +1,30 @@
-import { createElementTools, createTemplateImg } from '../elementsTemplate';
+import { createElementTools } from '../elementsTemplate';
+
+export function loadPhoto(preview: HTMLDivElement) {
+  const fileInput = document.createElement('input');
+  fileInput.setAttribute('type', 'file');
+  fileInput.classList.add('file-input');
+
+  preview.classList.add('preview');
+
+  preview.append(fileInput);
+
+  fileInput.addEventListener('change', function () {
+    if (fileInput.files) {
+      const file = fileInput.files[0];
+      const blob = new Blob([file]);
+      const reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        preview.style.backgroundImage = `url(${reader.result})`;
+      });
+
+      reader.readAsDataURL(blob);
+    }
+  });
+
+  return preview;
+}
 
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
@@ -172,7 +198,7 @@ export function deleteElement(template: HTMLDivElement) {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Delete') if (target.parentElement === template) template.removeChild(target);
+    if (e.code === 'Delete') if (target?.parentElement === template) template.removeChild(target);
   });
 }
 
@@ -190,23 +216,36 @@ export function copyElement(template: HTMLDivElement) {
     let copiedElement = target as Node;
 
     if (e.ctrlKey && e.key === 'c') {
-      copiedElement = target.cloneNode(true);
+      copiedElement = target?.cloneNode(true);
     } else if (e.ctrlKey && e.key === 'v') {
       e.preventDefault();
       const pasteElement = template;
-      const copy = copiedElement.cloneNode(true) as HTMLDivElement;
+      let copy = copiedElement?.cloneNode(true) as HTMLDivElement;
 
-      const handles = copy.querySelectorAll('.resize-handle');
-      const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+      if (copy?.className.includes('preview')) {
+        copy = loadPhoto(copy);
+      }
 
-      const tools = copy.querySelector('.element-tools') as HTMLDivElement;
-      if (tools) copy.removeChild(tools);
+      const handles = copy?.querySelectorAll('.resize-handle');
+      let divElements;
+      if (handles)
+        divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+
+      const tools = copy?.querySelector('.element-tools') as HTMLDivElement;
+      if (tools) {
+        const toolParent = tools.parentNode;
+        if (copy === toolParent) {
+          copy?.removeChild(tools);
+        }
+      }
 
       const copyTools = createElementTools(copy);
-      copy.appendChild(copyTools);
+      copy?.appendChild(copyTools);
 
-      makeResizable(copy, divElements);
-      showHandles(copy, divElements, copyTools);
+      if (divElements) {
+        makeResizable(copy, divElements);
+        showHandles(copy, divElements, copyTools);
+      }
 
       if (copiedElement) pasteElement.appendChild(copy);
     }
@@ -273,7 +312,11 @@ export function addElementToolsActions(
 ) {
   copy.addEventListener('click', () => {
     const parent = element.parentElement;
-    const copyElem = element.cloneNode(true) as HTMLDivElement;
+    let copyElem = element.cloneNode(true) as HTMLDivElement;
+
+    if (copyElem?.className.includes('preview')) {
+      copyElem = loadPhoto(copyElem);
+    }
 
     const handles = copyElem.querySelectorAll('.resize-handle');
     const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
@@ -300,7 +343,7 @@ export function addElementToolsActions(
     if (child) {
       child.style.color = color.value;
     } else {
-      element.style.border = `${parseInt(element.style.border)}px solid ${color.value}`;
+      element.style.border = `2px solid ${color.value}`;
     }
   });
 
@@ -403,30 +446,4 @@ export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement
   center.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'center';
   });
-}
-
-export function loadPhoto() {
-  const fileInput = document.createElement('input');
-  fileInput.setAttribute('type', 'file');
-  fileInput.classList.add('file-input');
-
-  const preview = createTemplateImg('120px', '120px', '45px', '30px');
-  preview.classList.add('preview');
-
-  preview.append(fileInput);
-
-  fileInput.addEventListener('change', function () {
-    if (fileInput.files) {
-      const file = fileInput.files[0];
-
-      const reader = new FileReader();
-      reader.addEventListener('load', function () {
-        preview.style.backgroundImage = `url(${reader.result})`;
-      });
-
-      reader.readAsDataURL(file);
-    }
-  });
-
-  return preview;
 }
