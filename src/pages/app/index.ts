@@ -7,13 +7,17 @@ import { InfoBusinessPage } from '../questionPages';
 import { ColorSelectPage } from '../questionPages';
 import { StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
-
-import { renderLogInModal } from '../../components/modalLogIn';
-import { openRegistrationModal, closingModal } from '../../components/modalLogIn';
+import { openRegistrationModal } from '../../components/modalLogIn';
 import { PersonalAccountPage } from '../personalAccountPage';
-import { validation } from '../../components/modalLogIn';
+import { validationOfregistration } from '../../components/modalLogIn';
 import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
+import { registrationUser } from '../../components/modalLogIn';
+import { User } from '../../types/interfaces';
+import { openUserDataModal } from '../../components/modalLogIn';
+import { logOutAccount } from '../../components/modalLogIn';
+import { validationOfLogIn } from '../../components/modalLogIn';
 
+const usersData: User[] = [];
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -120,9 +124,20 @@ containerForContent.addEventListener('click', (event) => {
     updateURL(PagesId.DesignePage);
   }
 
-  if (clickedItem.closest('.btn-log__ico')) {
-    renderLogInModal();
-    closingModal();
+  if (clickedItem.closest('.btn-log')) {
+    openUserDataModal(usersData);
+  }
+
+  if (clickedItem.closest('.user-data-modal__log-out-block')) {
+    logOutAccount(usersData);
+  }
+
+  if (clickedItem.closest('.autorization__bnt')) {
+    event.preventDefault();
+    if (validationOfLogIn(usersData) === true) {
+      App.renderNewPage(PagesId.PersonalAccountPage);
+      updateURL(PagesId.PersonalAccountPage);
+    }
   }
 
   if (clickedItem.closest('.question-block__question-link-registration')) {
@@ -132,10 +147,16 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.registration__bnt')) {
     event.preventDefault();
     const form = document.querySelector('.modal__registration') as HTMLFormElement;
-    if (validation(form) === true) {
+    if (validationOfregistration(form, usersData) === true) {
+      registrationUser(form, usersData);
       App.renderNewPage(PagesId.PersonalAccountPage);
       updateURL(PagesId.PersonalAccountPage);
     }
+  }
+
+  if (clickedItem.closest('.user-data-modal__link-personal-account')) {
+    const modal = document.querySelector('.user-data-modal');
+    modal?.remove();
   }
 });
 

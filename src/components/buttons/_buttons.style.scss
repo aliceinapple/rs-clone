@@ -24,3 +24,13 @@
   height: 24px;
   background-image: url('assets/ico/ico_user.png');
 }
+
+.btn-log_active {
+  border: 2px solid $color_gray;
+}
+
+.btn-log__ico_user-ico {
+  background-image: none;
+  @include display-flex(row, center, center);
+  text-transform: uppercase;
+}

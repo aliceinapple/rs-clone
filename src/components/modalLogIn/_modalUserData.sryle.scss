@@ -1,0 +1,76 @@
+.user-data-modal {
+  width: 300px;
+  position: absolute;
+  top: 75px;
+  right: 15px;
+  padding: 30px;
+  background-color: $color_white-gray;
+  border-radius: 4px;
+  box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.1);
+  @include display-flex(column, flex-start, flex-start);
+}
+
+.user-data-modal__title-block {
+  @include display-flex(row, flex-start, center);
+  padding: 15px 0;
+}
+
+.title-block__user-ico {
+  width: 25px;
+  height: 25px;
+  margin: 0 10px 0 0;
+  border-radius: 100%;
+  color: $color_white;
+  @include font-size(18px, 19px, 600);
+  background-color: $color_green;
+  @include display-flex(row, center, center);
+}
+
+.title-block__user-name {
+  @include font-size(24px, 25px, 600);
+}
+
+.user-data-modal__link-personal-account {
+  @include font-size(18px, 19px, 600);
+  cursor: pointer;
+
+    &:hover {
+      transition: $transition;
+      color: $color_green;
+    }
+
+    &:active {
+      color: $color_gray;
+    }
+}
+
+.user-data-modal__data-block {
+  @include display-flex(column, flex-start, flex-start);
+  padding: 15px 0;
+}
+
+.user-data-modal__log-out-block {
+  @include display-flex(row, flex-start, center);
+  padding: 15px 0;
+  cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+      transition: $transition;
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+}
+
+.log-out-block__ico {
+  width: 23px;
+  height: 23px;
+  margin: 0 10px 0 0;
+  background-image: url('assets/ico/ico-log-out.png');
+}
+
+.log-out-block__log-out {
+  @include font-size(18px, 19px, 500);
+}

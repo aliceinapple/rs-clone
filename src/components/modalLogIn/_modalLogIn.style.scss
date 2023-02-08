@@ -75,6 +75,7 @@
 
 .question-block__question-link-registration {
   cursor: pointer;
+  text-decoration: underline;
 
     &:hover {
       color: $color_purple;

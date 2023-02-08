@@ -7,9 +7,15 @@ import {
   dataRegLogin,
   dataRegPassword, 
 } from '../../utils';
+import { User } from '../../types/interfaces';
+import { App } from '../../pages/app';
+import { PagesId } from '../../types/enums';
+import { updateURL } from '../../utils';
 
 export const createLogInModal = () => {
   const container = createHtmlElement('form', 'modal__autorization');
+  container.setAttribute('action', '/#');
+  container.setAttribute('novalidate', 'novalidate');
   const title = createHtmlElement('p', 'modal__title');
   title.textContent = 'Вход';
 
@@ -37,6 +43,7 @@ export const createLogInModal = () => {
 
 export const createRegistrationModal = () => {
   const container = createHtmlElement('form', 'modal__registration');
+  container.setAttribute('name', 'registration');
   container.setAttribute('action', '/#');
   container.setAttribute('novalidate', 'novalidate');
   const title = createHtmlElement('p', 'modal__title');
@@ -82,7 +89,7 @@ const removeErrorStyle = (input: HTMLInputElement) => {
   }
 };
 
-export const validation = (form: HTMLFormElement) => {
+export const validationOfregistration = (form: HTMLFormElement, usersData: User[]) => {
   let result = true;
 
   form.querySelectorAll('input').forEach(input => {
@@ -96,7 +103,6 @@ export const validation = (form: HTMLFormElement) => {
       const regExp = new RegExp(inputReg as string);
       
       if (!regExp.test(value)) {
-        console.log(regExp.test(value));
         createErrorStyle(input, 'Имя содержит только буквы');
         result = false;
       } else {
@@ -106,9 +112,17 @@ export const validation = (form: HTMLFormElement) => {
       const value = input.value;
       const inputReg = input.getAttribute('data-reg');
       const regExp = new RegExp(inputReg as string);
+
+      if (localStorage.getItem('usersData')) {
+        usersData = JSON.parse(localStorage.getItem('usersData') as string);
+      }
+      const login = usersData.filter(user => user.login === value);
       
       if (!regExp.test(value)) {
         createErrorStyle(input, 'Логин содержит буквы и цифры');
+        result = false;
+      } else if (login.length > 0) {
+        createErrorStyle(input, 'Логин уже занят');
         result = false;
       } else {
         removeErrorStyle(input);
@@ -146,20 +160,6 @@ export const validation = (form: HTMLFormElement) => {
   return result;
 };
 
-const addEventListenerForForm = () => {
-  const form = document.querySelector('.modal__registration') as HTMLFormElement;
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    if (validation(form) === true) {
-      console.log('ok');
-    } else {
-      console.log('error');
-    }
-  });
-};
-
 export const renderLogInModal = () => {
   const container = document.querySelector('.content') as HTMLElement;
 
@@ -179,7 +179,6 @@ export const openRegistrationModal = () => {
   const modalContent = createRegistrationModal();
   
   modal.append(modalContent);
-  addEventListenerForForm();
   return modal;
 };
 
@@ -197,3 +196,174 @@ export const closingModal = () => {
   });
 };
 
+export const registrationUser = (form: HTMLFormElement, usersData: User[]) => {
+  const userName = form.querySelector('.registration__name') as HTMLInputElement;
+  const userLogin = form.querySelector('.registration__login') as HTMLInputElement;
+  const userEmail = form.querySelector('.registration__email') as HTMLInputElement;
+  const userPassword = form.querySelector('.registration__password') as HTMLInputElement;
+  
+  if (localStorage.getItem('usersData')) {
+    usersData = JSON.parse(localStorage.getItem('usersData') as string);
+  }
+  let newId: number;
+  
+  if (usersData.length === 0) {
+    newId = usersData.length + 1;
+  } else {
+    const usersId = usersData.map(user => user.id);
+    newId = Math.max(...usersId) + 1;
+  }
+
+  const user: User = {
+    authorization: true,
+    id: newId,
+    name: `${userName.value}`,
+    login: `${userLogin.value}`,
+    email: `${userEmail.value}`,
+    password: `${userPassword.value}`,
+    links: [],
+  };
+  usersData.push(user);
+  localStorage.setItem('usersData', JSON.stringify(usersData));
+  localStorage.setItem('currentUser', JSON.stringify(user));
+};
+
+const createUserDataModal = (user: User) => {
+  const modal = createHtmlElement('div', 'user-data-modal');
+
+  const titleBlok = createHtmlElement('div', 'user-data-modal__title-block');
+  const userIco = createHtmlElement('div', 'title-block__user-ico');
+  userIco.textContent = `${user.name[0]}`;
+  const userName = createHtmlElement('p', 'title-block__user-name');
+  userName.textContent = `${user.name}`;
+  titleBlok.append(userIco, userName);
+
+  const dataBlock = createHtmlElement('div', 'user-data-modal__data-block');
+  const userLogin = createHtmlElement('p', 'data-block__user-login');
+  userLogin.textContent = `Логин: ${user.login}`;
+  const userEmail = createHtmlElement('p', 'data-block__user-email');
+  userEmail.textContent = `Email: ${user.email}`;
+  dataBlock.append(userLogin, userEmail);
+
+  const linkPerconaiAccount: HTMLAnchorElement = document.createElement('a');
+  linkPerconaiAccount.setAttribute('href', '#personal-account-page');
+  linkPerconaiAccount.classList.add('user-data-modal__link-personal-account');
+  linkPerconaiAccount.textContent = 'Личный кабинет';
+
+  const logOutBlock = createHtmlElement('div', 'user-data-modal__log-out-block');
+  const logOutIco = createHtmlElement('div', 'log-out-block__ico');
+  const logOut = createHtmlElement('div', 'log-out-block__log-out');
+  logOut.textContent = 'Выход';
+  logOutBlock.append(logOutIco, logOut);
+
+  modal.append(titleBlok, linkPerconaiAccount, dataBlock, logOutBlock);
+  return modal;
+};
+
+const renderUserDataModal = (user: User) => {
+  const btn = document.querySelector('.btn-log') as HTMLElement;
+  const contaiter = document.querySelector('.content');
+  const modal = createUserDataModal(user);
+
+  if (btn.closest('.btn-log_active')) {
+    btn.classList.remove('btn-log_active');
+    const modalUser = document.querySelector('.user-data-modal');
+    modalUser?.remove();
+  } else {
+    btn.classList.add('btn-log_active');
+    contaiter?.append(modal);
+  }
+};
+
+export const openUserDataModal = (usersData: User[]) => {
+  if (localStorage.getItem('usersData')) {
+    usersData = JSON.parse(localStorage.getItem('usersData') as string);
+
+  }
+
+  const autorization = usersData.filter(user => user.authorization === true);
+  const currentUser = autorization[0];
+
+  if (autorization.length === 0) {
+    renderLogInModal();
+    closingModal();
+  } else {
+    renderUserDataModal(currentUser);
+  }
+};
+
+export const logOutAccount = (usersData: User[]) => {
+  if (localStorage.getItem('usersData')) {
+    usersData = JSON.parse(localStorage.getItem('usersData') as string);
+  }
+
+  const autorization = usersData.filter(user => user.authorization === true);
+  const currentUser = autorization[0];
+
+  currentUser.authorization = false;
+  localStorage.setItem('usersData', JSON.stringify(usersData));
+
+  const user: User = {
+    authorization: false,
+    id: 0,
+    name: '',
+    login: '',
+    email: '',
+    password: '',
+    links: [],
+  };
+  localStorage.setItem('currentUser', JSON.stringify(user));
+
+  const modalUser = document.querySelector('.user-data-modal');
+  modalUser?.remove();
+  App.renderNewPage(PagesId.MainPage);
+  updateURL(PagesId.MainPage);
+};
+
+export const validationOfLogIn = (usersData: User[]) => {
+  if (localStorage.getItem('usersData')) {
+    usersData = JSON.parse(localStorage.getItem('usersData') as string);
+  }
+
+  let result = true;
+  const form = document.querySelector('.modal__autorization') as HTMLFormElement;
+  const login = form.querySelector('.autorization__login') as HTMLInputElement;
+  const password = form.querySelector('.autorization__password') as HTMLInputElement;
+
+  const userLoginValue = login.value;
+  const userPassordValue = password.value;
+  const userIndex = usersData.findIndex(item => item.login === userLoginValue);
+  console.log(userIndex);
+
+  if (userIndex > 0) {
+    const userLogin = usersData[userIndex].login;
+    const userPassword = usersData[userIndex].password;
+
+    form.querySelectorAll('input').forEach(input => {
+      removeErrorStyle(input);
+      if (input.value === '') {
+        createErrorStyle(input, 'Поле не заполнено!');
+        result = false;
+      } else if (input.value === userLoginValue && input.value !== userLogin) {
+        createErrorStyle(input, 'Пользователь не найден!');
+        result = false;
+      } else if (input.value === userPassordValue
+                && userLoginValue === userLogin
+                && input.value !== userPassword) {
+        createErrorStyle(input, 'Неверный пароль!');
+        result = false;
+      } else if (userLoginValue === userLogin 
+                && userPassordValue === userPassword) {
+        result = true;
+        usersData[userIndex].authorization = true;
+        localStorage.setItem('currentUser', JSON.stringify(usersData[userIndex]));
+        localStorage.setItem('usersData', JSON.stringify(usersData));
+      }
+    });
+  } else {
+    createErrorStyle(login, 'Пользователь не найден!');
+    result = false;
+  }
+  
+  return result;
+};

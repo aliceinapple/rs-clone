@@ -4,7 +4,9 @@ import { createMainHeader } from '../main';
 
 const createAccountContent = () => {
   const container = createHtmlElement('div', 'account__wrapper');
+  const personalDataBlock = createHtmlElement('div', 'account__personal-data-block');
 
+  container.append(personalDataBlock);
   return container;
 };
 

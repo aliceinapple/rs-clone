@@ -15,9 +15,10 @@ export interface ITemplates {
 
 
 export interface User {
+  authorization: boolean,
   id: number,
   name: string,
-  logo: string,
+  login: string,
   email: string,
   password: string,
   links: string[];
