@@ -125,6 +125,7 @@ export function createTemplateShape(
   y: string,
   border?: string,
   borderRadius?: string,
+  fill?: string,
 ) {
   const element: HTMLDivElement = document.createElement('div');
   element.classList.add('template-element', 'template-shape');
@@ -151,13 +152,17 @@ export function createTemplateShape(
     element.style.border = border;
   }
 
+  if (fill) {
+    element.style.background = fill;
+  }
+
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);
 
   return element;
 }
 
-export function createTemplateImg(width: string, height: string, x: string, y: string, img: string): HTMLDivElement {
+export function createTemplateImg(width: string, height: string, x: string, y: string, img?: string): HTMLDivElement {
   const element: HTMLDivElement = document.createElement('div');
   element.classList.add('template-element', 'template-img');
 
@@ -166,8 +171,9 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
 
   element.append(...handles, elementTools);
 
-  element.style.background = img;
+  if (img) element.style.background = img;
   element.style.backgroundSize = '100% 100%';
+  element.style.backgroundPosition = 'center';
   element.style.backgroundRepeat = 'no-repeat';
 
   element.style.width = width;

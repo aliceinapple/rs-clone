@@ -1,63 +1,31 @@
-import { dragNdrop } from '../elementsActions';
 import {
   createTemplateImg,
   createTemplateShape,
   createTemplateText,
   createTemplateTextArea,
 } from '../elementsTemplate';
-import { Template } from '../mainTemplate';
 import mountains from '../../../assets/templateImages/mountains.png';
 import flowers from '../../../assets/templateImages/flowers.png';
 import qrCode from '../../../assets/templateImages/qrCode.png';
-import { defaultTexsts } from '../../../data/layoutTemplateData';
+import { businessCardSize, defaultTexsts } from '../../../data/layoutTemplateData';
 
 import businessCard_1 from '../../../assets/templateImages/businessCard_1.png';
 import businessCard_2 from '../../../assets/templateImages/businessCard_2.png';
 import businessCard_3 from '../../../assets/templateImages/businessCard_3.png';
 import businessCard_4 from '../../../assets/templateImages/businessCard_4.png';
 import { createPanelTemplates } from '..';
-
-export class BusinessCard {
-  fieldSize = {
-    width: '700px',
-    height: '400px',
-  };
-
-  color: string;
-
-  constructor(color: string) {
-    this.color = color;
-  }
-
-  create() {
-    const newField = new Template(this.fieldSize);
-    const field: HTMLDivElement = newField.create();
-    field.style.background = this.color;
-    field.style.position = 'relative';
-    field.style.overflow = 'hidden';
-
-    return field;
-  }
-
-  add(...rest: HTMLDivElement[]): HTMLDivElement {
-    const card: HTMLDivElement = this.create();
-    card.append(...rest);
-    dragNdrop(card);
-
-    return card;
-  }
-}
+import { LayOutTemplate } from '../mainTemplate';
 
 //Business cards templates
 
 export class BusinessCardTemplates {
   createEmptyTemplate() {
-    const card = new BusinessCard('white');
+    const card = new LayOutTemplate(businessCardSize, 'white');
     return card.add();
   }
 
   createTemplate1() {
-    const card = new BusinessCard('black');
+    const card = new LayOutTemplate(businessCardSize, 'black');
 
     const title = createTemplateTextArea('300px', '25px', '140px');
     title.appendChild(createTemplateText(defaultTexsts.title, 'Montserrat', '48px', 'white', 'center'));
@@ -74,7 +42,7 @@ export class BusinessCardTemplates {
   }
 
   createTemplate2() {
-    const card = new BusinessCard('#FCCE7A');
+    const card = new LayOutTemplate(businessCardSize, '#FCCE7A');
 
     const title = createTemplateTextArea('300px', '300px', '110px');
     title.appendChild(createTemplateText(defaultTexsts.title, 'Nunito', '48px', '#4F4F4F', 'center'));
@@ -88,7 +56,7 @@ export class BusinessCardTemplates {
   }
 
   createTemplate3() {
-    const card = new BusinessCard('#6987D3');
+    const card = new LayOutTemplate(businessCardSize, '#6987D3');
 
     const title = createTemplateTextArea('300px', '200px', '260px');
     title.appendChild(createTemplateText(defaultTexsts.title, 'Pacifico', '32px', 'white', 'center'));
@@ -99,7 +67,7 @@ export class BusinessCardTemplates {
   }
 
   createTemplate4() {
-    const card = new BusinessCard('white');
+    const card = new LayOutTemplate(businessCardSize, 'white');
 
     const title = createTemplateTextArea('300px', '350px', '70px');
     title.appendChild(createTemplateText(defaultTexsts.title, 'Caveat', '32px', '#3E544F', 'center'));

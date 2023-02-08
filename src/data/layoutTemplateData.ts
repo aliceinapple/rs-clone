@@ -14,7 +14,6 @@ import phone from '../assets/templateImages/phone.png';
 import photo_cards from '../assets/templateImages/photo_cards.png';
 import rainbow from '../assets/templateImages/rainbow.png';
 import tabasco from '../assets/templateImages/tabasco.png';
-
 import coctail from '../assets/templateImages/coctail.png';
 import flowers_1 from '../assets/templateImages/flowers_1.png';
 import landscape from '../assets/templateImages/landscape.png';
@@ -39,6 +38,22 @@ import ticket_3 from '../assets/templateImages/ticket_3.png';
 import ticket from '../assets/templateImages/ticket.png';
 import vine from '../assets/templateImages/vine.png';
 import tangerine from '../assets/templateImages/tangerine.png';
+import arms from '../assets/templateImages/arms.png';
+import baloons from '../assets/templateImages/baloons.png';
+import cake from '../assets/templateImages/cake.png';
+import confetti from '../assets/templateImages/confetti.png';
+import congrats from '../assets/templateImages/congrats.png';
+import croco from '../assets/templateImages/croco.png';
+import doodles from '../assets/templateImages/doodles.png';
+import hb_1 from '../assets/templateImages/hb_1.png';
+import hb from '../assets/templateImages/hb.png';
+import presents from '../assets/templateImages/presents.png';
+import thankU from '../assets/templateImages/thankU.png';
+
+import mountains from '../assets/templateImages/mountains.png';
+import flowers from '../assets/templateImages/flowers.png';
+import qrCode from '../assets/templateImages/qrCode.png';
+import { MainCardTemplate } from '../types/interfaces';
 
 export const tempElementsArr = [
   girl,
@@ -81,6 +96,20 @@ export const tempElementsArr = [
   ticket,
   ticket_1,
   ticket_3,
+  arms,
+  cake,
+  confetti,
+  congrats,
+  croco,
+  thankU,
+  hb,
+  hb_1,
+  baloons,
+  presents,
+  doodles,
+  flowers,
+  qrCode,
+  mountains,
 ];
 
 export const fontFamilyList = [
@@ -115,4 +144,70 @@ export const defaultTexsts = {
          hello@reallygreatsite.com
          Добавить заголовок`,
   birthday: 'С Днем Рождения!',
+};
+
+export const resumeData = {
+  fio: 'Имя Фамилия Отчество',
+  about_me: 'Обо мне',
+  experience: 'Опыт работы',
+  education: 'Образование',
+  skills: 'Навыки',
+  contacts: 'Контакты',
+  other: 'Прочее',
+  info_other: `Способность анализировать сложную техническую информацию
+  Могу проводить анализ, проектирование и внедрение структур базы данных
+  Внимание к деталям
+  Отличный навык решения проблем`,
+  info_contacts: 'Домашний: 7 (499) 187-92-81 Мобильный: 7 (499) 237-32-81 privyet@super-website.ru',
+  info_abot_me:
+    'Инженер-разработчик с практическим опытом на всех уровнях тестирования, производительности, функционала, интеграции, системы и пользователя.',
+  info_experience: `Разработчик программного обеспечения
+  ООО «Медицинские Решения»|
+  2015 г. — настоящее время
+  - Руководство проектированием и разработкой программного обеспечения
+  - Оценка взаимодействия между аппаратными и программными компонентами
+  - Консультирование клиентов по вопросам поддержки систем программного обеспечения
+  
+  Младший инженер-программист
+  ООО «Медиапрофи» | 2014—2015 гг.
+  - Хранение, поиск и обработка данных
+  - Изменение программного обеспечения с целью устранения ошибок и оптимизации эффективности работы
+  - Подготовка подробных отчетов`,
+  info_education: `Санкт-Петербургский технический колледж
+  Бакалавр по направлению «Проектирование ПО», 2014 г.
+  Президент организации «Компьютеры и технологии»
+  Вице-президент Клуба программистов
+  Участник Сообщества видеоигр
+  Участник студенческой службы ИТ-поддержки
+  Воронежская академия выпуск 2010 года
+  С отличием.
+  Президент и основатель Компьютерного клуба 
+  Президент студенческого совета
+  Вице-президент дискуссионного клуба 
+  Член математической команды
+  Член шахматного клуба`,
+  info_skills: `Практический опыт работы с SQL
+  Опыт работы с Java, Ruby, PHP и Python
+  Опыт работы с Microsoft ASP.NET MVC, Web API
+  Рабочие навыки программирования в C, C++ и C#`,
+};
+
+export const businessCardSize: MainCardTemplate = {
+  width: '700px',
+  height: '400px',
+};
+
+export const postCardSize: MainCardTemplate = {
+  width: '600px',
+  height: '400px',
+};
+
+export const resumeCardSize: MainCardTemplate = {
+  width: '500px',
+  height: '650px',
+};
+
+export const logoCardSize: MainCardTemplate = {
+  width: '400px',
+  height: '400px',
 };

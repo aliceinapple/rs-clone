@@ -14,6 +14,8 @@ import {
 import { fontFamilyList } from '../../data/layoutTemplateData';
 import { businessCardsPanelTemplates, BusinessCardTemplates } from '../../components/layoutTemplates/businessCard';
 import { postCardsPanelTemplates, PostCardTemplates } from '../../components/layoutTemplates/postCard';
+import { resumePanelTemplates, ResumeTemplates } from '../../components/layoutTemplates/resume';
+import { logoPanelTemplates, LogoTemplates } from '../../components/layoutTemplates/logotype';
 
 function createEmptyLayout(typeDesigne: string) {
   let template;
@@ -22,6 +24,10 @@ function createEmptyLayout(typeDesigne: string) {
     template = new BusinessCardTemplates();
   } else if (typeDesigne === TypesDesigne.Postcard) {
     template = new PostCardTemplates();
+  } else if (typeDesigne === TypesDesigne.Resume) {
+    template = new ResumeTemplates();
+  } else if (typeDesigne === TypesDesigne.Logo) {
+    template = new LogoTemplates();
   }
 
   return template;
@@ -46,7 +52,18 @@ const createDesignPageHeader = () => {
   removeIco.addEventListener('click', () => {
     const canvas = document.querySelector('.layout-canvas');
     if (canvas) canvas.innerHTML = '';
-    const template = createEmptyLayout(TypesDesigne.VisitCard);
+    let template;
+
+    if (window.location.hash.includes(TypesDesigne.VisitCard)) {
+      template = createEmptyLayout(TypesDesigne.VisitCard);
+    } else if (window.location.hash.includes(TypesDesigne.Postcard)) {
+      template = createEmptyLayout(TypesDesigne.Postcard);
+    } else if (window.location.hash.includes(TypesDesigne.Resume)) {
+      template = createEmptyLayout(TypesDesigne.Resume);
+    } else if (window.location.hash.includes(TypesDesigne.Logo)) {
+      template = createEmptyLayout(TypesDesigne.Logo);
+    }
+
     if (canvas && template) canvas.append(template.createEmptyTemplate());
   });
 
@@ -83,6 +100,10 @@ function checkContainer(container: HTMLDivElement) {
     container.append(businessCardsPanelTemplates);
   } else if (container.classList.contains('hiding-panel__postcard-block')) {
     container.append(postCardsPanelTemplates);
+  } else if (container.classList.contains('hiding-panel__resume-block')) {
+    container.append(resumePanelTemplates);
+  } else if (container.classList.contains('hiding-panel__logo-block')) {
+    container.append(logoPanelTemplates);
   }
   return container;
 }
@@ -151,13 +172,19 @@ const createHidingPanelForVisitCars = () => {
 
   mainMenuContainer = getMenu(container);
 
-  container.append(businessCardsPanelTemplates);
-
   return container;
 };
 
 const createHidingPanelForResume = () => {
   const container = createHtmlElement('div', 'hiding-panel__resume-block') as HTMLDivElement;
+
+  mainMenuContainer = getMenu(container);
+
+  return container;
+};
+
+const createHidingPanelForLogo = () => {
+  const container = createHtmlElement('div', 'hiding-panel__logo-block') as HTMLDivElement;
 
   mainMenuContainer = getMenu(container);
 
@@ -176,8 +203,10 @@ const createHidingPanel = (typeDesigne: string) => {
   } else if (typeDesigne === TypesDesigne.Resume) {
     const content = createHidingPanelForResume();
     container.append(content);
+  } else if (typeDesigne === TypesDesigne.Logo) {
+    const content = createHidingPanelForLogo();
+    container.append(content);
   }
-
   return container;
 };
 

@@ -12,4 +12,5 @@ export const enum TypesDesigne {
   Resume = 'resume',
   VisitCard = 'visit-card',
   Postcard = 'postcard',
+  Logo = 'logotype',
 }

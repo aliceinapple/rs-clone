@@ -78,7 +78,22 @@
 }
 
 .layout-templates {
-  padding: 0 50px;
+  padding: 0 0 0 25px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: $color_dark-gray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $color_gray;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $color_dark-gray;
+  }
 
   img {
     margin-bottom: 20px;
@@ -266,4 +281,22 @@
   .template-text-block_circle {
     border-radius: 50%;
   }
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('assets/ico/ico_load_photo.png');
+  border: 1px solid $color_gray;
+
+  &:hover{
+    box-shadow: 0 0 5px $color_gray;
+  }
+}
+
+.file-input {
+  width: 50px;
+  height: 50px;
+  opacity: 0;
 }

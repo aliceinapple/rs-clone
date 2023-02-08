@@ -1,4 +1,4 @@
-import { createElementTools } from '../elementsTemplate';
+import { createElementTools, createTemplateImg } from '../elementsTemplate';
 
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
@@ -405,67 +405,28 @@ export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement
   });
 }
 
-// export function markElements(container: HTMLDivElement) {
-//   const elements = document.querySelectorAll('.template-element');
-//   let isDragging = false;
-//   let startX: number, startY: number, currentX: number, currentY: number;
-//   const selectBox = document.createElement('div');
-//   selectBox.style.position = 'absolute';
-//   selectBox.style.backgroundColor = 'rgba(0,0,0,0.1)';
+export function loadPhoto() {
+  const fileInput = document.createElement('input');
+  fileInput.setAttribute('type', 'file');
+  fileInput.classList.add('file-input');
 
-//   function updateSelection() {
-//     const left = Math.min(startX, currentX);
-//     const top = Math.min(startY, currentY);
-//     const width = Math.abs(startX - currentX);
-//     const height = Math.abs(startY - currentY);
-//     selectBox.style.left = `${left}px`;
-//     selectBox.style.top = `${top}px`;
-//     selectBox.style.width = `${width}px`;
-//     selectBox.style.height = `${height}px`;
-//   }
+  const preview = createTemplateImg('120px', '120px', '45px', '30px');
+  preview.classList.add('preview');
 
-//   function checkElementsInSelection() {
-//     for (const element of elements) {
-//       const elementRect = element.getBoundingClientRect();
-//       if (
-//         elementRect.left >= selectBox.offsetLeft &&
-//         elementRect.right <= selectBox.offsetLeft + selectBox.offsetWidth &&
-//         elementRect.top >= selectBox.offsetTop &&
-//         elementRect.bottom <= selectBox.offsetTop + selectBox.offsetHeight
-//       ) {
-//         element.classList.add('selected');
-//       } else {
-//         element.classList.remove('selected');
-//       }
-//     }
-//   }
+  preview.append(fileInput);
 
-//   container.addEventListener('mousedown', (e) => {
-//     isDragging = true;
-//     startX = e.clientX;
-//     startY = e.clientY;
-//     document.body.appendChild(selectBox);
-//   });
+  fileInput.addEventListener('change', function () {
+    if (fileInput.files) {
+      const file = fileInput.files[0];
 
-//   container.addEventListener('mousemove', (e) => {
-//     if (!isDragging) return;
-//     currentX = e.clientX;
-//     currentY = e.clientY;
-//     updateSelection();
-//   });
+      const reader = new FileReader();
+      reader.addEventListener('load', function () {
+        preview.style.backgroundImage = `url(${reader.result})`;
+      });
 
-//   container.addEventListener('mouseup', () => {
-//     isDragging = false;
-//     document.body.removeChild(selectBox);
-//     checkElementsInSelection();
-//   });
-// }
+      reader.readAsDataURL(file);
+    }
+  });
 
-// document.addEventListener('click', (event) => {
-//   const target = event.target;
-//   if (target instanceof HTMLDivElement) {
-//     if (target.classList.contains('container')) {
-//       markElements(target);
-//     }
-//   }
-// });
+  return preview;
+}

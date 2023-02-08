@@ -33,6 +33,8 @@ export class App {
       page = new DesignePage(idPage, TypesDesigne.Postcard);
     } else if (idPage.includes(`${PagesId.DesignePage}/${TypesDesigne.Resume}`)) {
       page = new DesignePage(idPage, TypesDesigne.Resume);
+    } else if (idPage.includes(`${PagesId.DesignePage}/${TypesDesigne.Logo}`)) {
+      page = new DesignePage(idPage, TypesDesigne.Logo);
     } else if (idPage.includes(PagesId.InfoBusinessPage)) {
       page = new InfoBusinessPage(idPage);
     } else if (idPage.includes(PagesId.ColorSelectPage)) {
@@ -121,6 +123,11 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest(`#${TypesDesigne.VisitCard}`)) {
     App.renderNewPage(`${PagesId.DesignePage}/${TypesDesigne.VisitCard}`);
     updateURL(`${PagesId.DesignePage}/${TypesDesigne.VisitCard}`);
+  }
+
+  if (clickedItem.closest(`#${TypesDesigne.Logo}`)) {
+    App.renderNewPage(`${PagesId.DesignePage}/${TypesDesigne.Logo}`);
+    updateURL(`${PagesId.DesignePage}/${TypesDesigne.Logo}`);
   }
 
   if (clickedItem.closest('.btn-log__ico')) {
