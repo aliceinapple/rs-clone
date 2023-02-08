@@ -63,7 +63,7 @@ function createTemplateElementsPanel(elements: string[]) {
         );
       } else {
         container?.appendChild(
-          createTemplateImg('150px', '150px', 'calc(50% - 75px)', 'calc(50% - 75px)', `url(${elements[i]})`),
+          createTemplateImg('150px', '150px', 'calc(50% - 75px)', 'calc(50% - 75px)', elements[i]),
         );
       }
     });
@@ -103,22 +103,17 @@ function createTemplateTextPanel() {
   shapes.append(textElem, square, circl);
 
   circl.addEventListener('click', () => {
+    console.log(circl);
+
     const container = document.querySelector('.container');
-    const crcl = createTemplateShape(
-      '100px',
-      '100px',
-      'calc(50% - 50px)',
-      'calc(50% - 50px)',
-      '1px solid black',
-      '50%',
-    );
+    const crcl = createTemplateShape('100px', '100px', 'calc(50% - 50px)', 'calc(50% - 50px)', 'black', '50%');
 
     container?.appendChild(crcl);
   });
 
   square.addEventListener('click', () => {
     const container = document.querySelector('.container');
-    const sqr = createTemplateShape('100px', '100px', 'calc(50% - 50px)', 'calc(50% - 50px)', '1px solid black');
+    const sqr = createTemplateShape('100px', '100px', 'calc(50% - 50px)', 'calc(50% - 50px)', 'black');
 
     container?.appendChild(sqr);
   });

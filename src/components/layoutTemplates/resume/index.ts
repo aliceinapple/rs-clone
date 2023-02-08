@@ -21,45 +21,45 @@ export class ResumeTemplates {
     return card.add();
   }
 
-  resumeTemplate() {
+  resumeTemplate(fontFamily: string, color: string) {
     const fio = createTemplateTextArea('250px', '240px', '15px');
-    fio.appendChild(createTemplateText(resumeData.fio, 'Noto Sans', '20px', 'black'));
+    fio.appendChild(createTemplateText(resumeData.fio, fontFamily, '20px', color));
 
     const aboutMe = createTemplateTextArea('200px', '250px', '60px');
-    aboutMe.appendChild(createTemplateText(resumeData.about_me, 'Noto Sans', '16px', 'black'));
+    aboutMe.appendChild(createTemplateText(resumeData.about_me, fontFamily, '16px', color));
 
     const aboutMeInfo = createTemplateTextArea('200px', '250px', '90px');
-    aboutMeInfo.appendChild(createTemplateText(resumeData.info_abot_me, 'Noto Sans', '10px', 'black'));
+    aboutMeInfo.appendChild(createTemplateText(resumeData.info_abot_me, fontFamily, '10px', color));
 
     const contacts = createTemplateTextArea('200px', '20px', '180px');
-    contacts.appendChild(createTemplateText(resumeData.contacts, 'Noto Sans', '16px', 'black'));
+    contacts.appendChild(createTemplateText(resumeData.contacts, fontFamily, '16px', color));
 
     const contactsInfo = createTemplateTextArea('200px', '20px', '205px');
-    contactsInfo.appendChild(createTemplateText(resumeData.info_contacts, 'Noto Sans', '10px', 'black'));
+    contactsInfo.appendChild(createTemplateText(resumeData.info_contacts, fontFamily, '10px', color));
 
     const experience = createTemplateTextArea('200px', '250px', '370px');
-    experience.appendChild(createTemplateText(resumeData.experience, 'Noto Sans', '16px', 'black'));
+    experience.appendChild(createTemplateText(resumeData.experience, fontFamily, '16px', color));
 
     const experienceInfo = createTemplateTextArea('200px', '250px', '405px');
-    experienceInfo.appendChild(createTemplateText(resumeData.info_experience, 'Noto Sans', '10px', 'black'));
+    experienceInfo.appendChild(createTemplateText(resumeData.info_experience, fontFamily, '10px', color));
 
     const education = createTemplateTextArea('200px', '250px', '150px');
-    education.appendChild(createTemplateText(resumeData.education, 'Noto Sans', '16px', 'black'));
+    education.appendChild(createTemplateText(resumeData.education, fontFamily, '16px', color));
 
     const educationInfo = createTemplateTextArea('200px', '250px', '180px');
-    educationInfo.appendChild(createTemplateText(resumeData.info_education, 'Noto Sans', '10px', 'black'));
+    educationInfo.appendChild(createTemplateText(resumeData.info_education, fontFamily, '10px', color));
 
     const skills = createTemplateTextArea('200px', '20px', '260px');
-    skills.appendChild(createTemplateText(resumeData.skills, 'Noto Sans', '16px', 'black'));
+    skills.appendChild(createTemplateText(resumeData.skills, fontFamily, '16px', color));
 
     const skillsInfo = createTemplateTextArea('200px', '20px', '290px');
-    skillsInfo.appendChild(createTemplateText(resumeData.info_skills, 'Noto Sans', '10px', 'black'));
+    skillsInfo.appendChild(createTemplateText(resumeData.info_skills, fontFamily, '10px', color));
 
     const other = createTemplateTextArea('200px', '20px', '365px');
-    other.appendChild(createTemplateText(resumeData.other, 'Noto Sans', '16px', 'black'));
+    other.appendChild(createTemplateText(resumeData.other, fontFamily, '16px', color));
 
     const otherInfo = createTemplateTextArea('200px', '20px', '395px');
-    otherInfo.appendChild(createTemplateText(resumeData.info_other, 'Noto Sans', '10px', 'black'));
+    otherInfo.appendChild(createTemplateText(resumeData.info_other, fontFamily, '10px', color));
 
     const photo = createTemplateImg('120px', '120px', '45px', '30px', elemStyleTemplates.isLoad);
 
@@ -85,15 +85,16 @@ export class ResumeTemplates {
 
   createTemplate1() {
     const card = new LayOutTemplate(resumeCardSize, 'white');
-    const template = this.resumeTemplate();
+    const template = this.resumeTemplate('Noto Sans', 'black');
     const square = createTemplateShape('230px', '650px', '0', '0', 'none', 'none', '#C6BCB3');
+    const square2 = createTemplateShape('100px', '100px', '55px', '41px', 'black');
 
-    return card.add(square, ...template);
+    return card.add(square, square2, ...template);
   }
 
   createTemplate2() {
     const card = new LayOutTemplate(resumeCardSize, 'white');
-    const template = this.resumeTemplate();
+    const template = this.resumeTemplate('Nunito', 'black');
 
     const square = createTemplateShape('230px', '650px', '0', '0', 'none', 'none', 'rgb(209, 209, 209)');
     const square2 = createTemplateShape('500px', '85px', '0', '170px', 'none', 'none', 'rgb(232, 219, 84)');
@@ -103,7 +104,7 @@ export class ResumeTemplates {
 
   createTemplate3() {
     const card = new LayOutTemplate(resumeCardSize, 'white');
-    const template = this.resumeTemplate();
+    const template = this.resumeTemplate('Noto Sans', 'black');
 
     const square1 = createTemplateShape('220px', '35px', '245px', '50px', 'none', 'none', 'rgb(124, 228, 179)');
     const square2 = createTemplateShape('220px', '35px', '245px', '142px', 'none', 'none', 'rgb(124, 228, 179)');
@@ -113,12 +114,14 @@ export class ResumeTemplates {
     const square5 = createTemplateShape('220px', '35px', '10px', '250px', 'none', 'none', 'rgb(124, 228, 179)');
     const square6 = createTemplateShape('220px', '35px', '10px', '355px', 'none', 'none', 'rgb(124, 228, 179)');
 
-    return card.add(square1, square2, square3, square4, square5, square6, ...template);
+    const circle = createTemplateShape('130px', '130px', '40px', '25px', 'black', '50%');
+
+    return card.add(square1, square2, square3, square4, square5, square6, circle, ...template);
   }
 
   createTemplate4() {
     const card = new LayOutTemplate(resumeCardSize, 'white');
-    const template = this.resumeTemplate();
+    const template = this.resumeTemplate('Nunito', 'black');
 
     const square = createTemplateShape('220px', '650px', '10px', '0', 'none', 'none', '#6B9999');
     const square2 = createTemplateShape('500px', '100px', '0', '50px', 'none', 'none', '#EBC9BB');

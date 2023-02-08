@@ -49,10 +49,13 @@ import hb_1 from '../assets/templateImages/hb_1.png';
 import hb from '../assets/templateImages/hb.png';
 import presents from '../assets/templateImages/presents.png';
 import thankU from '../assets/templateImages/thankU.png';
-
 import mountains from '../assets/templateImages/mountains.png';
 import flowers from '../assets/templateImages/flowers.png';
 import qrCode from '../assets/templateImages/qrCode.png';
+import monica from '../assets/templateImages/monica.png';
+import minimalism_mountains from '../assets/templateImages/minimalism_mountains.png';
+import gold_ring from '../assets/templateImages/gold_ring.png';
+import fashion_girl from '../assets/templateImages/fashion_girl.png';
 
 import loadPhoto from '../assets/ico/ico_load_photo.png';
 
@@ -70,8 +73,11 @@ export const tempElementsArr = [
   loadPhoto,
   girl,
   girl_2,
+  monica,
+  fashion_girl,
   cats,
   circle,
+  gold_ring,
   heart,
   heart_2,
   rainbow,
@@ -122,6 +128,7 @@ export const tempElementsArr = [
   flowers,
   qrCode,
   mountains,
+  minimalism_mountains,
 ];
 
 export const fontFamilyList = [
@@ -130,7 +137,10 @@ export const fontFamilyList = [
   'Nunito',
   'Pacifico',
   'Caveat',
+  'Cormorant Infant',
+  'Marck Script',
   'Noto Sans',
+  'Miss Fajardose',
   'Changa',
   'Maven Pro',
   'Quantico',

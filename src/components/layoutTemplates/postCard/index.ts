@@ -30,7 +30,7 @@ export class PostCardTemplates {
     const title = createTemplateTextArea('300px', '25px', '140px');
     title.appendChild(createTemplateText(defaultTexsts.birthday, 'Caveat', '48px', '#319D6B', 'center'));
 
-    const img = createTemplateImg('302px', '257px', '261px', '65px', `url(${croco})`);
+    const img = createTemplateImg('302px', '257px', '261px', '65px', croco);
 
     return card.add(title, img);
   }
@@ -38,7 +38,7 @@ export class PostCardTemplates {
   createTemplate2() {
     const card = new LayOutTemplate(postCardSize, 'black');
 
-    const img = createTemplateImg('342px', '236px', '131px', '109px', `url(${hb})`);
+    const img = createTemplateImg('342px', '236px', '131px', '109px', hb);
 
     return card.add(img);
   }
@@ -46,9 +46,9 @@ export class PostCardTemplates {
   createTemplate3() {
     const card = new LayOutTemplate(postCardSize, '#E6D0EB');
 
-    const img = createTemplateImg('341px', '256px', '139px', '16px', `url(${congrats})`);
-    const img2 = createTemplateImg('195px', '212px', '-33px', '171px', `url(${vine})`);
-    const img3 = createTemplateImg('126px', '119px', '80px', '262px', `url(${coctail})`);
+    const img = createTemplateImg('341px', '256px', '139px', '16px', congrats);
+    const img2 = createTemplateImg('195px', '212px', '-33px', '171px', vine);
+    const img3 = createTemplateImg('126px', '119px', '80px', '262px', coctail);
 
     return card.add(img, img2, img3);
   }
@@ -56,11 +56,11 @@ export class PostCardTemplates {
   createTemplate4() {
     const card = new LayOutTemplate(postCardSize, '#9FC1B7');
 
-    const img = createTemplateImg('240px', '153px', '186px', '114px', `url(${thankU})`);
-    const img1 = createTemplateImg('150px', '150px', '9px', '241px', `url(${confetti})`);
-    const img2 = createTemplateImg('150px', '150px', '441px', '11px', `url(${confetti})`);
-    const img3 = createTemplateImg('150px', '150px', '11px', '8px', `url(${confetti})`);
-    const img4 = createTemplateImg('150px', '150px', '440px', '241px', `url(${confetti})`);
+    const img = createTemplateImg('240px', '153px', '186px', '114px', thankU);
+    const img1 = createTemplateImg('150px', '150px', '9px', '241px', confetti);
+    const img2 = createTemplateImg('150px', '150px', '441px', '11px', confetti);
+    const img3 = createTemplateImg('150px', '150px', '11px', '8px', confetti);
+    const img4 = createTemplateImg('150px', '150px', '440px', '241px', confetti);
 
     return card.add(img, img1, img2, img3, img4);
   }

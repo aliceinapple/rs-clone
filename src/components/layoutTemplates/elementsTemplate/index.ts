@@ -171,7 +171,7 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   if (img === elemStyleTemplates.isLoad) {
     element = loadPhoto(element);
   } else {
-    element.style.background = img;
+    element.style.background = `url(${img})`;
   }
 
   element.style.backgroundSize = elemStyleTemplates.bgSize;

@@ -61,7 +61,7 @@ export class BusinessCardTemplates {
     const title = createTemplateTextArea('300px', '200px', '260px');
     title.appendChild(createTemplateText(defaultTexsts.title, 'Pacifico', '32px', 'white', 'center'));
 
-    const image = createTemplateImg('150px', '150px', '275px', '100px', `url(${mountains})`);
+    const image = createTemplateImg('150px', '150px', '275px', '100px', mountains);
 
     return card.add(title, image);
   }
@@ -74,8 +74,8 @@ export class BusinessCardTemplates {
     const title2 = createTemplateTextArea('300px', '350px', '130px');
     title2.appendChild(createTemplateText(defaultTexsts.title, 'Noto Sans', '24px', '#3E544F', 'center'));
 
-    const image = createTemplateImg('400px', '400px', '-90px', '145px', `url(${flowers})`);
-    const image2 = createTemplateImg('100px', '100px', '450px', '200px', `url(${qrCode})`);
+    const image = createTemplateImg('400px', '400px', '-90px', '145px', flowers);
+    const image2 = createTemplateImg('100px', '100px', '450px', '200px', qrCode);
 
     return card.add(title, title2, image, image2);
   }

@@ -72,7 +72,18 @@ const createDesignPageHeader = () => {
   controlBlock.append(link, arrowBlock, saveBlock, removeBlock);
 
   const title = createHtmlElement('p', 'header__title');
-  title.textContent = 'Дизайн - Business card';
+
+  setTimeout(() => {
+    if (window.location.hash.includes(TypesDesigne.VisitCard)) {
+      title.textContent = 'Дизайн - Business card';
+    } else if (window.location.hash.includes(TypesDesigne.Postcard)) {
+      title.textContent = 'Дизайн - Post card';
+    } else if (window.location.hash.includes(TypesDesigne.Resume)) {
+      title.textContent = 'Дизайн - Resume';
+    } else if (window.location.hash.includes(TypesDesigne.Logo)) {
+      title.textContent = 'Дизайн - Logotype';
+    }
+  }, 0);
 
   const btnBlock = createHtmlElement('div', 'header__btn-block');
   const btn = createLogInButton();
