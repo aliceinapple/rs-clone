@@ -8,7 +8,6 @@ import { InfoBusinessPage, ColorSelectPage, StyleSelectPage } from '../questionP
 import { LogoResultPage } from '../logoResultPage';
 import { PersonalAccountPage } from '../personalAccountPage';
 
-
 import { 
   openModalWindow, 
   logOutAccount, 
@@ -19,11 +18,11 @@ import {
   registrationUser, 
 } from '../../components/modalLogIn';
 
-const usersData: User[] = [];
-
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
+import { PaintPage } from '../paintPage';
 
+const usersData: User[] = [];
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -56,6 +55,8 @@ export class App {
       page = new LogoResultPage(PagesId.LogoResultPage);
     } else if (idPage.includes(PagesId.PersonalAccountPage)) {
       page = new PersonalAccountPage(PagesId.PersonalAccountPage);
+    } else if (idPage.includes(PagesId.PaintPage)) {
+      page = new PaintPage(idPage);
     }
 
     if (page) {

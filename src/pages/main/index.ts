@@ -15,7 +15,7 @@ export const createMainHeader = () => {
   const logo = createHtmlElement('div', 'logo');
   
   const navigation = createHtmlElement('ul', 'nav');
-  const navItems = ['Главная', 'Шаблоны', 'Обучение'];
+  const navItems = ['Главная', 'Шаблоны', 'Рисование'];
   navItems.forEach(item => {
     if (item === 'Главная') {
       const navItem = createHtmlElement('li', 'nav__item');
@@ -24,6 +24,14 @@ export const createMainHeader = () => {
       linkHome.setAttribute('href', '#main-page');
       linkHome.textContent = item;
       navItem.append(linkHome);
+      navigation.append(navItem);
+    } else if (item === 'Рисование') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkPaint: HTMLAnchorElement = document.createElement('a');
+      linkPaint.classList.add('link-paint');
+      linkPaint.setAttribute('href', '#paint-page');
+      linkPaint.textContent = item;
+      navItem.append(linkPaint);
       navigation.append(navItem);
     } else {
       const navItem = createHtmlElement('li', 'nav__item');
