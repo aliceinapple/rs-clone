@@ -13,7 +13,6 @@ export const createButtonElement = (className: string, content: string) => {
   return btn;
 };
 
-
 export const createInputElementForModal = (boxClassName: string, type: string, placeholde: string, className: string, dataReg: string) => {
   const inputBox: HTMLElement = document.createElement('div');
   inputBox.classList.add(boxClassName);
@@ -22,10 +21,36 @@ export const createInputElementForModal = (boxClassName: string, type: string, p
   input.placeholder = placeholde;
   input.classList.add(className);
   input.setAttribute('data-reg', dataReg);
-  input.setAttribute('name', className);
   
   inputBox.append(input);
   return inputBox;
+};
+
+export const createPasswordInput = (boxClassName: string, className: string, icoClassName: string, dataReg: string) => {
+  const inputPassBox = createHtmlElement('div', boxClassName);
+  const inputPass: HTMLInputElement = document.createElement('input');
+  inputPass.type = 'password';
+  inputPass.placeholder = 'Введите пароль';
+  inputPass.setAttribute('data-reg', dataReg);
+  inputPass.classList.add(className);
+  inputPassBox.append(inputPass);
+  const icoPass = createHtmlElement('div', icoClassName);
+  icoPass.classList.add('password__ico-hidden');
+  inputPassBox.append(icoPass);
+
+  icoPass.addEventListener('mousemove', () => {
+    inputPass.type = 'text';
+    icoPass.classList.remove('password__ico-hidden');
+    icoPass.classList.add('password__ico-show');
+  });
+
+  icoPass.addEventListener('mouseout', () => {
+    inputPass.type = 'password';
+    icoPass.classList.remove('password__ico-show');
+    icoPass.classList.add('password__ico-hidden');
+  });
+
+  return inputPassBox;
 };
 
 export const dataRegName = '^[а-яА-ЯёЁa-zA-Z]';

@@ -17,9 +17,19 @@ export const createMainHeader = () => {
   const navigation = createHtmlElement('ul', 'nav');
   const navItems = ['Главная', 'Шаблоны', 'Обучение'];
   navItems.forEach(item => {
-    const navItem = createHtmlElement('li', 'nav__item');
-    navItem.textContent = item;
-    navigation.append(navItem);
+    if (item === 'Главная') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkHome: HTMLAnchorElement = document.createElement('a');
+      linkHome.classList.add('link-back-home');
+      linkHome.setAttribute('href', '#main-page');
+      linkHome.textContent = item;
+      navItem.append(linkHome);
+      navigation.append(navItem);
+    } else {
+      const navItem = createHtmlElement('li', 'nav__item');
+      navItem.textContent = item;
+      navigation.append(navItem);
+    }
   });
   navBlock.append(logo, navigation);
 

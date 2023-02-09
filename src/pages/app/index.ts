@@ -1,19 +1,30 @@
 import { PagesId, TypesDesigne } from '../../types/enums';
+import { User } from '../../types/interfaces';
 import { updateURL } from '../../utils';
 import Page from '../../components/pageTemplates';
 import { MainPage } from '../main';
 import { DesignePage } from '../designPage';
-import { InfoBusinessPage } from '../questionPages';
-import { ColorSelectPage } from '../questionPages';
-import { StyleSelectPage } from '../questionPages';
+import { InfoBusinessPage, ColorSelectPage, StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
-
-import { renderLogInModal } from '../../components/modalLogIn';
-import { openRegistrationModal, closingModal } from '../../components/modalLogIn';
 import { PersonalAccountPage } from '../personalAccountPage';
-import { validation } from '../../components/modalLogIn';
-import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
-import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
+
+import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
+import { 
+  openModalWindow, 
+  logOutAccount, 
+  validationOfLogIn, 
+  changeIcoInBtnLogIn, 
+  openRegistrationModal, 
+  validationOfregistration, 
+  registrationUser, 
+} from '../../components/modalLogIn';
+
+const usersData: User[] = [];
+
+//import { validation } from '../../components/modalLogIn';
+//import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
+//import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
+
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -141,9 +152,21 @@ containerForContent.addEventListener('click', (event) => {
     updateURL(`${PagesId.DesignePage}/${TypesDesigne.Logo}`);
   }
 
-  if (clickedItem.closest('.btn-log__ico')) {
-    renderLogInModal();
-    closingModal();
+  if (clickedItem.closest('.btn-log')) {
+    openModalWindow(usersData);
+  }
+
+  if (clickedItem.closest('.user-data-modal__log-out-block')) {
+    logOutAccount(usersData);
+  }
+
+  if (clickedItem.closest('.autorization__bnt')) {
+    event.preventDefault();
+    if (validationOfLogIn(usersData) === true) {
+      const modal = document.querySelector('.opasity-container');
+      modal?.remove();
+      changeIcoInBtnLogIn();
+    }
   }
 
   if (clickedItem.closest('.question-block__question-link-registration')) {
@@ -153,9 +176,17 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.registration__bnt')) {
     event.preventDefault();
     const form = document.querySelector('.modal__registration') as HTMLFormElement;
-    if (validation(form) === true) {
-      App.renderNewPage(PagesId.PersonalAccountPage);
-      updateURL(PagesId.PersonalAccountPage);
+    if (validationOfregistration(form, usersData) === true) {
+      registrationUser(form, usersData);
+      const modal = document.querySelector('.opasity-container');
+      modal?.remove();
+      changeIcoInBtnLogIn();
     }
   }
+
+  if (clickedItem.closest('.user-data-modal__link-personal-account')) {
+    const modal = document.querySelector('.user-data-modal');
+    modal?.remove();
+  }
+
 });
