@@ -1,6 +1,6 @@
-import { createPanelTemplates } from '..';
+import { createLayout, createPanelTemplates } from '..';
 import { elemStyleTemplates, resumeCardSize, resumeData } from '../../../data/layoutTemplateData';
-import { LayOutTemplate } from '../mainTemplate';
+import { CreateTemplates, LayOutTemplate } from '../mainTemplate';
 
 import resume_1 from '../../../assets/templateImages/resume_1.png';
 import resume_2 from '../../../assets/templateImages/resume_2.png';
@@ -15,12 +15,7 @@ import {
 
 //Post cards templates
 
-export class ResumeTemplates {
-  createEmptyTemplate() {
-    const card = new LayOutTemplate(resumeCardSize, 'white');
-    return card.add();
-  }
-
+export class ResumeTemplates extends CreateTemplates {
   resumeTemplate(fontFamily: string, color: string) {
     const fio = createTemplateTextArea('250px', '240px', '15px');
     fio.appendChild(createTemplateText(resumeData.fio, fontFamily, '20px', color));
@@ -128,39 +123,20 @@ export class ResumeTemplates {
 
     return card.add(square2, square, ...template);
   }
+  
+  allTemplates() {
+    const card1 = this.createTemplate1();
+    const card2 = this.createTemplate2();
+    const card3 = this.createTemplate3();
+    const card4 = this.createTemplate4();
 
-  render(id: string) {
-    let card: HTMLDivElement = document.createElement('div');
-
-    switch (id) {
-      case '1':
-        card = this.createTemplate1();
-        break;
-      case '2':
-        card = this.createTemplate2();
-        break;
-      case '3':
-        card = this.createTemplate3();
-        break;
-      case '4':
-        card = this.createTemplate4();
-        break;
-    }
-
-    return card;
+    const arr = [card1, card2, card3, card4];
+    return arr;
   }
 }
 
-export const resumePanelTemplates = createPanelTemplates(230, 300, resume_1, resume_2, resume_3, resume_4);
+const images = [resume_1, resume_2, resume_3, resume_4];
+export const resumePanelTemplates = createPanelTemplates(230, 300, images);
 
-resumePanelTemplates.addEventListener('click', (event) => {
-  const canvas = document.querySelector('.layout-canvas');
-  if (canvas) canvas.innerHTML = '';
-  const target = event.target;
-  const template = new ResumeTemplates();
-
-  if (target instanceof HTMLImageElement) {
-    const card = template.render(target?.id);
-    canvas?.append(card);
-  }
-});
+const template = new ResumeTemplates();
+createLayout(resumePanelTemplates, template);

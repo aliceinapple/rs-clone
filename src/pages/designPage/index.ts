@@ -11,27 +11,18 @@ import {
   fontStyleBtnsActions,
   targetTextElement,
 } from '../../components/layoutTemplates/elementsActions';
-import { fontFamilyList } from '../../data/layoutTemplateData';
-import { businessCardsPanelTemplates, BusinessCardTemplates } from '../../components/layoutTemplates/businessCard';
-import { postCardsPanelTemplates, PostCardTemplates } from '../../components/layoutTemplates/postCard';
-import { resumePanelTemplates, ResumeTemplates } from '../../components/layoutTemplates/resume';
-import { logoPanelTemplates, LogoTemplates } from '../../components/layoutTemplates/logotype';
-
-function createEmptyLayout(typeDesigne: string) {
-  let template;
-
-  if (typeDesigne === TypesDesigne.VisitCard) {
-    template = new BusinessCardTemplates();
-  } else if (typeDesigne === TypesDesigne.Postcard) {
-    template = new PostCardTemplates();
-  } else if (typeDesigne === TypesDesigne.Resume) {
-    template = new ResumeTemplates();
-  } else if (typeDesigne === TypesDesigne.Logo) {
-    template = new LogoTemplates();
-  }
-
-  return template;
-}
+import {
+  fontFamilyList,
+  businessCardSize,
+  postCardSize,
+  resumeCardSize,
+  logoCardSize,
+} from '../../data/layoutTemplateData';
+import { businessCardsPanelTemplates } from '../../components/layoutTemplates/businessCard';
+import { postCardsPanelTemplates } from '../../components/layoutTemplates/postCard';
+import { resumePanelTemplates } from '../../components/layoutTemplates/resume';
+import { logoPanelTemplates } from '../../components/layoutTemplates/logotype';
+import { CreateTemplates } from '../../components/layoutTemplates/mainTemplate';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -54,17 +45,18 @@ const createDesignPageHeader = () => {
     if (canvas) canvas.innerHTML = '';
     let template;
 
+    const layout = new CreateTemplates();
     if (window.location.hash.includes(TypesDesigne.VisitCard)) {
-      template = createEmptyLayout(TypesDesigne.VisitCard);
+      template = layout.createEmptyTemplate(businessCardSize);
     } else if (window.location.hash.includes(TypesDesigne.Postcard)) {
-      template = createEmptyLayout(TypesDesigne.Postcard);
+      template = layout.createEmptyTemplate(postCardSize);
     } else if (window.location.hash.includes(TypesDesigne.Resume)) {
-      template = createEmptyLayout(TypesDesigne.Resume);
+      template = layout.createEmptyTemplate(resumeCardSize);
     } else if (window.location.hash.includes(TypesDesigne.Logo)) {
-      template = createEmptyLayout(TypesDesigne.Logo);
+      template = layout.createEmptyTemplate(logoCardSize);
     }
 
-    if (canvas && template) canvas.append(template.createEmptyTemplate());
+    if (canvas && template) canvas.append(template);
   });
 
   removeBlock.append(removeIco);
@@ -319,8 +311,19 @@ const createPaintBlock = (typeDesigne: string) => {
   const canvas: HTMLDivElement = document.createElement('div');
   canvas.classList.add('layout-canvas');
 
-  const template = createEmptyLayout(typeDesigne);
-  if (template) canvas.append(template.createEmptyTemplate());
+  let template;
+  const layout = new CreateTemplates();
+  if (typeDesigne === TypesDesigne.VisitCard) {
+    template = layout.createEmptyTemplate(businessCardSize);
+  } else if (typeDesigne === TypesDesigne.Postcard) {
+    template = layout.createEmptyTemplate(postCardSize);
+  } else if (typeDesigne === TypesDesigne.Resume) {
+    template = layout.createEmptyTemplate(resumeCardSize);
+  } else if (typeDesigne === TypesDesigne.Logo) {
+    template = layout.createEmptyTemplate(logoCardSize);
+  }
+
+  if (template) canvas.append(template);
 
   wrapper.append(btnForHiding, canvas);
 

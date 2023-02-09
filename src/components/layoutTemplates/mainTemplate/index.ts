@@ -1,4 +1,4 @@
-import { MainCardTemplate } from '../../../types/interfaces';
+import { ILayoutTemplate, MainCardTemplate } from '../../../types/interfaces';
 import { copyElement, deleteElement, dragNdrop, setTargetTextElement } from '../elementsActions';
 
 export class Template {
@@ -45,6 +45,27 @@ export class LayOutTemplate {
     const card: HTMLDivElement = this.create();
     card.append(...rest);
     dragNdrop(card);
+
+    return card;
+  }
+}
+
+export class CreateTemplates implements ILayoutTemplate {
+  createEmptyTemplate(size: MainCardTemplate) {
+    const card = new LayOutTemplate(size, 'white');
+
+    return card.add();
+  }
+
+  render(id: string, cards: HTMLDivElement[]) {
+    let card: HTMLDivElement = document.createElement('div');
+
+    for (let i = 0; i < cards.length; i++) {
+      if (Number(id) === i) {
+        card = cards[i];
+        break;
+      }
+    }
 
     return card;
   }

@@ -118,7 +118,7 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   text.style.left = x;
   text.style.top = y;
   text.style.zIndex = elemStyleTemplates.zIndex;
-  text.style.cursor = 'grab';
+  text.style.cursor = elemStyleTemplates.cursor;
 
   makeResizable(text, handles);
   showHandles(text, handles, elementTools);
@@ -156,7 +156,7 @@ export function createTemplateShape(
   element.style.left = x;
   element.style.top = y;
   element.style.zIndex = elemStyleTemplates.zIndex;
-  element.style.cursor = 'grab';
+  element.style.cursor = elemStyleTemplates.cursor;
 
   if (borderRadius) {
     element.style.borderRadius = borderRadius;
@@ -203,7 +203,7 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.left = x;
   element.style.top = y;
   element.style.zIndex = elemStyleTemplates.zIndex;
-  element.style.cursor = 'grab';
+  element.style.cursor = elemStyleTemplates.cursor;
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);

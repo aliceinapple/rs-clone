@@ -8,23 +8,20 @@ import { InfoBusinessPage, ColorSelectPage, StyleSelectPage } from '../questionP
 import { LogoResultPage } from '../logoResultPage';
 import { PersonalAccountPage } from '../personalAccountPage';
 
-import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
-import { 
-  openModalWindow, 
-  logOutAccount, 
-  validationOfLogIn, 
-  changeIcoInBtnLogIn, 
-  openRegistrationModal, 
-  validationOfregistration, 
-  registrationUser, 
+import { checkBusinessPage, checkColorPage, checkStylePage, checkLogo } from '../../components/logoGeneration';
+import {
+  openModalWindow,
+  logOutAccount,
+  validationOfLogIn,
+  changeIcoInBtnLogIn,
+  openRegistrationModal,
+  validationOfregistration,
+  registrationUser,
 } from '../../components/modalLogIn';
 
+import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
+
 const usersData: User[] = [];
-
-//import { validation } from '../../components/modalLogIn';
-//import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
-//import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
-
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -188,5 +185,4 @@ containerForContent.addEventListener('click', (event) => {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
   }
-
 });

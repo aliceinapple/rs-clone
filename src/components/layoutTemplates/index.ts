@@ -1,43 +1,19 @@
 import { createTemplateImg, createTemplateShape, createTemplateText, createTemplateTextArea } from './elementsTemplate';
 import { defaultTexsts, elemStyleTemplates, tempElementsArr } from '../../data/layoutTemplateData';
+import { ICreateTemplate } from '../../types/interfaces';
 
-export function createPanelTemplates(
-  width: number,
-  height: number,
-  img1: string,
-  img2: string,
-  img3: string,
-  img4: string,
-) {
+export function createPanelTemplates(width: number, height: number, images: string[]) {
   const templates = document.createElement('div');
-
-  const image1 = document.createElement('img');
-  image1.setAttribute('src', img1);
-  image1.width = width;
-  image1.height = height;
-  image1.id = '1';
-
-  const image2 = document.createElement('img');
-  image2.setAttribute('src', img2);
-  image2.width = width;
-  image2.height = height;
-  image2.id = '2';
-
-  const image3 = document.createElement('img');
-  image3.setAttribute('src', img3);
-  image3.width = width;
-  image3.height = height;
-  image3.id = '3';
-
-  const image4 = document.createElement('img');
-  image4.setAttribute('src', img4);
-  image4.width = width;
-  image4.height = height;
-  image4.id = '4';
-
   templates.classList.add('layout-templates');
 
-  templates.append(image1, image2, image3, image4);
+  for (let i = 0; i < images.length; i++) {
+    const image = document.createElement('img');
+    image.setAttribute('src', images[i]);
+    image.width = width;
+    image.height = height;
+    image.id = `${i}`;
+    templates.append(image);
+  }
 
   return templates;
 }
@@ -146,6 +122,19 @@ function createTemplateTextPanel() {
   templates.append(title, subtitle, text, shapes);
 
   return templates;
+}
+
+export function createLayout(layout: HTMLDivElement, template: ICreateTemplate) {
+  layout.addEventListener('click', (event) => {
+    const canvas = document.querySelector('.layout-canvas');
+    const target = event.target;
+
+    if (target instanceof HTMLImageElement) {
+      if (canvas) canvas.innerHTML = '';
+      const card = template.render(target?.id, template.allTemplates());
+      canvas?.append(card);
+    }
+  });
 }
 
 export const elementPanelTemplates = createTemplateElementsPanel(tempElementsArr);
