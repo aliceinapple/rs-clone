@@ -1,20 +1,28 @@
+.page-question-result {
+    width: 100%;
+    padding: 50px 0 50px;
+    @include display-flex(column, center, center);
+}
+
 .logo-result-page {
     width: 100%;
     @include display-flex(column, space-between, center);
 }
 .logo-result-content {
     width: 100%;
+    padding-top: 20px;
     gap: 20px;
     @include display-flex(row, center, center);
 }
 
 .logo-result-img {
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
 }
 
 .logo-result-card {
     position: relative;
+    width: 23%;
     -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
@@ -28,5 +36,25 @@
 
 .logo-result-text {
     position: absolute;
-    top: 360px;
+    font-size: calc(1rem + 2vw);
+    text-align: center;
+    line-height: 0.7;
+    top: 73%;
+}
+
+.highlightLogo {
+    transition: $transition;
+    transform: scale(1.02);
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(142, 66, 255, 0.8);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(142, 66, 255, 0.8);
+    box-shadow: 0px 5px 5px 1px rgba(142, 66, 255, 0.8);
+}
+
+@media (max-width: 1000px) {
+    .logo-result-content {
+        @include display-flex(column, center, center);
+    }
+    .logo-result-card {
+        width: 40%;
+    }
 }

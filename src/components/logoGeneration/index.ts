@@ -41,12 +41,22 @@ export function sortLogoTemplates() {
   return resultArray;
 }
 
-export function checkColorPage(id: string) {
+export function checkColorPage(id: string, target: HTMLDivElement) {
+  const items = document.querySelectorAll('.palette');
+  Array.from(items).forEach(item => {
+    item.classList.remove('highlight');
+  });
+  target.classList.add('highlight');
   logoParameters.color = id;
   (document.querySelector('#btn-next__color-select') as HTMLButtonElement).disabled = false;
 }
   
-export function checkStylePage(id: string) {
+export function checkStylePage(id: string, target: HTMLDivElement ) {
+  const items = document.querySelectorAll('.style-item');
+  Array.from(items).forEach(item => {
+    item.classList.remove('highlight');
+  });
+  target.classList.add('highlight');
   logoParameters.style = id;
   (document.querySelector('#btn-next__style-select') as HTMLButtonElement).disabled = false;  
 }
@@ -90,4 +100,13 @@ export function checkFontFamily(scope: string) {
     resultFont = resultFont.filter((v, i, arr) => arr.indexOf(v) == i);
   }
   return resultFont;
+}
+
+export function checkLogo(logo: HTMLDivElement) {
+  (document.querySelector('#btn-next__logo-select') as HTMLButtonElement).disabled = false;  
+  const items = document.querySelectorAll('.logo-result-card');
+  Array.from(items).forEach(item => {
+    item.classList.remove('highlightLogo');
+  });
+  logo.classList.add('highlightLogo');
 }

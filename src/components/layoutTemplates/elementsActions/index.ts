@@ -1,5 +1,32 @@
 import { createElementTools } from '../elementsTemplate';
 
+export function loadPhoto(preview: HTMLDivElement) {
+  const fileInput = document.createElement('input');
+  fileInput.setAttribute('type', 'file');
+  fileInput.setAttribute('accept', '.jpg, .jpeg, .png, .svg');
+  fileInput.classList.add('file-input');
+
+  preview.classList.add('preview');
+
+  preview.append(fileInput);
+
+  fileInput.addEventListener('change', function () {
+    if (fileInput.files) {
+      const file = fileInput.files[0];
+      const blob = new Blob([file]);
+      const reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        preview.style.backgroundImage = `url(${reader.result})`;
+      });
+
+      reader.readAsDataURL(blob);
+    }
+  });
+
+  return preview;
+}
+
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
   let isDragging = false;
@@ -26,15 +53,25 @@ export function dragNdrop(container: HTMLDivElement) {
       !selectedElement.classList.contains('container') &&
       !selectedElement.classList.contains('resize-handle')
     ) {
+      selectedElement.style.cursor = 'grabbing';
       xOffset = selectedElement.offsetLeft - initialX;
       yOffset = selectedElement.offsetTop - initialY;
     }
+
     isDragging = true;
   });
 
   container.addEventListener('mouseup', function () {
-    selectedElement = null;
-    isDragging = false;
+    if (
+      selectedElement &&
+      selectedElement instanceof HTMLDivElement &&
+      !selectedElement.classList.contains('container') &&
+      !selectedElement.classList.contains('resize-handle')
+    ) {
+      selectedElement.style.cursor = 'grab';
+      selectedElement = null;
+      isDragging = false;
+    }
   });
 
   container.addEventListener('mousemove', function (event) {
@@ -49,6 +86,35 @@ export function dragNdrop(container: HTMLDivElement) {
       selectedElement.style.left = currentX + xOffset + 'px';
       selectedElement.style.top = currentY + yOffset + 'px';
     }
+  });
+}
+
+function rotateElement(element: HTMLDivElement, handle: HTMLDivElement) {
+  let isDragging = false;
+  let currentAngle = 0;
+  let startX: number, startY: number, currentX, currentY, distanceX, distanceY;
+
+  handle.addEventListener('mousedown', function (e) {
+    isDragging = true;
+    startX = e.pageX;
+    startY = e.pageY;
+    currentX = startX;
+    currentY = startY;
+  });
+
+  document.addEventListener('mouseup', function () {
+    isDragging = false;
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    currentX = e.pageX;
+    currentY = e.pageY;
+    distanceX = currentX - startX;
+    distanceY = currentY - startY;
+    currentAngle = Math.atan2(distanceY, distanceX);
+    element.style.transform = `rotate(${currentAngle}rad)`;
   });
 }
 
@@ -112,6 +178,9 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
           newWidth = startWidth + (e.clientX - startX);
           newHeight = startHeight + (e.clientY - startY);
         }
+        if (handleClass === 'resize-handle-r') {
+          rotateElement(resizableElement, handle);
+        }
 
         resizableElement.style.width = `${newWidth}px`;
         resizableElement.style.height = `${newHeight}px`;
@@ -120,6 +189,7 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
         resizableElement.style.right = `${newRight}px`;
         resizableElement.style.bottom = `${newBottom}px`;
       }
+
       function stopResize() {
         document.removeEventListener('mousemove', resize);
         document.removeEventListener('mouseup', stopResize);
@@ -172,7 +242,7 @@ export function deleteElement(template: HTMLDivElement) {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Delete') if (target.parentElement === template) template.removeChild(target);
+    if (e.code === 'Delete') if (target?.parentElement === template) template.removeChild(target);
   });
 }
 
@@ -190,23 +260,36 @@ export function copyElement(template: HTMLDivElement) {
     let copiedElement = target as Node;
 
     if (e.ctrlKey && e.key === 'c') {
-      copiedElement = target.cloneNode(true);
+      copiedElement = target?.cloneNode(true);
     } else if (e.ctrlKey && e.key === 'v') {
       e.preventDefault();
       const pasteElement = template;
-      const copy = copiedElement.cloneNode(true) as HTMLDivElement;
+      let copy = copiedElement?.cloneNode(true) as HTMLDivElement;
 
-      const handles = copy.querySelectorAll('.resize-handle');
-      const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+      if (copy?.className.includes('preview')) {
+        copy = loadPhoto(copy);
+      }
 
-      const tools = copy.querySelector('.element-tools') as HTMLDivElement;
-      if (tools) copy.removeChild(tools);
+      const handles = copy?.querySelectorAll('.resize-handle');
+      let divElements;
+      if (handles)
+        divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+
+      const tools = copy?.querySelector('.element-tools') as HTMLDivElement;
+      if (tools) {
+        const toolParent = tools.parentNode;
+        if (copy === toolParent) {
+          copy?.removeChild(tools);
+        }
+      }
 
       const copyTools = createElementTools(copy);
-      copy.appendChild(copyTools);
+      copy?.appendChild(copyTools);
 
-      makeResizable(copy, divElements);
-      showHandles(copy, divElements, copyTools);
+      if (divElements) {
+        makeResizable(copy, divElements);
+        showHandles(copy, divElements, copyTools);
+      }
 
       if (copiedElement) pasteElement.appendChild(copy);
     }
@@ -234,6 +317,7 @@ export function checkTextStyle(
   bold: HTMLDivElement,
   italic: HTMLDivElement,
   fontSize: HTMLInputElement,
+  select: HTMLSelectElement,
 ) {
   if (element && element.style.textDecoration === 'underline') {
     underline.classList.add('selected');
@@ -254,6 +338,11 @@ export function checkTextStyle(
   }
 
   if (element) fontSize.value = element.style.fontSize.replace('px', '');
+
+  if (element) {
+    const font = element.style.fontFamily.replace(/['"]+/g, '');
+    select.value = font;
+  }
 }
 
 export function addElementToolsActions(
@@ -267,7 +356,11 @@ export function addElementToolsActions(
 ) {
   copy.addEventListener('click', () => {
     const parent = element.parentElement;
-    const copyElem = element.cloneNode(true) as HTMLDivElement;
+    let copyElem = element.cloneNode(true) as HTMLDivElement;
+
+    if (copyElem?.className.includes('preview')) {
+      copyElem = loadPhoto(copyElem);
+    }
 
     const handles = copyElem.querySelectorAll('.resize-handle');
     const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
@@ -294,7 +387,7 @@ export function addElementToolsActions(
     if (child) {
       child.style.color = color.value;
     } else {
-      element.style.border = `${parseInt(element.style.border)}px solid ${color.value}`;
+      element.style.border = `2px solid ${color.value}`;
     }
   });
 
@@ -366,9 +459,9 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
     bold.classList.toggle('selected');
     if (targetTextElement) {
       if (bold.classList.contains('selected')) {
-        targetTextElement.style.fontWeight = '900';
+        targetTextElement.style.fontWeight = 'bold';
       } else {
-        targetTextElement.style.fontWeight = '100';
+        targetTextElement.style.fontWeight = 'normal';
       }
     }
   });
