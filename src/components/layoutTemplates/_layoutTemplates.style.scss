@@ -77,6 +77,16 @@
   cursor: w-resize;
 }
 
+.resize-handle-r {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  left: calc(50% - 5px);
+  top: -25px;
+  background: red;
+  cursor: url('assets/ico/ico_rotate.png') 10 10, default;
+}
+
 .layout-templates {
   display: flex;
   flex-direction: column;
@@ -296,10 +306,10 @@
   &:hover {
     box-shadow: 0 0 5px $color_gray;
   }
-}
 
-.file-input {
-  width: 50px;
-  height: 50px;
-  opacity: 0;
+  .file-input {
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+  }
 }

@@ -28,7 +28,10 @@ function createResizeHandle(): HTMLDivElement[] {
   const handleW: HTMLDivElement = document.createElement('div');
   handleW.classList.add('resize-handle', 'resize-handle-w');
 
-  const handles = [handleNe, handleNw, handleSe, handleSw, handleN, handleE, handleS, handleW];
+  const handleR: HTMLDivElement = document.createElement('div');
+  handleR.classList.add('resize-handle', 'resize-handle-r');
+
+  const handles = [handleNe, handleNw, handleSe, handleSw, handleN, handleE, handleS, handleW, handleR];
 
   return handles;
 }
@@ -104,12 +107,18 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   const handles: HTMLDivElement[] = createResizeHandle();
   const elementTools = createElementTools(text);
 
-  text.append(...handles, elementTools);
+  text.append(...handles);
+
+  setTimeout(() => {
+    const container = document.querySelector('.container');
+    container?.append(elementTools);
+  }, 0);
 
   text.style.width = width;
   text.style.left = x;
   text.style.top = y;
   text.style.zIndex = elemStyleTemplates.zIndex;
+  text.style.cursor = 'grab';
 
   makeResizable(text, handles);
   showHandles(text, handles, elementTools);
@@ -135,13 +144,19 @@ export function createTemplateShape(
   const handles: HTMLDivElement[] = createResizeHandle();
   const elementTools = createElementTools(element);
 
-  element.append(...handles, elementTools);
+  element.append(...handles);
+
+  setTimeout(() => {
+    const container = document.querySelector('.container');
+    container?.append(elementTools);
+  }, 0);
 
   element.style.width = width;
   element.style.height = height;
   element.style.left = x;
   element.style.top = y;
   element.style.zIndex = elemStyleTemplates.zIndex;
+  element.style.cursor = 'grab';
 
   if (borderRadius) {
     element.style.borderRadius = borderRadius;
@@ -166,7 +181,12 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   const handles: HTMLDivElement[] = createResizeHandle();
   const elementTools = createElementTools(element);
 
-  element.append(...handles, elementTools);
+  element.append(...handles);
+
+  setTimeout(() => {
+    const container = document.querySelector('.container');
+    container?.append(elementTools);
+  }, 0);
 
   if (img === elemStyleTemplates.isLoad) {
     element = loadPhoto(element);
@@ -183,6 +203,7 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.left = x;
   element.style.top = y;
   element.style.zIndex = elemStyleTemplates.zIndex;
+  element.style.cursor = 'grab';
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);

@@ -3,6 +3,7 @@ import { createElementTools } from '../elementsTemplate';
 export function loadPhoto(preview: HTMLDivElement) {
   const fileInput = document.createElement('input');
   fileInput.setAttribute('type', 'file');
+  fileInput.setAttribute('accept', '.jpg, .jpeg, .png, .svg');
   fileInput.classList.add('file-input');
 
   preview.classList.add('preview');
@@ -52,15 +53,25 @@ export function dragNdrop(container: HTMLDivElement) {
       !selectedElement.classList.contains('container') &&
       !selectedElement.classList.contains('resize-handle')
     ) {
+      selectedElement.style.cursor = 'grabbing';
       xOffset = selectedElement.offsetLeft - initialX;
       yOffset = selectedElement.offsetTop - initialY;
     }
+
     isDragging = true;
   });
 
   container.addEventListener('mouseup', function () {
-    selectedElement = null;
-    isDragging = false;
+    if (
+      selectedElement &&
+      selectedElement instanceof HTMLDivElement &&
+      !selectedElement.classList.contains('container') &&
+      !selectedElement.classList.contains('resize-handle')
+    ) {
+      selectedElement.style.cursor = 'grab';
+      selectedElement = null;
+      isDragging = false;
+    }
   });
 
   container.addEventListener('mousemove', function (event) {
@@ -75,6 +86,35 @@ export function dragNdrop(container: HTMLDivElement) {
       selectedElement.style.left = currentX + xOffset + 'px';
       selectedElement.style.top = currentY + yOffset + 'px';
     }
+  });
+}
+
+function rotateElement(element: HTMLDivElement, handle: HTMLDivElement) {
+  let isDragging = false;
+  let currentAngle = 0;
+  let startX: number, startY: number, currentX, currentY, distanceX, distanceY;
+
+  handle.addEventListener('mousedown', function (e) {
+    isDragging = true;
+    startX = e.pageX;
+    startY = e.pageY;
+    currentX = startX;
+    currentY = startY;
+  });
+
+  document.addEventListener('mouseup', function () {
+    isDragging = false;
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    currentX = e.pageX;
+    currentY = e.pageY;
+    distanceX = currentX - startX;
+    distanceY = currentY - startY;
+    currentAngle = Math.atan2(distanceY, distanceX);
+    element.style.transform = `rotate(${currentAngle}rad)`;
   });
 }
 
@@ -138,6 +178,9 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
           newWidth = startWidth + (e.clientX - startX);
           newHeight = startHeight + (e.clientY - startY);
         }
+        if (handleClass === 'resize-handle-r') {
+          rotateElement(resizableElement, handle);
+        }
 
         resizableElement.style.width = `${newWidth}px`;
         resizableElement.style.height = `${newHeight}px`;
@@ -146,6 +189,7 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
         resizableElement.style.right = `${newRight}px`;
         resizableElement.style.bottom = `${newBottom}px`;
       }
+
       function stopResize() {
         document.removeEventListener('mousemove', resize);
         document.removeEventListener('mouseup', stopResize);
