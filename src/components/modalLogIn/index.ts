@@ -2,15 +2,16 @@ import {
   createHtmlElement,
   createButtonElement,
   createInputElementForModal,
+  createPasswordInput,
   dataRegEmail,
   dataRegName,
   dataRegLogin,
-  dataRegPassword, 
+  dataRegPassword,
+  updateURL,
 } from '../../utils';
 import { User } from '../../types/interfaces';
 import { App } from '../../pages/app';
 import { PagesId } from '../../types/enums';
-import { updateURL } from '../../utils';
 
 export const createLogInModal = () => {
   const container = createHtmlElement('form', 'modal__autorization');
@@ -20,7 +21,7 @@ export const createLogInModal = () => {
   title.textContent = 'Вход';
 
   const inputLogIn = createInputElementForModal('modal__input-box', 'text', 'Введите логин', 'autorization__login', '');
-  const inputPass = createInputElementForModal('modal__input-box', 'password', 'Введите пароль', 'autorization__password', '');
+  const inputPass = createPasswordInput('modal__input-box', 'autorization__password', 'autorization__password-ico', '');
 
   const btnLogIn = createButtonElement('autorization__bnt', 'Войти');
 
@@ -52,8 +53,8 @@ export const createRegistrationModal = () => {
   const inputName = createInputElementForModal('modal__input-box', 'text', 'Введите имя', 'registration__name', dataRegName);
   const inputEmail = createInputElementForModal('modal__input-box', 'email', 'Введите почту', 'registration__email', dataRegEmail);
   const inputLogIn = createInputElementForModal('modal__input-box', 'text', 'Введите логин', 'registration__login', dataRegLogin);
-  const inputPass = createInputElementForModal('modal__input-box', 'password', 'Введите пароль', 'registration__password', dataRegPassword);
-  const inputRepeatPass = createInputElementForModal('modal__input-box', 'password', 'Повторите пароль', 'registration__password-repeat', '');
+  const inputPass = createPasswordInput('modal__input-box', 'registration__password', 'registration__password-ico', dataRegPassword);
+  const inputRepeatPass = createPasswordInput('modal__input-box', 'registration__password-repeat', 'registration__password-repeat-ico', '');
   const btnLogIn = createButtonElement('registration__bnt', 'Зарегистрироваться');
   btnLogIn.setAttribute('type', 'submit');
 
@@ -160,6 +161,19 @@ export const validationOfregistration = (form: HTMLFormElement, usersData: User[
   return result;
 };
 
+export const changeIcoInBtnLogIn = () => {
+  let currentUserFromLocal: User;
+  const btnIco = document.querySelector('.btn-log__ico') as HTMLElement;
+
+  if (localStorage.getItem('currentUser')) {
+    currentUserFromLocal = JSON.parse(localStorage.getItem('currentUser') as string);
+
+    btnIco.classList.remove('btn-log__ico');
+    btnIco.classList.add('btn-log__ico_user-ico');
+    btnIco.textContent = `${currentUserFromLocal.name[0]}`;
+  }
+};
+
 export const renderLogInModal = () => {
   const container = document.querySelector('.content') as HTMLElement;
 
@@ -221,7 +235,7 @@ export const registrationUser = (form: HTMLFormElement, usersData: User[]) => {
     login: `${userLogin.value}`,
     email: `${userEmail.value}`,
     password: `${userPassword.value}`,
-    links: [],
+    templates: [],
   };
   usersData.push(user);
   localStorage.setItem('usersData', JSON.stringify(usersData));
@@ -275,10 +289,9 @@ const renderUserDataModal = (user: User) => {
   }
 };
 
-export const openUserDataModal = (usersData: User[]) => {
+export const openModalWindow = (usersData: User[]) => {
   if (localStorage.getItem('usersData')) {
     usersData = JSON.parse(localStorage.getItem('usersData') as string);
-
   }
 
   const autorization = usersData.filter(user => user.authorization === true);
@@ -310,7 +323,7 @@ export const logOutAccount = (usersData: User[]) => {
     login: '',
     email: '',
     password: '',
-    links: [],
+    templates: [],
   };
   localStorage.setItem('currentUser', JSON.stringify(user));
 
@@ -335,7 +348,7 @@ export const validationOfLogIn = (usersData: User[]) => {
   const userIndex = usersData.findIndex(item => item.login === userLoginValue);
   console.log(userIndex);
 
-  if (userIndex > 0) {
+  if (userIndex >= 0) {
     const userLogin = usersData[userIndex].login;
     const userPassword = usersData[userIndex].password;
 

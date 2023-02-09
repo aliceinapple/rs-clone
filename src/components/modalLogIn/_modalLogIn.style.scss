@@ -28,7 +28,29 @@
 
 .modal__input-box {
   padding: 10px 0;
+  position: relative;
 }
+
+.autorization__password-ico,
+.registration__password-ico,
+.registration__password-repeat-ico {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate(0, -50%);
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.password__ico-show {
+  background-image: url('assets/ico/ico_show-pass.png');
+}
+
+.password__ico-hidden {
+  background-image: url('assets/ico/ico_hidden-pass.png');
+}
+
 .autorization__login,
 .autorization__password,
 .registration__name,

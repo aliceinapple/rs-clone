@@ -1,21 +1,22 @@
 import { PagesId, TypesDesigne } from '../../types/enums';
+import { User } from '../../types/interfaces';
 import { updateURL } from '../../utils';
 import Page from '../../components/pageTemplates';
 import { MainPage } from '../main';
 import { DesignePage } from '../designPage';
-import { InfoBusinessPage } from '../questionPages';
-import { ColorSelectPage } from '../questionPages';
-import { StyleSelectPage } from '../questionPages';
+import { InfoBusinessPage, ColorSelectPage, StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
-import { openRegistrationModal } from '../../components/modalLogIn';
 import { PersonalAccountPage } from '../personalAccountPage';
-import { validationOfregistration } from '../../components/modalLogIn';
 import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
-import { registrationUser } from '../../components/modalLogIn';
-import { User } from '../../types/interfaces';
-import { openUserDataModal } from '../../components/modalLogIn';
-import { logOutAccount } from '../../components/modalLogIn';
-import { validationOfLogIn } from '../../components/modalLogIn';
+import { 
+  openModalWindow, 
+  logOutAccount, 
+  validationOfLogIn, 
+  changeIcoInBtnLogIn, 
+  openRegistrationModal, 
+  validationOfregistration, 
+  registrationUser, 
+} from '../../components/modalLogIn';
 
 const usersData: User[] = [];
 
@@ -125,7 +126,7 @@ containerForContent.addEventListener('click', (event) => {
   }
 
   if (clickedItem.closest('.btn-log')) {
-    openUserDataModal(usersData);
+    openModalWindow(usersData);
   }
 
   if (clickedItem.closest('.user-data-modal__log-out-block')) {
@@ -135,8 +136,9 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.autorization__bnt')) {
     event.preventDefault();
     if (validationOfLogIn(usersData) === true) {
-      App.renderNewPage(PagesId.PersonalAccountPage);
-      updateURL(PagesId.PersonalAccountPage);
+      const modal = document.querySelector('.opasity-container');
+      modal?.remove();
+      changeIcoInBtnLogIn();
     }
   }
 
@@ -149,8 +151,9 @@ containerForContent.addEventListener('click', (event) => {
     const form = document.querySelector('.modal__registration') as HTMLFormElement;
     if (validationOfregistration(form, usersData) === true) {
       registrationUser(form, usersData);
-      App.renderNewPage(PagesId.PersonalAccountPage);
-      updateURL(PagesId.PersonalAccountPage);
+      const modal = document.querySelector('.opasity-container');
+      modal?.remove();
+      changeIcoInBtnLogIn();
     }
   }
 
@@ -158,5 +161,6 @@ containerForContent.addEventListener('click', (event) => {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
   }
+
 });
 
