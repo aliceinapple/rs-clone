@@ -221,6 +221,8 @@ export function showHandles(element: HTMLDivElement, handles: HTMLDivElement[], 
         target !== element &&
         !target.classList[0].includes('resize-handle') &&
         !target.closest('.paint-block__control-panel') &&
+        !target.classList.contains('element-tools') &&
+        !target.className.includes('border') &&
         target.parentElement !== elementTools
       ) {
         handles.forEach((handle) => (handle.style.display = 'none'));
@@ -384,11 +386,7 @@ export function addElementToolsActions(
 
   color.addEventListener('input', () => {
     const child = element.querySelector('[contentEditable = "true"]') as HTMLDivElement;
-    if (child) {
-      child.style.color = color.value;
-    } else {
-      element.style.border = `2px solid ${color.value}`;
-    }
+    child.style.color = color.value;
   });
 
   bgColor.addEventListener('input', () => {
@@ -419,6 +417,57 @@ export function addElementToolsActions(
       return;
     }
     element.style.zIndex = String(Number(element.style.zIndex) - 1);
+  });
+}
+
+export function borderStyleBtnsActions(
+  element: HTMLDivElement,
+  none: HTMLDivElement,
+  solid: HTMLDivElement,
+  dashed: HTMLDivElement,
+  dotted: HTMLDivElement,
+  color: HTMLInputElement,
+  borderWidth: HTMLInputElement,
+  borderRound: HTMLInputElement,
+) {
+  none.addEventListener('click', () => {
+    element.style.border = 'none';
+  });
+
+  solid.addEventListener('click', () => {
+    element.style.borderStyle = 'solid';
+  });
+
+  dashed.addEventListener('click', () => {
+    element.style.borderStyle = 'dashed';
+  });
+
+  dotted.addEventListener('click', () => {
+    element.style.borderStyle = 'dotted';
+  });
+
+  color.addEventListener('input', () => {
+    element.style.borderColor = color.value;
+  });
+
+  borderWidth.addEventListener('input', () => {
+    const pattern = /^\d{0,2}$/;
+    const isValid = pattern.test(borderWidth.value);
+
+    if (!isValid) {
+      borderWidth.value = borderWidth.value.slice(0, -1);
+    }
+    element.style.border = `${borderWidth.value}px ${element.style.borderStyle} ${color.value}`;
+  });
+
+  borderRound.addEventListener('input', () => {
+    const pattern = /^\d{0,2}$/;
+    const isValid = pattern.test(borderRound.value);
+
+    if (!isValid) {
+      borderRound.value = borderRound.value.slice(0, -1);
+    }
+    element.style.borderRadius = `${borderRound.value}%`;
   });
 }
 

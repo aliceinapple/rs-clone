@@ -1,5 +1,11 @@
 import { elemStyleTemplates } from '../../../data/layoutTemplateData';
-import { addElementToolsActions, loadPhoto, makeResizable, showHandles } from '../elementsActions';
+import {
+  addElementToolsActions,
+  borderStyleBtnsActions,
+  loadPhoto,
+  makeResizable,
+  showHandles,
+} from '../elementsActions';
 
 let idNumber = 0;
 
@@ -36,6 +42,54 @@ function createResizeHandle(): HTMLDivElement[] {
   return handles;
 }
 
+function createBorderStyleTools(element: HTMLDivElement) {
+  const borderTools = document.createElement('div');
+  borderTools.classList.add('border-tools');
+
+  const borderStyles = document.createElement('div');
+  borderStyles.classList.add('border-tools_styles');
+  const none = document.createElement('div');
+  none.classList.add('border-tools_style_none');
+  const solid = document.createElement('div');
+  solid.classList.add('border-tools_style_solid');
+  const dashed = document.createElement('div');
+  dashed.classList.add('border-tools_style_dashed');
+  const dotted = document.createElement('div');
+  dotted.classList.add('border-tools_style_dotted');
+  const color = document.createElement('input');
+  color.setAttribute('type', 'color');
+  color.classList.add('border-tools_color');
+  color.setAttribute('data-tooltip-elem', 'цвет');
+
+  borderStyles.append(none, solid, dashed, dotted, color);
+
+  const borderWidth = document.createElement('div');
+  borderWidth.classList.add('border-tools_width');
+  const borderWidthTitle = document.createElement('div');
+  borderWidthTitle.classList.add('border-tools_width_title');
+  borderWidthTitle.innerHTML = 'Толщина границы';
+  const borderWidthInput = document.createElement('input');
+  borderWidthInput.classList.add('border-tools_width_input');
+
+  borderWidth.append(borderWidthTitle, borderWidthInput);
+
+  const borderRound = document.createElement('div');
+  borderRound.classList.add('border-tools_round');
+  const borderRoundTitle = document.createElement('div');
+  borderRoundTitle.classList.add('border-tools_round_title');
+  borderRoundTitle.innerHTML = 'Скругленность';
+  const borderRoundInput = document.createElement('input');
+  borderRoundInput.classList.add('border-tools_round_input');
+
+  borderRound.append(borderRoundTitle, borderRoundInput);
+
+  borderTools.append(borderStyles, borderWidth, borderRound);
+
+  borderStyleBtnsActions(element, none, solid, dashed, dotted, color, borderWidthInput, borderRoundInput);
+
+  return borderTools;
+}
+
 export function createElementTools(element: HTMLDivElement): HTMLDivElement {
   const tools = document.createElement('div');
   tools.classList.add('element-tools');
@@ -65,12 +119,33 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
   back.classList.add('element-tools_back');
   back.setAttribute('data-tooltip-elem', 'переместить назад');
 
+  const borderStyle = document.createElement('div');
+  borderStyle.classList.add('border-styles_btn');
+
+  const borderTools = createBorderStyleTools(element);
+  borderStyle.appendChild(borderTools);
+
+  borderStyle.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target instanceof HTMLDivElement) {
+      if (!target.className.includes('border') || target === borderStyle) {
+        borderStyle.classList.toggle('border-selected');
+      }
+    }
+
+    if (borderStyle.classList.contains('border-selected')) {
+      borderTools.style.display = 'flex';
+    } else {
+      borderTools.style.display = 'none';
+    }
+  });
+
   addElementToolsActions(element, copy, del, color, bgColor, front, back);
 
   if (element?.className.includes('template-img')) {
     tools.append(copy, del, front, back);
   } else if (element?.className.includes('template-shape')) {
-    tools.append(copy, del, color, bgColor, front, back);
+    tools.append(copy, del, bgColor, front, back, borderStyle);
   } else {
     tools.append(copy, del, color, front, back);
   }
@@ -110,7 +185,7 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   text.append(...handles);
 
   setTimeout(() => {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.layout-canvas');
     container?.append(elementTools);
   }, 0);
 
@@ -147,7 +222,7 @@ export function createTemplateShape(
   element.append(...handles);
 
   setTimeout(() => {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.layout-canvas');
     container?.append(elementTools);
   }, 0);
 
@@ -184,7 +259,7 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.append(...handles);
 
   setTimeout(() => {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.layout-canvas');
     container?.append(elementTools);
   }, 0);
 
