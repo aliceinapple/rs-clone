@@ -1,5 +1,6 @@
 import { ILayoutTemplate, MainCardTemplate } from '../../../types/interfaces';
-import { copyElement, deleteElement, dragNdrop, setTargetTextElement } from '../elementsActions';
+import { copyElement, deleteElement, dragNdrop } from '../elementsActions';
+import { setTargetTextElement } from '../targetElement';
 
 export class Template {
   data: MainCardTemplate;

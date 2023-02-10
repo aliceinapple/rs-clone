@@ -1,11 +1,6 @@
 import { elemStyleTemplates } from '../../../data/layoutTemplateData';
-import {
-  addElementToolsActions,
-  borderStyleBtnsActions,
-  loadPhoto,
-  makeResizable,
-  showHandles,
-} from '../elementsActions';
+import { addElementToolsActions, borderStyleBtnsActions, loadPhoto } from '../buttonActions';
+import { makeResizable, showHandles } from '../elementsActions';
 
 let idNumber = 0;
 
@@ -80,6 +75,20 @@ function createBorderStyleTools(element: HTMLDivElement) {
   borderRoundTitle.innerHTML = 'Скругленность';
   const borderRoundInput = document.createElement('input');
   borderRoundInput.classList.add('border-tools_round_input');
+
+  setTimeout(() => {
+    if (element.style.borderWidth) {
+      borderWidthInput.value = `${parseInt(element.style.borderWidth)}`;
+    } else {
+      borderWidthInput.value = '0';
+    }
+
+    if (element.style.borderRadius) {
+      borderRoundInput.value = `${parseInt(element.style.borderRadius)}`;
+    } else {
+      borderRoundInput.value = '0';
+    }
+  }, 0);
 
   borderRound.append(borderRoundTitle, borderRoundInput);
 

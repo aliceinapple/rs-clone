@@ -5,13 +5,6 @@ import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
 import { elementPanelTemplates, textPanelTemplates } from '../../components/layoutTemplates';
 import {
-  checkTextStyle,
-  fontAlignBtnsActions,
-  fontSizeBtnsActions,
-  fontStyleBtnsActions,
-  targetTextElement,
-} from '../../components/layoutTemplates/elementsActions';
-import {
   fontFamilyList,
   businessCardSize,
   postCardSize,
@@ -23,6 +16,13 @@ import { postCardsPanelTemplates } from '../../components/layoutTemplates/postCa
 import { resumePanelTemplates } from '../../components/layoutTemplates/resume';
 import { logoPanelTemplates } from '../../components/layoutTemplates/logotype';
 import { CreateTemplates } from '../../components/layoutTemplates/mainTemplate';
+import { targetTextElement } from '../../components/layoutTemplates/targetElement';
+import {
+  checkTextStyle,
+  fontAlignBtnsActions,
+  fontSizeBtnsActions,
+  fontStyleBtnsActions,
+} from '../../components/layoutTemplates/buttonActions';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
