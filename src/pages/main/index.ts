@@ -29,7 +29,6 @@ export const createMainHeader = () => {
       const navItem = createHtmlElement('li', 'nav__item');
       const linkPaint: HTMLAnchorElement = document.createElement('a');
       linkPaint.classList.add('link-paint');
-      linkPaint.setAttribute('href', '#paint-page');
       linkPaint.textContent = item;
       navItem.append(linkPaint);
       navigation.append(navItem);

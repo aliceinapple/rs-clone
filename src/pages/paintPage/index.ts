@@ -93,22 +93,13 @@ const createPainControlPanel = () => {
   const left = createHtmlElement('div', 'text-align-block__left') as HTMLDivElement;
   left.setAttribute('data-tooltip', 'выровнять по левому краю');
   
-  // const brushesBlock = createHtmlElement('select', 'bruches-block');
-  const brushesBlock: HTMLSelectElement = document.createElement('select');
-  brushesBlock.classList.add('select');
-  const bruches = ['line', 'spray'];
-  bruches.forEach((element => {
-    const brush = createHtmlElement('option', 'bruches-item');
-    brush.innerHTML = element;
-    brushesBlock.append(brush);
-  }));
-
   const backgroundColor = document.createElement('div');
   backgroundColor.classList.add('background-color-block');
   const colorInput = document.createElement('input');
   colorInput.setAttribute('data-tooltip', 'цвет фона');
   colorInput.setAttribute('type', 'color');
-  colorInput.value = '#4f4f4f';
+  colorInput.classList.add('background-color-block-input');
+  colorInput.value = '#ffffff';
 
   document.addEventListener('click', (event) => {
     const target = event.target;
@@ -130,7 +121,39 @@ const createPainControlPanel = () => {
 
   textAlidnBlock.append(left, center, right);
 
-  container.append(select, fontSizeBlock, fontStyleBlock, line, textAlidnBlock, brushesBlock, backgroundColor);
+  container.append(select, fontSizeBlock, fontStyleBlock, line, textAlidnBlock, backgroundColor);
+  return container;
+};
+
+
+const createToolsPanel = () => {
+  const container = createHtmlElement('div', 'paint-block__tools');
+
+  const pencil = createHtmlElement('div', 'paint-block__tools-pencil');
+  pencil.setAttribute('data-tooltip', 'карандаш');
+
+  const eraser = createHtmlElement('div', 'paint-block__tools-eraser');
+  eraser.setAttribute('data-tooltip', 'ластик');
+
+  const spray = createHtmlElement('div', 'paint-block__tools-spray');
+  spray.setAttribute('data-tooltip', 'спрей');
+
+  const pouring = createHtmlElement('div', 'paint-block__tools-pouring');
+  pouring.setAttribute('data-tooltip', 'заливка');
+
+  const allcolor = createHtmlElement('input', 'paint-block__tools-allColor');
+  allcolor.setAttribute('data-tooltip', 'цвет кисти');
+  allcolor.setAttribute('type', 'color');
+
+  const widthPencil = createHtmlElement('select', 'paint-block__tools-width');
+  const width = [2, 4, 8, 12, 16, 20, 25, 40, 60, 100];
+  width.forEach((element => {
+    const item = createHtmlElement('option', 'bruches-item');
+    item.innerHTML = String(element);
+    widthPencil.append(item);
+  }));
+
+  container.append(pencil, eraser, spray, pouring, widthPencil, allcolor);
   return container;
 };
 
@@ -138,12 +161,16 @@ const createPaintBlock = () => {
   const container = createHtmlElement('div', 'paint-page__paint-block');
   const controlPanel = createPainControlPanel();
   const wrapper = createHtmlElement('div', 'draw-block__wrapper');
+
+  const toolsPanel = createToolsPanel();
+
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   canvas.classList.add('paint-canvas');
-  // const cx = canvas.getContext('2d');
+  canvas.setAttribute('id', 'canvas');
+  canvas.width = 700;
+  canvas.height = 500;
 
-
-  wrapper.append(canvas);
+  wrapper.append(toolsPanel, canvas);
 
   container.append(controlPanel, wrapper);
   return container;

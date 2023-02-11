@@ -1,6 +1,11 @@
+.paint-block__tools {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 40px;
+}
+
 .paint-canvas {
-    width: 700px;
-    height: 500px;
     border: 1px solid black;
 }
 
@@ -11,7 +16,19 @@
 
 .draw-block__wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     padding-top: 40px;
+}
+.paint-block__tools-pencil {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-pencil.png');
+}
+.paint-block__tools-eraser {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-eraser.png');
+}
+.paint-block__tools-spray {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-spray.png');
+}
+.paint-block__tools-pouring {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-pouring.png');
 }

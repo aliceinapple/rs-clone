@@ -21,6 +21,7 @@ import {
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
 import { PaintPage } from '../paintPage';
+import { renderPaintTools } from '../../components/paintTools';
 
 const usersData: User[] = [];
 
@@ -151,7 +152,7 @@ containerForContent.addEventListener('click', (event) => {
     App.renderNewPage(`${PagesId.DesignePage}/${TypesDesigne.Logo}`);
     updateURL(`${PagesId.DesignePage}/${TypesDesigne.Logo}`);
   }
-
+  
   if (clickedItem.closest('.btn-log')) {
     openModalWindow(usersData);
   }
@@ -187,6 +188,12 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.user-data-modal__link-personal-account')) {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
+  }
+
+  if (clickedItem.closest('.link-paint')) {
+    App.renderNewPage(PagesId.PaintPage);
+    updateURL(PagesId.PaintPage);
+    renderPaintTools();
   }
 
 });
