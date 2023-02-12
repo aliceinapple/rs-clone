@@ -127,25 +127,55 @@ const createPainControlPanel = () => {
 
 
 const createToolsPanel = () => {
-  const container = createHtmlElement('div', 'paint-block__tools');
+  const container = createHtmlElement('div', 'paint-block__tools-meow');
+  const containerOpt = createHtmlElement('div', 'paint-block__tools');
+  const containerLeft = createHtmlElement('div', 'paint-block__tools-left');
+  const containerRight = createHtmlElement('div', 'paint-block__tools-right');
 
   const pencil = createHtmlElement('div', 'paint-block__tools-pencil');
   pencil.setAttribute('data-tooltip', 'карандаш');
+  pencil.setAttribute('id', 'brush');
 
   const eraser = createHtmlElement('div', 'paint-block__tools-eraser');
   eraser.setAttribute('data-tooltip', 'ластик');
+  eraser.setAttribute('id', 'eraser');
 
   const spray = createHtmlElement('div', 'paint-block__tools-spray');
   spray.setAttribute('data-tooltip', 'спрей');
+  spray.setAttribute('id', 'spray');
 
   const pouring = createHtmlElement('div', 'paint-block__tools-pouring');
   pouring.setAttribute('data-tooltip', 'заливка');
+  pouring.setAttribute('id', 'pouring');
+
+  const circle = createHtmlElement('div', 'paint-block__tools-circle');
+  circle.setAttribute('data-tooltip', 'круг');
+  circle.setAttribute('id', 'circle');
+
+  const square = createHtmlElement('div', 'paint-block__tools-square');
+  square.setAttribute('data-tooltip', 'квадрат');
+  square.setAttribute('id', 'rectangle');
+
+  const line = createHtmlElement('div', 'paint-block__tools-line');
+  line.setAttribute('data-tooltip', 'линия');
+  line.setAttribute('id', 'line');
+
+  const polygon = createHtmlElement('div', 'paint-block__tools-polygon');
+  polygon.setAttribute('data-tooltip', 'шестиугольник');
+  polygon.setAttribute('id', 'polygon');
+
+  const ellipse = createHtmlElement('div', 'paint-block__tools-ellipse');
+  ellipse.setAttribute('data-tooltip', 'эллипс');
+  ellipse.setAttribute('id', 'ellipse');
 
   const allcolor = createHtmlElement('input', 'paint-block__tools-allColor');
   allcolor.setAttribute('data-tooltip', 'цвет кисти');
   allcolor.setAttribute('type', 'color');
+  allcolor.setAttribute('id', 'allcolor');
+  allcolor.setAttribute('value', 'black');
 
   const widthPencil = createHtmlElement('select', 'paint-block__tools-width');
+  widthPencil.setAttribute('id', 'width');
   const width = [2, 4, 8, 12, 16, 20, 25, 40, 60, 100];
   width.forEach((element => {
     const item = createHtmlElement('option', 'bruches-item');
@@ -153,7 +183,11 @@ const createToolsPanel = () => {
     widthPencil.append(item);
   }));
 
-  container.append(pencil, eraser, spray, pouring, widthPencil, allcolor);
+  containerLeft.append(pencil, spray, square, line);
+  containerRight.append(ellipse, pouring, circle, polygon);
+
+  containerOpt.append(containerLeft, containerRight);
+  container.append(containerOpt, widthPencil, allcolor, eraser);
   return container;
 };
 

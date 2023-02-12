@@ -1,8 +1,15 @@
 .paint-block__tools {
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.paint-block__tools-left, .paint-block__tools-right {
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
-    gap: 40px;
+    gap: 10px;
 }
 
 .paint-canvas {
@@ -32,3 +39,20 @@
 .paint-block__tools-pouring {
     @include ico-style(64px, 64px, 'assets/ico/ico_paint-pouring.png');
 }
+.paint-block__tools-circle {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-circle.png');
+}
+.paint-block__tools-square {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-square.png');
+}
+.paint-block__tools-line {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-line.png');
+}
+.paint-block__tools-polygon {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-polygon.png');
+}
+
+.paint-block__tools-ellipse {
+    @include ico-style(64px, 64px, 'assets/ico/ico_paint-ellipse.png');
+}
+
