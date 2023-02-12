@@ -1,8 +1,59 @@
 import { elemStyleTemplates } from '../../../data/layoutTemplateData';
+import { ElemProps } from '../../../types/types';
 import { addElementToolsActions, borderStyleBtnsActions, loadPhoto } from '../buttonActions';
 import { makeResizable, showHandles } from '../elementsActions';
+import { saveElemProperties } from '../layoutHistory/layoutHistory';
+import { targetTextElement } from '../targetElement';
 
-let idNumber = 0;
+export function setProps(element: HTMLDivElement | null) {
+  if (
+    element &&
+    !element.classList.contains('resize-handle') &&
+    !element.classList.contains('container') &&
+    !element.hasAttribute('contentEditable')
+  ) {
+    const elemProps: ElemProps = {
+      elem: element,
+      width: element.style.width,
+      height: element.style.height,
+      x: element.style.left,
+      y: element.style.top,
+      zIndex: element.style.zIndex,
+      borderWidth: element.style.borderWidth,
+      borderStyle: element.style.borderStyle,
+      borderRadius: element.style.borderRadius,
+      borderColor: element.style.borderColor,
+      bgColor: element.style.background,
+      containerColor: element.style.background,
+      transform: element.style.transform,
+    };
+    saveElemProperties(elemProps);
+  }
+  if (
+    element &&
+    !element.classList.contains('resize-handle') &&
+    !element.classList.contains('container') &&
+    !element.className.includes('template') &&
+    element.hasAttribute('contentEditable')
+  ) {
+    const elemProps: ElemProps = {
+      elem: element,
+      textContent: element.innerHTML,
+      fontFamily: element.style.fontFamily,
+      fontSize: element.style.fontSize,
+      textDecoration: element.style.textDecoration,
+      fontWeight: element.style.fontWeight,
+      fontStyle: element.style.fontStyle,
+      textAlign: element.style.textAlign,
+    };
+    saveElemProperties(elemProps);
+  }
+}
+
+if (targetTextElement) {
+  targetTextElement.addEventListener('input', () => setProps(targetTextElement));
+  targetTextElement.addEventListener('focus', () => setProps(targetTextElement));
+}
 
 function createResizeHandle(): HTMLDivElement[] {
   const handleNw: HTMLDivElement = document.createElement('div');
@@ -54,7 +105,7 @@ function createBorderStyleTools(element: HTMLDivElement) {
   const color = document.createElement('input');
   color.setAttribute('type', 'color');
   color.classList.add('border-tools_color');
-  color.setAttribute('data-tooltip-elem', 'цвет');
+  color.setAttribute('data-tooltip-border', 'цвет границы');
 
   borderStyles.append(none, solid, dashed, dotted, color);
 
@@ -159,6 +210,11 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
     tools.append(copy, del, color, front, back);
   }
 
+  setTimeout(() => {
+    const container = document.querySelector('.layout-canvas');
+    container?.append(tools);
+  }, 0);
+
   return tools;
 }
 
@@ -185,29 +241,27 @@ export function createTemplateText(
 }
 
 export function createTemplateTextArea(width: string, x: string, y: string): HTMLDivElement {
-  const text: HTMLDivElement = document.createElement('div');
-  text.classList.add('template-text');
+  const element: HTMLDivElement = document.createElement('div');
+  element.classList.add('template-text');
 
   const handles: HTMLDivElement[] = createResizeHandle();
-  const elementTools = createElementTools(text);
+  const elementTools = createElementTools(element);
 
-  text.append(...handles);
+  element.append(...handles);
 
-  setTimeout(() => {
-    const container = document.querySelector('.layout-canvas');
-    container?.append(elementTools);
-  }, 0);
+  element.style.width = width;
+  element.style.left = x;
+  element.style.top = y;
+  element.style.zIndex = elemStyleTemplates.zIndex;
+  element.style.cursor = elemStyleTemplates.cursor;
+  element.style.transform = elemStyleTemplates.transform;
 
-  text.style.width = width;
-  text.style.left = x;
-  text.style.top = y;
-  text.style.zIndex = elemStyleTemplates.zIndex;
-  text.style.cursor = elemStyleTemplates.cursor;
+  element.addEventListener('click', () => setProps(element));
 
-  makeResizable(text, handles);
-  showHandles(text, handles, elementTools);
+  makeResizable(element, handles);
+  showHandles(element, handles, elementTools);
 
-  return text;
+  return element;
 }
 
 export function createTemplateShape(
@@ -216,24 +270,16 @@ export function createTemplateShape(
   x: string,
   y: string,
   border = 'none',
-  borderRadius?: string,
-  fill?: string,
+  borderRadius = '0',
+  fill = 'transparent',
 ) {
   const element: HTMLDivElement = document.createElement('div');
   element.classList.add('template-element', 'template-shape');
-
-  element.id = String(idNumber);
-  idNumber++;
 
   const handles: HTMLDivElement[] = createResizeHandle();
   const elementTools = createElementTools(element);
 
   element.append(...handles);
-
-  setTimeout(() => {
-    const container = document.querySelector('.layout-canvas');
-    container?.append(elementTools);
-  }, 0);
 
   element.style.width = width;
   element.style.height = height;
@@ -242,18 +288,22 @@ export function createTemplateShape(
   element.style.zIndex = elemStyleTemplates.zIndex;
   element.style.cursor = elemStyleTemplates.cursor;
 
-  if (borderRadius) {
-    element.style.borderRadius = borderRadius;
+  element.style.borderRadius = borderRadius;
+
+  element.style.borderColor = border;
+
+  if (border !== 'none') {
+    element.style.borderStyle = elemStyleTemplates.borderStyle;
+    element.style.borderWidth = elemStyleTemplates.borderWidth;
   }
 
-  element.style.border = `2px solid ${border}`;
-
-  if (fill) {
-    element.style.background = fill;
-  }
+  element.style.background = fill;
+  element.style.transform = elemStyleTemplates.transform;
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);
+
+  element.addEventListener('click', () => setProps(element));
 
   return element;
 }
@@ -266,11 +316,6 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   const elementTools = createElementTools(element);
 
   element.append(...handles);
-
-  setTimeout(() => {
-    const container = document.querySelector('.layout-canvas');
-    container?.append(elementTools);
-  }, 0);
 
   if (img === elemStyleTemplates.isLoad) {
     element = loadPhoto(element);
@@ -288,6 +333,10 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.top = y;
   element.style.zIndex = elemStyleTemplates.zIndex;
   element.style.cursor = elemStyleTemplates.cursor;
+
+  element.style.transform = elemStyleTemplates.transform;
+
+  element.addEventListener('click', () => setProps(element));
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);

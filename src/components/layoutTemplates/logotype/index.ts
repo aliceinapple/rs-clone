@@ -12,6 +12,7 @@ import gold_ring from '../../../assets/templateImages/gold_ring.png';
 import fashion_girl from '../../../assets/templateImages/fashion_girl.png';
 
 import { createTemplateImg, createTemplateText, createTemplateTextArea } from '../elementsTemplate';
+import { TypesDesigne } from '../../../types/enums';
 
 //Post cards templates
 
@@ -70,7 +71,7 @@ export class LogoTemplates extends CreateTemplates {
 }
 
 const images = [logo_1, logo_2, logo_3, logo_4];
-export const logoPanelTemplates = createPanelTemplates(200, 200, images);
+export const logoPanelTemplates = createPanelTemplates(TypesDesigne.Logo, 200, 200, images);
 
 const template = new LogoTemplates();
 createLayout(logoPanelTemplates, template);

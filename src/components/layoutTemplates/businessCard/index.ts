@@ -16,6 +16,7 @@ import businessCard_4 from '../../../assets/templateImages/businessCard_4.png';
 import { createLayout, createPanelTemplates } from '..';
 import { CreateTemplates, LayOutTemplate } from '../mainTemplate';
 import { ICreateTemplate } from '../../../types/interfaces';
+import { TypesDesigne } from '../../../types/enums';
 
 //Business cards templates
 
@@ -75,7 +76,7 @@ export class BusinessCardTemplates extends CreateTemplates implements ICreateTem
 
     return card.add(title, title2, image, image2);
   }
-  
+
   allTemplates() {
     const card1 = this.createTemplate1();
     const card2 = this.createTemplate2();
@@ -88,7 +89,7 @@ export class BusinessCardTemplates extends CreateTemplates implements ICreateTem
 }
 
 const images = [businessCard_1, businessCard_2, businessCard_3, businessCard_4];
-export const businessCardsPanelTemplates = createPanelTemplates(240, 135, images);
+export const businessCardsPanelTemplates = createPanelTemplates(TypesDesigne.VisitCard, 240, 135, images);
 
 const template = new BusinessCardTemplates();
 createLayout(businessCardsPanelTemplates, template);

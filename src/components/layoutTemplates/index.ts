@@ -2,7 +2,7 @@ import { createTemplateImg, createTemplateShape, createTemplateText, createTempl
 import { defaultTexsts, elemStyleTemplates, tempElementsArr } from '../../data/layoutTemplateData';
 import { ICreateTemplate } from '../../types/interfaces';
 
-export function createPanelTemplates(width: number, height: number, images: string[]) {
+export function createPanelTemplates(cardsType: string, width: number, height: number, images: string[]) {
   const templates = document.createElement('div');
   templates.classList.add('layout-templates');
 
@@ -12,6 +12,7 @@ export function createPanelTemplates(width: number, height: number, images: stri
     image.width = width;
     image.height = height;
     image.id = `${i}`;
+    image.classList.add(cardsType);
     templates.append(image);
   }
 
@@ -79,8 +80,6 @@ function createTemplateTextPanel() {
   shapes.append(textElem, square, circl);
 
   circl.addEventListener('click', () => {
-    console.log(circl);
-
     const container = document.querySelector('.container');
     const crcl = createTemplateShape('100px', '100px', 'calc(50% - 50px)', 'calc(50% - 50px)', 'black', '50%');
 
@@ -132,6 +131,8 @@ export function createLayout(layout: HTMLDivElement, template: ICreateTemplate) 
     if (target instanceof HTMLImageElement) {
       if (canvas) canvas.innerHTML = '';
       const card = template.render(target?.id, template.allTemplates());
+      card.id = target.id;
+      card.classList.add(target.className);
       canvas?.append(card);
     }
   });

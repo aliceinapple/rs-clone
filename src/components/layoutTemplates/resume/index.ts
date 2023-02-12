@@ -12,6 +12,7 @@ import {
   createTemplateText,
   createTemplateTextArea,
 } from '../elementsTemplate';
+import { TypesDesigne } from '../../../types/enums';
 
 //Post cards templates
 
@@ -123,7 +124,7 @@ export class ResumeTemplates extends CreateTemplates {
 
     return card.add(square2, square, ...template);
   }
-  
+
   allTemplates() {
     const card1 = this.createTemplate1();
     const card2 = this.createTemplate2();
@@ -136,7 +137,7 @@ export class ResumeTemplates extends CreateTemplates {
 }
 
 const images = [resume_1, resume_2, resume_3, resume_4];
-export const resumePanelTemplates = createPanelTemplates(230, 300, images);
+export const resumePanelTemplates = createPanelTemplates(TypesDesigne.Resume, 230, 300, images);
 
 const template = new ResumeTemplates();
 createLayout(resumePanelTemplates, template);

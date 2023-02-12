@@ -15,6 +15,7 @@ import coctail from '../../../assets/templateImages/coctail.png';
 import congrats from '../../../assets/templateImages/congrats.png';
 import confetti from '../../../assets/templateImages/confetti.png';
 import thankU from '../../../assets/templateImages/thankU.png';
+import { TypesDesigne } from '../../../types/enums';
 
 //Post cards templates
 
@@ -59,7 +60,7 @@ export class PostCardTemplates extends CreateTemplates {
 
     return card.add(img, img1, img2, img3, img4);
   }
-  
+
   allTemplates() {
     const card1 = this.createTemplate1();
     const card2 = this.createTemplate2();
@@ -72,7 +73,7 @@ export class PostCardTemplates extends CreateTemplates {
 }
 
 const images = [postCard_1, postCard_2, postCard_3, postCard_4];
-export const postCardsPanelTemplates = createPanelTemplates(220, 135, images);
+export const postCardsPanelTemplates = createPanelTemplates(TypesDesigne.Postcard, 220, 135, images);
 
 const template = new PostCardTemplates();
 createLayout(postCardsPanelTemplates, template);

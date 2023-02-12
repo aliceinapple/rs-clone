@@ -23,6 +23,8 @@ import {
   fontSizeBtnsActions,
   fontStyleBtnsActions,
 } from '../../components/layoutTemplates/buttonActions';
+import { redo, saveElemProperties, undo } from '../../components/layoutTemplates/layoutHistory/layoutHistory';
+import { ElemProps } from '../../types/types';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -39,6 +41,9 @@ const createDesignPageHeader = () => {
   saveBlock.append(saveIco);
   const removeBlock = createHtmlElement('div', 'design-header__remove-block');
   const removeIco = createHtmlElement('div', 'remove-block__ico');
+
+  arrowBack.addEventListener('click', undo);
+  arrowForward.addEventListener('click', redo);
 
   removeIco.addEventListener('click', () => {
     const canvas = document.querySelector('.layout-canvas');
@@ -286,9 +291,23 @@ const createPainControlPanel = () => {
     }
   });
 
+  colorInput.addEventListener('click', () => {
+    const background = document.querySelector('.container') as HTMLDivElement;
+    const elemProps: ElemProps = {
+      elem: background,
+      containerColor: background.style.background,
+    };
+    saveElemProperties(elemProps);
+  });
+
   colorInput.addEventListener('input', () => {
-    const background = document.querySelector('.container');
+    const background = document.querySelector('.container') as HTMLDivElement;
     if (background && background instanceof HTMLDivElement) background.style.background = colorInput.value;
+    const elemProps: ElemProps = {
+      elem: background,
+      containerColor: background.style.background,
+    };
+    saveElemProperties(elemProps);
   });
 
   fontSizeBtnsActions(fontSizePlus, fontSizeMinus, fontSizeInput);

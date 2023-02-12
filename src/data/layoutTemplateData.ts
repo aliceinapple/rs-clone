@@ -67,7 +67,10 @@ export const elemStyleTemplates = {
   bgPosition: 'center',
   bgRepeat: 'no-repeat',
   zIndex: '2',
+  transform: 'none',
   cursor: 'grab',
+  borderStyle: 'solid',
+  borderWidth: '2px',
 };
 
 export const tempElementsArr = [

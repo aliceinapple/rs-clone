@@ -1,5 +1,5 @@
 import { loadPhoto } from '../buttonActions';
-import { createElementTools } from '../elementsTemplate';
+import { createElementTools, setProps } from '../elementsTemplate';
 
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
@@ -38,7 +38,7 @@ export function dragNdrop(container: HTMLDivElement) {
       xOffset = selectedElement.offsetLeft - initialX;
       yOffset = selectedElement.offsetTop - initialY;
     }
-
+    if (selectedElement && selectedElement instanceof HTMLDivElement) setProps(selectedElement);
     isDragging = true;
   }
 
@@ -75,6 +75,7 @@ export function dragNdrop(container: HTMLDivElement) {
       selectedElement = null;
       isDragging = false;
     }
+    if (selectedElement && selectedElement instanceof HTMLDivElement) setProps(selectedElement);
   }
 
   container.addEventListener('mousedown', startMove);
@@ -140,6 +141,7 @@ function rotateElement(element: HTMLDivElement, handle: HTMLDivElement) {
 export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: HTMLDivElement[]) {
   for (const handle of resizeHandles) {
     handle.addEventListener('mousedown', function (event) {
+      setProps(resizableElement);
       event.preventDefault();
       document.body.style.userSelect = 'none';
       const handleClass = handle.classList[1];
@@ -213,6 +215,7 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
         document.removeEventListener('mousemove', resize);
         document.removeEventListener('mouseup', stopResize);
         document.body.style.userSelect = '';
+        setProps(resizableElement);
       }
 
       document.addEventListener('mousemove', resize);
@@ -295,6 +298,7 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
           document.removeEventListener('touchmove', resize);
           document.removeEventListener('touchend', stopResize);
           document.body.style.userSelect = '';
+          setProps(resizableElement);
         }
 
         document.addEventListener('touchmove', resize, { passive: false });
@@ -379,14 +383,6 @@ export function copyElement(template: HTMLDivElement) {
       let divElements;
       if (handles)
         divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
-
-      const tools = copy?.querySelector('.element-tools') as HTMLDivElement;
-      if (tools) {
-        const toolParent = tools.parentNode;
-        if (copy === toolParent) {
-          copy?.removeChild(tools);
-        }
-      }
 
       const copyTools = createElementTools(copy);
       copy?.appendChild(copyTools);

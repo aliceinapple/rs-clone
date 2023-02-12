@@ -1,5 +1,5 @@
 import { makeResizable, showHandles } from '../elementsActions';
-import { createElementTools } from '../elementsTemplate';
+import { createElementTools, setProps } from '../elementsTemplate';
 import { targetTextElement } from '../targetElement';
 
 export function loadPhoto(preview: HTMLDivElement) {
@@ -103,10 +103,12 @@ export function addElementToolsActions(
   color.addEventListener('input', () => {
     const child = element.querySelector('[contentEditable = "true"]') as HTMLDivElement;
     child.style.color = color.value;
+    setProps(element);
   });
 
   bgColor.addEventListener('input', () => {
     element.style.background = bgColor.value;
+    setProps(element);
   });
 
   front.addEventListener('click', () => {
@@ -125,6 +127,7 @@ export function addElementToolsActions(
       return;
     }
     element.style.zIndex = String(Number(element.style.zIndex) + 1);
+    setProps(element);
   });
 
   back.addEventListener('click', () => {
@@ -133,6 +136,7 @@ export function addElementToolsActions(
       return;
     }
     element.style.zIndex = String(Number(element.style.zIndex) - 1);
+    setProps(element);
   });
 }
 
@@ -148,28 +152,33 @@ export function borderStyleBtnsActions(
 ) {
   none.addEventListener('click', () => {
     element.style.border = 'none';
+    setProps(element);
   });
 
   solid.addEventListener('click', () => {
     element.style.borderStyle = 'solid';
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
+    setProps(element);
   });
 
   dashed.addEventListener('click', () => {
     element.style.borderStyle = 'dashed';
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
+    setProps(element);
   });
 
   dotted.addEventListener('click', () => {
     element.style.borderStyle = 'dotted';
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
+    setProps(element);
   });
 
   color.addEventListener('input', () => {
     element.style.borderColor = color.value;
+    setProps(element);
   });
 
   borderWidth.addEventListener('input', () => {
@@ -181,6 +190,8 @@ export function borderStyleBtnsActions(
     }
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
+
+    setProps(element);
   });
 
   borderRound.addEventListener('input', () => {
@@ -191,6 +202,8 @@ export function borderStyleBtnsActions(
       borderRound.value = borderRound.value.slice(0, -1);
     }
     element.style.borderRadius = `${borderRound.value}%`;
+
+    setProps(element);
   });
 }
 
@@ -202,16 +215,19 @@ export function fontSizeBtnsActions(
   fontSizePlus.addEventListener('click', () => {
     fontSizeInput.value = String(Number(fontSizeInput.value) + 1);
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+    setProps(targetTextElement);
   });
 
   fontSizeMinus.addEventListener('click', () => {
     fontSizeInput.value = String(Number(fontSizeInput.value) - 1);
     if (Number(fontSizeInput.value) < 2) fontSizeInput.value = '1';
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+    setProps(targetTextElement);
   });
 
   fontSizeInput.addEventListener('input', () => {
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
+    setProps(targetTextElement);
   });
 }
 
@@ -225,6 +241,7 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.textDecoration = 'none';
       }
     }
+    setProps(targetTextElement);
   });
 
   bold.addEventListener('click', () => {
@@ -236,6 +253,7 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.fontWeight = 'normal';
       }
     }
+    setProps(targetTextElement);
   });
 
   italic.addEventListener('click', () => {
@@ -247,19 +265,23 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.fontStyle = 'normal';
       }
     }
+    setProps(targetTextElement);
   });
 }
 
 export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement, center: HTMLDivElement) {
   left.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'left';
+    setProps(targetTextElement);
   });
 
   right.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'right';
+    setProps(targetTextElement);
   });
 
   center.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'center';
+    setProps(targetTextElement);
   });
 }
