@@ -7,8 +7,6 @@ import { DesignePage } from '../designPage';
 import { InfoBusinessPage, ColorSelectPage, StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
 import { PersonalAccountPage } from '../personalAccountPage';
-
-import { checkBusinessPage, checkColorPage, checkStylePage } from '../../components/logoGeneration';
 import { 
   openModalWindow, 
   logOutAccount, 
@@ -18,13 +16,11 @@ import {
   validationOfregistration, 
   registrationUser, 
 } from '../../components/modalLogIn';
+import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
+import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
+import { savinglayoutsInAccount } from '../personalAccountPage';
 
 const usersData: User[] = [];
-
-//import { validation } from '../../components/modalLogIn';
-//import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
-//import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
-
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -187,6 +183,10 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.user-data-modal__link-personal-account')) {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
+  }
+
+  if (clickedItem.closest('.save-block__ico')) {
+    savinglayoutsInAccount();
   }
 
 });

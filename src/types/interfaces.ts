@@ -21,7 +21,7 @@ export interface User {
   login: string,
   email: string,
   password: string,
-  templates: string[];
+  templates: string[][];
 }
 
 export interface ILogoParameters {

@@ -1,12 +1,13 @@
 .user-data-modal {
   width: 300px;
   position: absolute;
+  z-index: 15;
   top: 75px;
   right: 15px;
   padding: 30px;
   background-color: $color_white-gray;
   border-radius: 4px;
-  box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 6px 7px rgba(0, 0, 0, 0.2);
   @include display-flex(column, flex-start, flex-start);
 }
 
