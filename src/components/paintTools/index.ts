@@ -1,18 +1,31 @@
+import FloodFill from '../../../node_modules/q-floodfill';
+import { imageSaveSrc, saveCanvasAsImageFile, saveImage } from '../saveImages';
+
 export function renderPaintTools() {
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
   let dragging = false;
-  let elasticCheck = false;
   const polygonSides = 6;
   let savedImageData: ImageData;
   let currentTool = 'brush';
-  const canvasWidth = 700;
-  const canvasHeight = 500;
+  const canvasWidth = 800;
+  const canvasHeight = 600;
   let usingBrush = false;
 
   const color = document.querySelector('#allcolor') as HTMLInputElement;
   const widthPencil = document.querySelector('#width') as HTMLSelectElement;
   const eraser = document.querySelector('#eraser') as HTMLDivElement;
+  const removeIco = document.querySelector('.remove-block__ico') as HTMLDivElement;
+  const saveIco = document.querySelector('.save-block__ico') as HTMLDivElement;
+  
+
+  removeIco.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+  saveIco.addEventListener('click', () => {
+    saveCanvasAsImageFile(canvas);
+    saveImage(imageSaveSrc.image);
+  });
 
   let brushXPoints: number[] = [];
   let brushYPoints: number[] = [];
@@ -145,45 +158,62 @@ export function renderPaintTools() {
     ctx.closePath();
   }
 
+  // function randomPointInRadius(radius: number) {
+  //   for (;;) {
+  //     const x = Math.random() * 2 - 1;
+  //     const y = Math.random() * 2 - 1;
+  //     if (x * x + y * y <= 1)
+  //       return { x: x * radius, y: y * radius };
+  //   }
+  // }
+
+  function DrawElastic() {
+    ctx.globalCompositeOperation = 'destination-out';
+    for (let i = 1; i < brushXPoints.length; i++) {
+      ctx.beginPath();
+      if (brushDownPos[i]) {
+        ctx.moveTo(brushXPoints[i - 1], brushYPoints[i - 1]);
+      } else {
+        ctx.moveTo(brushXPoints[i] - 1, brushYPoints[i]);
+      }
+      ctx.lineTo(brushXPoints[i], brushYPoints[i]);
+      ctx.closePath();
+      ctx.stroke();
+    }
+  }
+
   function DrawBrush() {
-    if (elasticCheck) {
-      ctx.globalCompositeOperation = 'destination-out';
-      for (let i = 1; i < brushXPoints.length; i++) {
-        ctx.beginPath();
-        if (brushDownPos[i]) {
-          ctx.moveTo(brushXPoints[i - 1], brushYPoints[i - 1]);
-        } else {
-          ctx.moveTo(brushXPoints[i] - 1, brushYPoints[i]);
-        }
-        ctx.lineTo(brushXPoints[i], brushYPoints[i]);
-        ctx.closePath();
-        ctx.stroke();
+    ctx.globalCompositeOperation = 'source-over';
+    for (let i = 1; i < brushXPoints.length; i++) {
+      ctx.beginPath();
+      if (brushDownPos[i]) {
+        ctx.moveTo(brushXPoints[i - 1], brushYPoints[i - 1]);
+      } else {
+        ctx.moveTo(brushXPoints[i] - 1, brushYPoints[i]);
       }
-    } else {
-      for (let i = 1; i < brushXPoints.length; i++) {
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.beginPath();
-        if (brushDownPos[i]) {
-          ctx.moveTo(brushXPoints[i - 1], brushYPoints[i - 1]);
-        } else {
-          ctx.moveTo(brushXPoints[i] - 1, brushYPoints[i]);
-        }
-        ctx.lineTo(brushXPoints[i], brushYPoints[i]);
-        ctx.closePath();
-        ctx.stroke();
-      }
+      ctx.lineTo(brushXPoints[i], brushYPoints[i]);
+      ctx.closePath();
+      ctx.stroke();
     }
 
   }
 
   function Elastic() {
-    currentTool = 'brush';
+    currentTool = 'eraser';
     brushXPoints = [];
     brushYPoints = [];
     brushDownPos = [];
-    elasticCheck = true;
-    DrawBrush();
   }
+  
+  function fill() {
+    console.log(`${mousedown.x} ${mousedown.y}`);
+    if (canvas && ctx) {
+      const floodFill = new FloodFill(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      floodFill.fill('#2E765A', mousedown.x, mousedown.y, 0);
+      ctx.putImageData(floodFill.imageData, 0, 0);
+    }
+  }
+
 
   function drawRubberbandShape() {
     ctx.strokeStyle = color.value;
@@ -205,17 +235,16 @@ export function renderPaintTools() {
       ctx.beginPath();
       ctx.arc(mousedown.x, mousedown.y, radius, 0, Math.PI * 2);
       ctx.stroke();
-    } else if (currentTool === 'ellipse') {
-      ctx.globalCompositeOperation = 'source-over';
-      const radiusX = shapeBoundingBox.width / 2;
-      const radiusY = shapeBoundingBox.height / 2;
-      ctx.beginPath();
-      ctx.ellipse(mousedown.x, mousedown.y, radiusX, radiusY, Math.PI / 4, 0, Math.PI * 2);
-      ctx.stroke();
     } else if (currentTool === 'polygon') {
       ctx.globalCompositeOperation = 'source-over';
       getPolygon();
       ctx.stroke();
+    } else if (currentTool === 'eraser') {
+      DrawElastic();
+    } else if (currentTool === 'spray') {
+      ctx.globalCompositeOperation = 'source-over';
+    } else if (currentTool === 'pouring') {
+      fill();
     } 
   }
  
@@ -239,10 +268,11 @@ export function renderPaintTools() {
     brushXPoints = [];
     brushYPoints = [];
     brushDownPos = [];
-    if (currentTool === 'brush') {
+    if (currentTool === 'brush' || currentTool === 'eraser') {
       usingBrush = true;
       AddBrushPoint(loc.x, loc.y, undefined);
     }
+    console.log(`${ctx.strokeStyle} mouse down`);
   }
  
   function ReactToMouseMove(e: MouseEvent) {
@@ -253,7 +283,13 @@ export function renderPaintTools() {
       }
       RedrawCanvasImage();
       DrawBrush();
-    } else {
+    } else if (currentTool === 'eraser' && dragging && usingBrush) {
+      if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
+        AddBrushPoint(loc.x, loc.y, true);
+      }
+      RedrawCanvasImage();
+      DrawElastic();
+    }  else {
       if (dragging) {
         RedrawCanvasImage();
         UpdateRubberbandOnMove();
@@ -279,16 +315,6 @@ export function renderPaintTools() {
   //   imageFile.setAttribute('href', canvas.toDataURL());
   // }
  
-  // function OpenImage() {
-  //   const img = new Image();
-  //   // Once the image is loaded clear the canvas and draw it
-  //   img.onload = function () {
-  //     ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //     ctx.drawImage(img, 0, 0);
-  //   };
-  //   img.src = 'image.png';
-    
-  // }
   function updateColorPencil() {
     ctx.strokeStyle = color.value;
   }
@@ -308,6 +334,7 @@ export function renderPaintTools() {
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
+    ctx.fillStyle = 'white';
     canvas.addEventListener('mousedown', ReactToMouseDown);
     canvas.addEventListener('mousemove', ReactToMouseMove);
     canvas.addEventListener('mouseup', ReactToMouseUp);

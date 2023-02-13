@@ -126,7 +126,7 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.logo-result-card')) {
     const parentBlock = clickedItem.closest('.logo-result-card') as HTMLDivElement;
     if (parentBlock !== null) checkLogo(parentBlock);
-    convertationToCanvas(parentBlock.id);
+    convertationToCanvas(parentBlock.id); //
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Postcard}`)) {
@@ -135,7 +135,7 @@ containerForContent.addEventListener('click', (event) => {
   }
 
   if (clickedItem.closest('#btn-next__logo-select')) {
-    saveImage(imageSaveSrc.image);
+    saveImage(imageSaveSrc.image); //
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Resume}`)) {
