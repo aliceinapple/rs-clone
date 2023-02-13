@@ -240,6 +240,7 @@
     outline: none;
     width: 30px;
     height: 30px;
+    margin-left: 35px;
     border-top: 7px solid rgb(255, 0, 136);
     border-right: 7px solid $color_green;
     border-bottom: 7px solid $color_purple;
@@ -263,24 +264,29 @@
   }
 }
 
-[data-tooltip]:hover::before {
-  content: attr(data-tooltip);
+[data-tooltip]:hover::before,
+[data-tooltip-elem]:hover::before,
+[data-tooltip-border]:hover::before {
   position: absolute;
   padding: 5px;
-  top: 120px;
   text-align: center;
   background: rgba(0, 0, 0, 0.742);
   color: $color_white;
   border-radius: 4px;
 }
 
+[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  top: 120px;
+}
+
 [data-tooltip-elem]:hover::before {
   content: attr(data-tooltip-elem);
-  position: absolute;
-  padding: 5px;
   right: 50px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.742);
-  color: $color_white;
-  border-radius: 4px;
+}
+
+[data-tooltip-border]:hover::before {
+  content: attr(data-tooltip-border);
+  top: -20px;
+  right: 20px;
 }

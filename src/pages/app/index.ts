@@ -183,5 +183,4 @@ containerForContent.addEventListener('click', (event) => {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
   }
-
 });

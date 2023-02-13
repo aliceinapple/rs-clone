@@ -13,18 +13,15 @@ import businessCard_1 from '../../../assets/templateImages/businessCard_1.png';
 import businessCard_2 from '../../../assets/templateImages/businessCard_2.png';
 import businessCard_3 from '../../../assets/templateImages/businessCard_3.png';
 import businessCard_4 from '../../../assets/templateImages/businessCard_4.png';
-import { createPanelTemplates } from '..';
-import { LayOutTemplate } from '../mainTemplate';
+import { createLayout, createPanelTemplates } from '..';
+import { CreateTemplates, LayOutTemplate } from '../mainTemplate';
+import { ICreateTemplate } from '../../../types/interfaces';
+import { TypesDesigne } from '../../../types/enums';
 
 //Business cards templates
 
-export class BusinessCardTemplates {
-  createEmptyTemplate() {
-    const card = new LayOutTemplate(businessCardSize, 'white');
-    return card.add();
-  }
-
-  createTemplate1() {
+export class BusinessCardTemplates extends CreateTemplates implements ICreateTemplate {
+  private createTemplate1() {
     const card = new LayOutTemplate(businessCardSize, 'black');
 
     const title = createTemplateTextArea('300px', '25px', '140px');
@@ -41,7 +38,7 @@ export class BusinessCardTemplates {
     return card.add(title, info, square, line);
   }
 
-  createTemplate2() {
+  private createTemplate2() {
     const card = new LayOutTemplate(businessCardSize, '#FCCE7A');
 
     const title = createTemplateTextArea('300px', '300px', '110px');
@@ -55,7 +52,7 @@ export class BusinessCardTemplates {
     return card.add(title, info, circle);
   }
 
-  createTemplate3() {
+  private createTemplate3() {
     const card = new LayOutTemplate(businessCardSize, '#6987D3');
 
     const title = createTemplateTextArea('300px', '200px', '260px');
@@ -66,7 +63,7 @@ export class BusinessCardTemplates {
     return card.add(title, image);
   }
 
-  createTemplate4() {
+  private createTemplate4() {
     const card = new LayOutTemplate(businessCardSize, 'white');
 
     const title = createTemplateTextArea('300px', '350px', '70px');
@@ -80,45 +77,19 @@ export class BusinessCardTemplates {
     return card.add(title, title2, image, image2);
   }
 
-  render(id: string) {
-    let card: HTMLDivElement = document.createElement('div');
+  allTemplates() {
+    const card1 = this.createTemplate1();
+    const card2 = this.createTemplate2();
+    const card3 = this.createTemplate3();
+    const card4 = this.createTemplate4();
 
-    switch (id) {
-      case '1':
-        card = this.createTemplate1();
-        break;
-      case '2':
-        card = this.createTemplate2();
-        break;
-      case '3':
-        card = this.createTemplate3();
-        break;
-      case '4':
-        card = this.createTemplate4();
-        break;
-    }
-
-    return card;
+    const arr = [card1, card2, card3, card4];
+    return arr;
   }
 }
 
-export const businessCardsPanelTemplates = createPanelTemplates(
-  240,
-  135,
-  businessCard_1,
-  businessCard_2,
-  businessCard_3,
-  businessCard_4,
-);
+const images = [businessCard_1, businessCard_2, businessCard_3, businessCard_4];
+export const businessCardsPanelTemplates = createPanelTemplates(TypesDesigne.VisitCard, 240, 135, images);
 
-businessCardsPanelTemplates.addEventListener('click', (event) => {
-  const canvas = document.querySelector('.layout-canvas');
-  if (canvas) canvas.innerHTML = '';
-  const target = event.target;
-  const template = new BusinessCardTemplates();
-
-  if (target instanceof HTMLImageElement) {
-    const card = template.render(target?.id);
-    canvas?.append(card);
-  }
-});
+const template = new BusinessCardTemplates();
+createLayout(businessCardsPanelTemplates, template);

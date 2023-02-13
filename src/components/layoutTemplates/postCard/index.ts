@@ -1,7 +1,7 @@
-import { createPanelTemplates } from '..';
+import { createLayout, createPanelTemplates } from '..';
 import { defaultTexsts, postCardSize } from '../../../data/layoutTemplateData';
 import { createTemplateImg, createTemplateText, createTemplateTextArea } from '../elementsTemplate';
-import { LayOutTemplate } from '../mainTemplate';
+import { CreateTemplates, LayOutTemplate } from '../mainTemplate';
 
 import postCard_1 from '../../../assets/templateImages/postCard_1.png';
 import postCard_2 from '../../../assets/templateImages/postCard_2.png';
@@ -15,15 +15,11 @@ import coctail from '../../../assets/templateImages/coctail.png';
 import congrats from '../../../assets/templateImages/congrats.png';
 import confetti from '../../../assets/templateImages/confetti.png';
 import thankU from '../../../assets/templateImages/thankU.png';
+import { TypesDesigne } from '../../../types/enums';
 
 //Post cards templates
 
-export class PostCardTemplates {
-  createEmptyTemplate() {
-    const card = new LayOutTemplate(postCardSize, 'white');
-    return card.add();
-  }
-
+export class PostCardTemplates extends CreateTemplates {
   createTemplate1() {
     const card = new LayOutTemplate(postCardSize, '#82BFD3');
 
@@ -65,38 +61,19 @@ export class PostCardTemplates {
     return card.add(img, img1, img2, img3, img4);
   }
 
-  render(id: string) {
-    let card: HTMLDivElement = document.createElement('div');
+  allTemplates() {
+    const card1 = this.createTemplate1();
+    const card2 = this.createTemplate2();
+    const card3 = this.createTemplate3();
+    const card4 = this.createTemplate4();
 
-    switch (id) {
-      case '1':
-        card = this.createTemplate1();
-        break;
-      case '2':
-        card = this.createTemplate2();
-        break;
-      case '3':
-        card = this.createTemplate3();
-        break;
-      case '4':
-        card = this.createTemplate4();
-        break;
-    }
-
-    return card;
+    const arr = [card1, card2, card3, card4];
+    return arr;
   }
 }
 
-export const postCardsPanelTemplates = createPanelTemplates(220, 135, postCard_1, postCard_2, postCard_3, postCard_4);
+const images = [postCard_1, postCard_2, postCard_3, postCard_4];
+export const postCardsPanelTemplates = createPanelTemplates(TypesDesigne.Postcard, 220, 135, images);
 
-postCardsPanelTemplates.addEventListener('click', (event) => {
-  const canvas = document.querySelector('.layout-canvas');
-  if (canvas) canvas.innerHTML = '';
-  const target = event.target;
-  const template = new PostCardTemplates();
-
-  if (target instanceof HTMLImageElement) {
-    const card = template.render(target?.id);
-    canvas?.append(card);
-  }
-});
+const template = new PostCardTemplates();
+createLayout(postCardsPanelTemplates, template);
