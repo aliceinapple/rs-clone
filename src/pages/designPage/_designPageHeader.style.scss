@@ -11,7 +11,7 @@
 }
 
 .design-header__remove-block {
-  border: none
+  border: none;
 }
 
 .arrow-block__arrow-back {
@@ -29,4 +29,17 @@
 
 .remove-block__ico {
   @include ico-style(24px, 24px, 'assets/ico/ico_trash.png');
+}
+
+.arrow-block__arrow-back,
+.arrow-block__arrow-forward,
+.save-block__ico,
+.remove-block__ico {
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(1);
+  }
+  transition: all 0.2s ease-in-out;
 }

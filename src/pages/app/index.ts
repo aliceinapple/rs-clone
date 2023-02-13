@@ -8,7 +8,6 @@ import { InfoBusinessPage, ColorSelectPage, StyleSelectPage } from '../questionP
 import { LogoResultPage } from '../logoResultPage';
 import { PersonalAccountPage } from '../personalAccountPage';
 
-
 import { 
   openModalWindow, 
   logOutAccount, 
@@ -23,7 +22,6 @@ const usersData: User[] = [];
 
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
-
 
 const containerForContent = document.querySelector('.content') as HTMLElement;
 
@@ -187,5 +185,4 @@ containerForContent.addEventListener('click', (event) => {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
   }
-
 });

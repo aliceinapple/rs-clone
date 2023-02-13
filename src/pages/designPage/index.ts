@@ -5,33 +5,27 @@ import Page from '../../components/pageTemplates';
 import { TypesDesigne } from '../../types/enums';
 import { elementPanelTemplates, textPanelTemplates } from '../../components/layoutTemplates';
 import {
+  fontFamilyList,
+  businessCardSize,
+  postCardSize,
+  resumeCardSize,
+  logoCardSize,
+} from '../../data/layoutTemplateData';
+import { businessCardsPanelTemplates } from '../../components/layoutTemplates/businessCard';
+import { postCardsPanelTemplates } from '../../components/layoutTemplates/postCard';
+import { resumePanelTemplates } from '../../components/layoutTemplates/resume';
+import { logoPanelTemplates } from '../../components/layoutTemplates/logotype';
+import { CreateTemplates } from '../../components/layoutTemplates/mainTemplate';
+import { targetTextElement, targetTextElementParent } from '../../components/layoutTemplates/targetElement';
+import {
   checkTextStyle,
   fontAlignBtnsActions,
   fontSizeBtnsActions,
   fontStyleBtnsActions,
-  targetTextElement,
-} from '../../components/layoutTemplates/elementsActions';
-import { fontFamilyList } from '../../data/layoutTemplateData';
-import { businessCardsPanelTemplates, BusinessCardTemplates } from '../../components/layoutTemplates/businessCard';
-import { postCardsPanelTemplates, PostCardTemplates } from '../../components/layoutTemplates/postCard';
-import { resumePanelTemplates, ResumeTemplates } from '../../components/layoutTemplates/resume';
-import { logoPanelTemplates, LogoTemplates } from '../../components/layoutTemplates/logotype';
-
-function createEmptyLayout(typeDesigne: string) {
-  let template;
-
-  if (typeDesigne === TypesDesigne.VisitCard) {
-    template = new BusinessCardTemplates();
-  } else if (typeDesigne === TypesDesigne.Postcard) {
-    template = new PostCardTemplates();
-  } else if (typeDesigne === TypesDesigne.Resume) {
-    template = new ResumeTemplates();
-  } else if (typeDesigne === TypesDesigne.Logo) {
-    template = new LogoTemplates();
-  }
-
-  return template;
-}
+} from '../../components/layoutTemplates/buttonActions';
+import { redo, saveElemProperties, undo } from '../../components/layoutTemplates/layoutHistory/layoutHistory';
+import { ElemProps } from '../../types/types';
+import { setProps } from '../../components/layoutTemplates/elementsTemplate';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -49,22 +43,26 @@ const createDesignPageHeader = () => {
   const removeBlock = createHtmlElement('div', 'design-header__remove-block');
   const removeIco = createHtmlElement('div', 'remove-block__ico');
 
+  arrowBack.addEventListener('click', undo);
+  arrowForward.addEventListener('click', redo);
+
   removeIco.addEventListener('click', () => {
     const canvas = document.querySelector('.layout-canvas');
     if (canvas) canvas.innerHTML = '';
     let template;
 
+    const layout = new CreateTemplates();
     if (window.location.hash.includes(TypesDesigne.VisitCard)) {
-      template = createEmptyLayout(TypesDesigne.VisitCard);
+      template = layout.createEmptyTemplate(businessCardSize);
     } else if (window.location.hash.includes(TypesDesigne.Postcard)) {
-      template = createEmptyLayout(TypesDesigne.Postcard);
+      template = layout.createEmptyTemplate(postCardSize);
     } else if (window.location.hash.includes(TypesDesigne.Resume)) {
-      template = createEmptyLayout(TypesDesigne.Resume);
+      template = layout.createEmptyTemplate(resumeCardSize);
     } else if (window.location.hash.includes(TypesDesigne.Logo)) {
-      template = createEmptyLayout(TypesDesigne.Logo);
+      template = layout.createEmptyTemplate(logoCardSize);
     }
 
-    if (canvas && template) canvas.append(template.createEmptyTemplate());
+    if (canvas && template) canvas.append(template);
   });
 
   removeBlock.append(removeIco);
@@ -247,6 +245,7 @@ const createPainControlPanel = () => {
 
   select.addEventListener('change', () => {
     if (targetTextElement) targetTextElement.style.fontFamily = select.value;
+    setProps(targetTextElementParent);
   });
 
   const fontSizeBlock = createHtmlElement('div', 'font-size-block');
@@ -291,12 +290,30 @@ const createPainControlPanel = () => {
     const target = event.target;
     if (target === targetTextElement) {
       checkTextStyle(targetTextElement, underlined, bold, italic, fontSizeInput, select);
+    } else if (target instanceof HTMLDivElement && !container.contains(target)) {
+      underlined.classList.remove('selected');
+      bold.classList.remove('selected');
+      italic.classList.remove('selected');
     }
   });
 
-  colorInput.addEventListener('input', () => {
-    const background = document.querySelector('.container');
+  colorInput.addEventListener('click', () => {
+    const background = document.querySelector('.container') as HTMLDivElement;
+    const elemProps: ElemProps = {
+      elem: background,
+      containerColor: background.style.background,
+    };
+    saveElemProperties(elemProps);
+  });
+
+  colorInput.addEventListener('change', () => {
+    const background = document.querySelector('.container') as HTMLDivElement;
     if (background && background instanceof HTMLDivElement) background.style.background = colorInput.value;
+    const elemProps: ElemProps = {
+      elem: background,
+      containerColor: background.style.background,
+    };
+    saveElemProperties(elemProps);
   });
 
   fontSizeBtnsActions(fontSizePlus, fontSizeMinus, fontSizeInput);
@@ -319,8 +336,19 @@ const createPaintBlock = (typeDesigne: string) => {
   const canvas: HTMLDivElement = document.createElement('div');
   canvas.classList.add('layout-canvas');
 
-  const template = createEmptyLayout(typeDesigne);
-  if (template) canvas.append(template.createEmptyTemplate());
+  let template;
+  const layout = new CreateTemplates();
+  if (typeDesigne === TypesDesigne.VisitCard) {
+    template = layout.createEmptyTemplate(businessCardSize);
+  } else if (typeDesigne === TypesDesigne.Postcard) {
+    template = layout.createEmptyTemplate(postCardSize);
+  } else if (typeDesigne === TypesDesigne.Resume) {
+    template = layout.createEmptyTemplate(resumeCardSize);
+  } else if (typeDesigne === TypesDesigne.Logo) {
+    template = layout.createEmptyTemplate(logoCardSize);
+  }
+
+  if (template) canvas.append(template);
 
   wrapper.append(btnForHiding, canvas);
 

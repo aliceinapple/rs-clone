@@ -1,5 +1,9 @@
-import { MainCardTemplate } from '../../../types/interfaces';
-import { copyElement, deleteElement, dragNdrop, setTargetTextElement } from '../elementsActions';
+import { businessCardSize, postCardSize, resumeCardSize, logoCardSize } from '../../../data/layoutTemplateData';
+import { TypesDesigne } from '../../../types/enums';
+import { ILayoutTemplate, MainCardTemplate } from '../../../types/interfaces';
+import { copyElement, deleteElement, dragNdrop } from '../elementsActions';
+import { historyStack } from '../layoutHistory/layoutHistory';
+import { setTargetTextElement } from '../targetElement';
 
 export class Template {
   data: MainCardTemplate;
@@ -45,6 +49,35 @@ export class LayOutTemplate {
     const card: HTMLDivElement = this.create();
     card.append(...rest);
     dragNdrop(card);
+
+    return card;
+  }
+}
+
+export class CreateTemplates implements ILayoutTemplate {
+  createEmptyTemplate(size: MainCardTemplate) {
+    const card = new LayOutTemplate(size, 'white');
+
+    const emptyTemplate = card.add();
+
+    if (size === businessCardSize) emptyTemplate.classList.add(TypesDesigne.VisitCard);
+    if (size === postCardSize) emptyTemplate.classList.add(TypesDesigne.Postcard);
+    if (size === resumeCardSize) emptyTemplate.classList.add(TypesDesigne.Resume);
+    if (size === logoCardSize) emptyTemplate.classList.add(TypesDesigne.Logo);
+
+    return emptyTemplate;
+  }
+
+  render(id: string, cards: HTMLDivElement[]) {
+    historyStack.length = 0;
+    let card: HTMLDivElement = document.createElement('div');
+
+    for (let i = 0; i < cards.length; i++) {
+      if (Number(id) === i) {
+        card = cards[i];
+        break;
+      }
+    }
 
     return card;
   }
