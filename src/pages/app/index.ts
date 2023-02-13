@@ -18,7 +18,6 @@ import {
 } from '../../components/modalLogIn';
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
-import { savinglayoutsInAccount } from '../personalAccountPage';
 
 const usersData: User[] = [];
 
@@ -183,10 +182,6 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.user-data-modal__link-personal-account')) {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
-  }
-
-  if (clickedItem.closest('.save-block__ico')) {
-    savinglayoutsInAccount();
   }
 
 });
