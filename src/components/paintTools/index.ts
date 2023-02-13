@@ -8,25 +8,17 @@ export function renderPaintTools() {
   const polygonSides = 6;
   let savedImageData: ImageData;
   let currentTool = 'brush';
-  const canvasWidth = 800;
-  const canvasHeight = 600;
+  let canvasWidth: number;
+  let canvasHeight: number;
   let usingBrush = false;
 
+  const mainBlock = document.querySelector('.paint-block__tools') as HTMLDivElement;
   const color = document.querySelector('#allcolor') as HTMLInputElement;
   const widthPencil = document.querySelector('#width') as HTMLSelectElement;
   const eraser = document.querySelector('#eraser') as HTMLDivElement;
   const removeIco = document.querySelector('.remove-block__ico') as HTMLDivElement;
   const saveIco = document.querySelector('.save-block__ico') as HTMLDivElement;
   
-
-  removeIco.addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  });
-  saveIco.addEventListener('click', () => {
-    saveCanvasAsImageFile(canvas);
-    saveImage(imageSaveSrc.image);
-  });
-
   let brushXPoints: number[] = [];
   let brushYPoints: number[] = [];
 
@@ -76,7 +68,7 @@ export function renderPaintTools() {
 
   let loc = new Location(0, 0);
   
-  (document.querySelector('.paint-block__tools') as HTMLDivElement).addEventListener('click', (event: Event) => {
+  mainBlock.addEventListener('click', (event: Event) => {
     const id = ((event.target) as HTMLLinkElement).id;
     currentTool = id;
   });
@@ -140,8 +132,7 @@ export function renderPaintTools() {
     const polygonPoints = [];
 
     for (let i = 0; i < polygonSides; i++) {
-      polygonPoints.push(new PolygonPoint(loc.x + radiusX * Math.sin(angle),
-        loc.y - radiusY * Math.cos(angle)));
+      polygonPoints.push(new PolygonPoint(loc.x + radiusX * Math.sin(angle), loc.y - radiusY * Math.cos(angle)));
       angle += 2 * Math.PI / polygonSides;
     }
 
@@ -259,7 +250,7 @@ export function renderPaintTools() {
     brushDownPos.push(mouseDown);
   }
  
-  function ReactToMouseDown(e: MouseEvent) {
+  function MouseDown(e: MouseEvent) {
     loc = GetMousePosition(e.clientX, e.clientY);
     SaveCanvasImage();
     mousedown.x = loc.x;
@@ -272,10 +263,9 @@ export function renderPaintTools() {
       usingBrush = true;
       AddBrushPoint(loc.x, loc.y, undefined);
     }
-    console.log(`${ctx.strokeStyle} mouse down`);
   }
  
-  function ReactToMouseMove(e: MouseEvent) {
+  function MouseMove(e: MouseEvent) {
     loc = GetMousePosition(e.clientX, e.clientY);
     if (currentTool === 'brush' && dragging && usingBrush) {
       if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
@@ -289,7 +279,7 @@ export function renderPaintTools() {
       }
       RedrawCanvasImage();
       DrawElastic();
-    }  else {
+    } else {
       if (dragging) {
         RedrawCanvasImage();
         UpdateRubberbandOnMove();
@@ -297,24 +287,14 @@ export function renderPaintTools() {
     }
   }
  
-  function ReactToMouseUp(e: MouseEvent) {
+  function MouseUp(e: MouseEvent) {
     loc = GetMousePosition(e.clientX, e.clientY);
     RedrawCanvasImage();
     UpdateRubberbandOnMove();
     dragging = false;
     usingBrush = false;
   }
- 
-  // Saves the image in your default download directory
-  // function SaveImage() {
-  //   // Get a reference to the link element 
-  //   const imageFile = document.getElementById('img-file');
-  //   // Set that you want to download the image when link is clicked
-  //   imageFile.setAttribute('download', 'image.png');
-  //   // Reference the image in canvas for download
-  //   imageFile.setAttribute('href', canvas.toDataURL());
-  // }
- 
+
   function updateColorPencil() {
     ctx.strokeStyle = color.value;
   }
@@ -323,21 +303,48 @@ export function renderPaintTools() {
     ctx.lineWidth = Number(widthPencil.value);
   }
 
+  removeIco.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+  saveIco.addEventListener('click', () => {
+    saveCanvasAsImageFile(canvas);
+    saveImage(imageSaveSrc.image);
+  });
+
   color.addEventListener('change', updateColorPencil);
   widthPencil.addEventListener('change', updateWidthPencil);
   eraser.addEventListener('click', Elastic);
  
+  const changeTools = document.querySelector('.paint-block__tools') as HTMLDivElement;
+
+  function changeSelectedTools(selected: HTMLDivElement) {
+    const items = document.querySelectorAll('.paint-block__toolset');
+    Array.from(items).forEach(item => {
+      item.classList.remove('highlightTools');
+    });
+    selected.classList.add('highlightTools');
+  }
+
+  changeTools.addEventListener('click', (event: Event) => {
+    const item = event.target;
+    const clickedItem = item as HTMLElement;
+    const parentBlock = clickedItem.closest('.paint-block__toolset') as HTMLDivElement;
+    changeSelectedTools(parentBlock);
+  });
+
   function setupCanvas() {
     canvas = document.getElementById('canvas') as HTMLCanvasElement;
     ctx = canvas.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D;
     ctx.strokeStyle = 'black';
+    canvasWidth = canvas.offsetWidth;
+    canvasHeight = canvas.offsetHeight;
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.fillStyle = 'white';
-    canvas.addEventListener('mousedown', ReactToMouseDown);
-    canvas.addEventListener('mousemove', ReactToMouseMove);
-    canvas.addEventListener('mouseup', ReactToMouseUp);
+    canvas.addEventListener('mousedown', MouseDown);
+    canvas.addEventListener('mousemove', MouseMove);
+    canvas.addEventListener('mouseup', MouseUp);
   }
 
   setupCanvas();

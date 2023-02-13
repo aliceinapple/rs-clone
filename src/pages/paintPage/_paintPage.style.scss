@@ -31,15 +31,7 @@
     align-items: center;
     gap: 20px;
 }
-[data-tools]:hover::before {
-    content: attr(data-tools);
-    padding: 5px;
-    text-align: center;
-    background: transparent;
-    // background: rgba(0, 0, 0, 0.742);
-    color: $color_white;
-    border-radius: 4px;
-  }
+
 .paint-block__tools-title {
     font-size: 14px;
     color: $color_gray;
@@ -54,6 +46,10 @@
 }
 
 .paint-canvas {
+    width: calc(100% / 2 + 50px);
+    // height: 600px;
+    max-height: 600px;
+    min-height: 100px;
     box-shadow: 0px 0px 14px rgb(0 0 0 / 15%);
 }
 
@@ -70,11 +66,11 @@
         border-radius: 4px;
         cursor: pointer;
         &:hover {
-          box-shadow: 0px 0px 0px 4px #995aec;
+          box-shadow: 0px 0px 0px 2px $color_gray;
           border-radius: 4px;
         }
         &:active {
-          box-shadow: 0px 0px 0px 4px #995aec;
+          box-shadow: 0px 0px 0px 2px $color_gray;
           border-radius: 4px;
         }
         &::-webkit-color-swatch-wrapper {
@@ -95,11 +91,11 @@
 .paint-block__toolset {
     cursor: pointer;
     &:hover {
-        box-shadow: 0px 0px 0px 4px #995aec;
+        box-shadow: 0px 0px 0px 2px $color_gray;
         border-radius: 2px;
       }
       &:active {
-        box-shadow: 0px 0px 0px 4px #995aec;
+        box-shadow: 0px 0px 0px 2px $color_gray;
         border-radius: 2px;
       }
       &::-webkit-color-swatch-wrapper {
@@ -133,4 +129,15 @@
 .paint-block__tools-polygon {
     @include ico-style(35px, 35px, 'assets/ico/ico_paint-polygon.png');
 }
+.highlightTools {
+    box-shadow: 0px 0px 0px 2px $color_gray;
+    border-radius: 2px;
+}
 
+@media (max-width: 750px) {
+    .draw-block__wrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
+  }
