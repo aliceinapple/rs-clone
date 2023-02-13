@@ -15,7 +15,7 @@ export const createMainHeader = () => {
   const logo = createHtmlElement('div', 'logo');
   
   const navigation = createHtmlElement('ul', 'nav');
-  const navItems = ['Главная', 'Шаблоны', 'Рисование'];
+  const navItems = ['Главная', 'Сгенерировать логотип', 'Рисование'];
   navItems.forEach(item => {
     if (item === 'Главная') {
       const navItem = createHtmlElement('li', 'nav__item');
@@ -29,6 +29,13 @@ export const createMainHeader = () => {
       const navItem = createHtmlElement('li', 'nav__item');
       const linkPaint: HTMLAnchorElement = document.createElement('a');
       linkPaint.classList.add('link-paint');
+      linkPaint.textContent = item;
+      navItem.append(linkPaint);
+      navigation.append(navItem);
+    } else if (item === 'Сгенерировать логотип') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkPaint: HTMLAnchorElement = document.createElement('a');
+      linkPaint.classList.add('banner__btn-create-logo');
       linkPaint.textContent = item;
       navItem.append(linkPaint);
       navigation.append(navItem);
@@ -72,8 +79,7 @@ const createMainContent = () => {
 
   const banner = createHtmlElement('div', 'banner');
   const bannerTextBlock = createHtmlElement('div', 'banner__text-block');
-  const btnCreateLogo = createButtonElement('banner__btn-create-logo', 'Создать логотип');
-  banner.append(bannerTextBlock, btnCreateLogo);
+  banner.append(bannerTextBlock);
 
   
   const templatesBlock = createHtmlElement('div', 'templates-block');
