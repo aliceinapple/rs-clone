@@ -5,6 +5,7 @@
 .footer__wrapper {
   height: 70px;
   color: $color_gray;
+  flex-wrap: wrap;
   @include font-size(16px, 22px, 400);
   @include display-flex(row, space-between, center);
 }
@@ -13,7 +14,9 @@
 .githab-block__nik {
   @include display-flex(row, flex-start, center);
 }
-
+.githab-block {
+  flex-wrap: wrap;
+}
 .nik__ico {
   width: 24px;
   height: 24px;
@@ -32,4 +35,10 @@
 .rs-block:hover {
   transition: $transition;
   transform: scale(1.1);
+}
+
+@media (max-width: 700px) {
+  .footer__wrapper {
+    height: 90px;
+  }
 }
