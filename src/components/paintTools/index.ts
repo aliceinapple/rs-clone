@@ -149,14 +149,14 @@ export function renderPaintTools() {
     ctx.closePath();
   }
 
-  // function randomPointInRadius(radius: number) {
-  //   for (;;) {
-  //     const x = Math.random() * 2 - 1;
-  //     const y = Math.random() * 2 - 1;
-  //     if (x * x + y * y <= 1)
-  //       return { x: x * radius, y: y * radius };
-  //   }
-  // }
+  function randomPointInRadius(radius: number) {
+    for (;;) {
+      const x = Math.random() * 2 - 1;
+      const y = Math.random() * 2 - 1;
+      if (x * x + y * y <= 1)
+        return { x: x * radius, y: y * radius };
+    }
+  }
 
   function DrawElastic() {
     ctx.globalCompositeOperation = 'destination-out';
@@ -197,11 +197,22 @@ export function renderPaintTools() {
   }
   
   function fill() {
-    console.log(`${mousedown.x} ${mousedown.y}`);
     if (canvas && ctx) {
       const floodFill = new FloodFill(ctx.getImageData(0, 0, canvas.width, canvas.height));
-      floodFill.fill('#2E765A', mousedown.x, mousedown.y, 0);
+      floodFill.fill(`${color.value}`, Math.trunc(mousedown.x), Math.trunc(mousedown.y), 0);
       ctx.putImageData(floodFill.imageData, 0, 0);
+    }
+  }
+
+  function spray() {
+    currentTool = 'spray';
+    const radius = ctx.lineWidth / 2;
+    const area = radius * radius * Math.PI;
+    const dotsPerTick = Math.ceil(area / 30);
+    for (let i = 0; i < dotsPerTick; i++) {
+      const offset = randomPointInRadius(radius);
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.fillRect(loc.x + offset.x, loc.y + offset.y, 1, 1);
     }
   }
 
@@ -234,6 +245,8 @@ export function renderPaintTools() {
       DrawElastic();
     } else if (currentTool === 'spray') {
       ctx.globalCompositeOperation = 'source-over';
+      spray();
+      SaveCanvasImage();
     } else if (currentTool === 'pouring') {
       fill();
     } 
@@ -259,7 +272,7 @@ export function renderPaintTools() {
     brushXPoints = [];
     brushYPoints = [];
     brushDownPos = [];
-    if (currentTool === 'brush' || currentTool === 'eraser') {
+    if (currentTool === 'brush' || currentTool === 'eraser' || currentTool === 'spray') {
       usingBrush = true;
       AddBrushPoint(loc.x, loc.y, undefined);
     }
@@ -279,10 +292,18 @@ export function renderPaintTools() {
       }
       RedrawCanvasImage();
       DrawElastic();
+    } else if (currentTool === 'spray' && dragging && usingBrush) {
+      if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
+        AddBrushPoint(loc.x, loc.y, true);
+      }
+      RedrawCanvasImage();
+      UpdateRubberbandOnMove();
     } else {
-      if (dragging) {
-        RedrawCanvasImage();
-        UpdateRubberbandOnMove();
+      if (currentTool != 'pouring') {
+        if (dragging) {
+          RedrawCanvasImage();
+          UpdateRubberbandOnMove();
+        }
       }
     }
   }
