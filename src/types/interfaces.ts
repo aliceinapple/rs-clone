@@ -14,13 +14,13 @@ export interface ITemplates {
 }
 
 export interface User {
-  authorization: boolean;
-  id: number;
-  name: string;
-  login: string;
-  email: string;
-  password: string;
-  templates: string[];
+  authorization: boolean,
+  id: number,
+  name: string,
+  login: string,
+  email: string,
+  password: string,
+  templates: string[][];
 }
 
 export interface ILogoParameters {
