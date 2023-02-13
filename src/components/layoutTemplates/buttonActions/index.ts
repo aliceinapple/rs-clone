@@ -1,6 +1,6 @@
 import { makeResizable, showHandles } from '../elementsActions';
 import { createElementTools, setProps } from '../elementsTemplate';
-import { targetTextElement } from '../targetElement';
+import { targetTextElement, targetTextElementParent } from '../targetElement';
 
 export function loadPhoto(preview: HTMLDivElement) {
   const fileInput = document.createElement('input');
@@ -43,7 +43,7 @@ export function checkTextStyle(
     underline.classList.remove('selected');
   }
 
-  if (element && element.style.fontWeight === '900') {
+  if (element && element.style.fontWeight === 'bold') {
     bold.classList.add('selected');
   } else {
     bold.classList.remove('selected');
@@ -100,13 +100,13 @@ export function addElementToolsActions(
     parent?.removeChild(element);
   });
 
-  color.addEventListener('input', () => {
+  color.addEventListener('change', () => {
     const child = element.querySelector('[contentEditable = "true"]') as HTMLDivElement;
     child.style.color = color.value;
     setProps(element);
   });
 
-  bgColor.addEventListener('input', () => {
+  bgColor.addEventListener('change', () => {
     element.style.background = bgColor.value;
     setProps(element);
   });
@@ -176,7 +176,7 @@ export function borderStyleBtnsActions(
     setProps(element);
   });
 
-  color.addEventListener('input', () => {
+  color.addEventListener('change', () => {
     element.style.borderColor = color.value;
     setProps(element);
   });
@@ -215,19 +215,19 @@ export function fontSizeBtnsActions(
   fontSizePlus.addEventListener('click', () => {
     fontSizeInput.value = String(Number(fontSizeInput.value) + 1);
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 
   fontSizeMinus.addEventListener('click', () => {
     fontSizeInput.value = String(Number(fontSizeInput.value) - 1);
     if (Number(fontSizeInput.value) < 2) fontSizeInput.value = '1';
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 
   fontSizeInput.addEventListener('input', () => {
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 }
 
@@ -241,7 +241,7 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.textDecoration = 'none';
       }
     }
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 
   bold.addEventListener('click', () => {
@@ -253,7 +253,7 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.fontWeight = 'normal';
       }
     }
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 
   italic.addEventListener('click', () => {
@@ -265,23 +265,23 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.fontStyle = 'normal';
       }
     }
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 }
 
 export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement, center: HTMLDivElement) {
   left.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'left';
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 
   right.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'right';
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 
   center.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'center';
-    setProps(targetTextElement);
+    setProps(targetTextElementParent);
   });
 }

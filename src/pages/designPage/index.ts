@@ -16,7 +16,7 @@ import { postCardsPanelTemplates } from '../../components/layoutTemplates/postCa
 import { resumePanelTemplates } from '../../components/layoutTemplates/resume';
 import { logoPanelTemplates } from '../../components/layoutTemplates/logotype';
 import { CreateTemplates } from '../../components/layoutTemplates/mainTemplate';
-import { targetTextElement } from '../../components/layoutTemplates/targetElement';
+import { targetTextElement, targetTextElementParent } from '../../components/layoutTemplates/targetElement';
 import {
   checkTextStyle,
   fontAlignBtnsActions,
@@ -25,6 +25,7 @@ import {
 } from '../../components/layoutTemplates/buttonActions';
 import { redo, saveElemProperties, undo } from '../../components/layoutTemplates/layoutHistory/layoutHistory';
 import { ElemProps } from '../../types/types';
+import { setProps } from '../../components/layoutTemplates/elementsTemplate';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -244,6 +245,7 @@ const createPainControlPanel = () => {
 
   select.addEventListener('change', () => {
     if (targetTextElement) targetTextElement.style.fontFamily = select.value;
+    setProps(targetTextElementParent);
   });
 
   const fontSizeBlock = createHtmlElement('div', 'font-size-block');
@@ -288,6 +290,10 @@ const createPainControlPanel = () => {
     const target = event.target;
     if (target === targetTextElement) {
       checkTextStyle(targetTextElement, underlined, bold, italic, fontSizeInput, select);
+    } else if (target instanceof HTMLDivElement && !container.contains(target)) {
+      underlined.classList.remove('selected');
+      bold.classList.remove('selected');
+      italic.classList.remove('selected');
     }
   });
 
@@ -300,7 +306,7 @@ const createPainControlPanel = () => {
     saveElemProperties(elemProps);
   });
 
-  colorInput.addEventListener('input', () => {
+  colorInput.addEventListener('change', () => {
     const background = document.querySelector('.container') as HTMLDivElement;
     if (background && background instanceof HTMLDivElement) background.style.background = colorInput.value;
     const elemProps: ElemProps = {

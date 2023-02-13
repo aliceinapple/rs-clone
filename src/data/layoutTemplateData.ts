@@ -71,6 +71,9 @@ export const elemStyleTemplates = {
   cursor: 'grab',
   borderStyle: 'solid',
   borderWidth: '2px',
+  textDecoration: 'none',
+  fontWeight: 'normal',
+  fontStyle: 'normal',
 };
 
 export const tempElementsArr = [

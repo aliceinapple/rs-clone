@@ -1,5 +1,6 @@
 export type ElemProps = {
   elem: HTMLDivElement;
+  elements?: HTMLDivElement[];
   width?: string;
   height?: string;
   x?: string;

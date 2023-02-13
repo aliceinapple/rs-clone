@@ -3,9 +3,9 @@ import { ElemProps } from '../../../types/types';
 import { addElementToolsActions, borderStyleBtnsActions, loadPhoto } from '../buttonActions';
 import { makeResizable, showHandles } from '../elementsActions';
 import { saveElemProperties } from '../layoutHistory/layoutHistory';
-import { targetTextElement } from '../targetElement';
 
 export function setProps(element: HTMLDivElement | null) {
+  const child = element?.querySelector('[contentEditable = "true"]') as HTMLDivElement;
   if (
     element &&
     !element.classList.contains('resize-handle') &&
@@ -24,35 +24,17 @@ export function setProps(element: HTMLDivElement | null) {
       borderRadius: element.style.borderRadius,
       borderColor: element.style.borderColor,
       bgColor: element.style.background,
-      containerColor: element.style.background,
       transform: element.style.transform,
+      textContent: child?.innerHTML,
+      fontFamily: child?.style.fontFamily,
+      fontSize: child?.style.fontSize,
+      textDecoration: child?.style.textDecoration,
+      fontWeight: child?.style.fontWeight,
+      fontStyle: child?.style.fontStyle,
+      textAlign: child?.style.textAlign,
     };
     saveElemProperties(elemProps);
   }
-  if (
-    element &&
-    !element.classList.contains('resize-handle') &&
-    !element.classList.contains('container') &&
-    !element.className.includes('template') &&
-    element.hasAttribute('contentEditable')
-  ) {
-    const elemProps: ElemProps = {
-      elem: element,
-      textContent: element.innerHTML,
-      fontFamily: element.style.fontFamily,
-      fontSize: element.style.fontSize,
-      textDecoration: element.style.textDecoration,
-      fontWeight: element.style.fontWeight,
-      fontStyle: element.style.fontStyle,
-      textAlign: element.style.textAlign,
-    };
-    saveElemProperties(elemProps);
-  }
-}
-
-if (targetTextElement) {
-  targetTextElement.addEventListener('input', () => setProps(targetTextElement));
-  targetTextElement.addEventListener('focus', () => setProps(targetTextElement));
 }
 
 function createResizeHandle(): HTMLDivElement[] {
@@ -223,7 +205,7 @@ export function createTemplateText(
   fontFamily: string,
   fontSize: string,
   color: string,
-  textAlign?: string,
+  textAlign = 'left',
 ) {
   const text = document.createElement('div');
   text.innerHTML = textContent;
@@ -232,10 +214,19 @@ export function createTemplateText(
   text.style.fontFamily = fontFamily;
   text.style.fontSize = fontSize;
   text.style.color = color;
+  text.style.textAlign = textAlign;
 
-  if (textAlign) {
-    text.style.textAlign = textAlign;
-  }
+  text.style.textDecoration = elemStyleTemplates.textDecoration;
+  text.style.fontWeight = elemStyleTemplates.fontWeight;
+  text.style.fontStyle = elemStyleTemplates.fontStyle;
+
+  setTimeout(() => {
+    const parent = text.parentElement as HTMLDivElement;
+    if (parent) {
+      text.addEventListener('input', () => setProps(parent));
+      text.addEventListener('focus', () => setProps(parent));
+    }
+  });
 
   return text;
 }
