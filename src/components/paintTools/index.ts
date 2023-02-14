@@ -263,8 +263,17 @@ export function renderPaintTools() {
     brushDownPosition.push(mouseDown);
   }
  
-  function MouseDown(e: MouseEvent) {
-    loc = MousePosition(e.clientX, e.clientY);
+  function MouseDown(e: MouseEvent | TouchEvent) {
+    const mouseX = (e as TouchEvent).changedTouches ?
+      (e as TouchEvent).changedTouches[0].pageX :
+      (e as MouseEvent).pageX;
+    const mouseY = (e as TouchEvent).changedTouches ?
+      (e as TouchEvent).changedTouches[0].pageY :
+      (e as MouseEvent).pageY;
+    // mouseX -= canvas.offsetLeft;
+    // mouseY -= canvas.offsetTop;
+    loc = MousePosition(mouseX, mouseY);
+    //loc = MousePosition(e.clientX, e.clientY);
     SaveCanvasImage();
     mousedown.x = loc.x;
     mousedown.y = loc.y;
@@ -278,8 +287,17 @@ export function renderPaintTools() {
     }
   }
  
-  function MouseMove(e: MouseEvent) {
-    loc = MousePosition(e.clientX, e.clientY);
+  function MouseMove(e: MouseEvent | TouchEvent) {
+    const mouseX = (e as TouchEvent).changedTouches ?
+      (e as TouchEvent).changedTouches[0].pageX :
+      (e as MouseEvent).pageX;
+    const mouseY = (e as TouchEvent).changedTouches ?
+      (e as TouchEvent).changedTouches[0].pageY :
+      (e as MouseEvent).pageY;
+    // mouseX -= canvas.offsetLeft;
+    // mouseY -= canvas.offsetTop;
+    loc = MousePosition(mouseX, mouseY);
+    // loc = MousePosition(e.clientX, e.clientY);
     if (currentTool === 'brush' && dragging && usingBrush) {
       if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
         AddBrushPoint(loc.x, loc.y, true);
@@ -308,8 +326,17 @@ export function renderPaintTools() {
     }
   }
  
-  function MouseUp(e: MouseEvent) {
-    loc = MousePosition(e.clientX, e.clientY);
+  function MouseUp(e: MouseEvent | TouchEvent) {
+    const mouseX = (e as TouchEvent).changedTouches ?
+      (e as TouchEvent).changedTouches[0].pageX :
+      (e as MouseEvent).pageX;
+    const mouseY = (e as TouchEvent).changedTouches ?
+      (e as TouchEvent).changedTouches[0].pageY :
+      (e as MouseEvent).pageY;
+    // mouseX -= canvas.offsetLeft;
+    // mouseY -= canvas.offsetTop;
+    loc = MousePosition(mouseX, mouseY);
+    //loc = MousePosition(e.clientX, e.clientY);
     RedrawCanvasImage();
     UpdateRubberbandOnMove();
     dragging = false;
@@ -367,6 +394,11 @@ export function renderPaintTools() {
     canvas.addEventListener('mousedown', MouseDown);
     canvas.addEventListener('mousemove', MouseMove);
     canvas.addEventListener('mouseup', MouseUp);
+
+    canvas.addEventListener('touchstart', MouseDown);
+    canvas.addEventListener('touchmove', MouseMove);
+    canvas.addEventListener('touchend', MouseUp);
+    
   }
 
   setupCanvas();
