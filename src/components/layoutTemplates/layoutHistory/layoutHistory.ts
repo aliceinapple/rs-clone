@@ -1,10 +1,16 @@
 import { ElemProps } from '../../../types/types';
 
-export const historyStack: ElemProps[] = [];
+export let historyStack: ElemProps[] = [];
 let stackLength = historyStack.length;
 
 export function saveElemProperties(elemProps: ElemProps) {
   const obj = elemProps;
+
+  if (stackLength < historyStack.length) {
+    historyStack = historyStack.slice(0, stackLength);
+    console.log(historyStack);
+  }
+
   if (historyStack.length > 0) {
     if (JSON.stringify(historyStack[historyStack.length - 1]) !== JSON.stringify(elemProps)) {
       historyStack.push(obj);
@@ -44,6 +50,7 @@ function changeElemProps() {
     if (obj.fontWeight) child.style.fontWeight = obj.fontWeight;
     if (obj.textAlign) child.style.textAlign = obj.textAlign;
   }
+  console.log(historyStack);
 }
 
 export function undo() {
