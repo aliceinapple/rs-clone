@@ -124,8 +124,10 @@ const createPaintBlock = () => {
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   canvas.classList.add('paint-canvas');
   canvas.setAttribute('id', 'canvas');
-  canvas.width = 800;
-  canvas.height = 600;
+  canvas.width = Number(`${window.innerWidth / 2 + 50}`);
+  canvas.height = Number(`${window.innerWidth / 2 - 150}`);
+  // canvas.width = 800;
+  // canvas.height = 600;
 
   wrapper.append(toolsPanel, canvas);
 

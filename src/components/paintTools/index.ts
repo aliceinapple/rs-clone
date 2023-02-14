@@ -280,6 +280,7 @@ export function renderPaintTools() {
     // mouseX -= canvas.offsetLeft;
     // mouseY -= canvas.offsetTop;
     loc = MousePosition(mouseX, mouseY);
+    console.log(`${loc.x} loc`);
     //loc = MousePosition(e.clientX, e.clientY);
     SaveCanvasImage();
     mousedown.x = loc.x;
@@ -400,16 +401,23 @@ export function renderPaintTools() {
     changeSelectedTools(parentBlock);
   });
 
+  // function checkWidth() {
+  //   switch()
+  // }
+
   function setupCanvas() {
     canvas = document.getElementById('canvas') as HTMLCanvasElement;
     ctx = canvas.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D;
     ctx.strokeStyle = 'black';
+    // canvas.width = Number(`${window.innerWidth / 2 + 50}`);
+    // canvas.height = 600;
     canvasWidth = canvas.offsetWidth;
     canvasHeight = canvas.offsetHeight;
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.fillStyle = 'white';
+    console.log(window.innerWidth);
     canvas.addEventListener('mousedown', MouseDown, { passive: true });
     canvas.addEventListener('mousemove', MouseMove, { passive: true });
     canvas.addEventListener('mouseup', MouseUp, { passive: true });
