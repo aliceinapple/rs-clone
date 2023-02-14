@@ -2,8 +2,17 @@ import { ElemProps } from '../../../types/types';
 
 export let historyStack: ElemProps[] = [];
 let stackLength = historyStack.length;
+let alreadyCalled = false;
+
+function decreaseStackLength() {
+  if (!alreadyCalled) {
+    stackLength--;
+    alreadyCalled = true;
+  }
+}
 
 export function saveElemProperties(elemProps: ElemProps) {
+  alreadyCalled = false;
   const obj = elemProps;
 
   if (stackLength < historyStack.length) {
@@ -50,7 +59,6 @@ function changeElemProps() {
     if (obj.fontWeight) child.style.fontWeight = obj.fontWeight;
     if (obj.textAlign) child.style.textAlign = obj.textAlign;
   }
-  console.log(historyStack);
 }
 
 export function undo() {
@@ -59,6 +67,7 @@ export function undo() {
     stackLength = 0;
   }
   if (historyStack.length > 1) {
+    decreaseStackLength();
     changeElemProps();
   }
 }
@@ -66,6 +75,7 @@ export function undo() {
 export function redo() {
   stackLength++;
   if (stackLength > historyStack.length) {
+    alreadyCalled = false;
     stackLength = historyStack.length;
   } else if (stackLength < historyStack.length) {
     changeElemProps();
