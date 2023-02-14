@@ -4,15 +4,14 @@ export interface MainCardTemplate {
 }
 
 export interface ITemplates {
-  id: number,
-  src: string,
-  style: string,
-  scope: string,
-  color: string,
-  textColor: string,
-  textSize: string
+  id: number;
+  src: string;
+  style: string;
+  scope: string;
+  color: string;
+  textColor: string;
+  textSize: string;
 }
-
 
 export interface User {
   authorization: boolean,
@@ -21,7 +20,7 @@ export interface User {
   login: string,
   email: string,
   password: string,
-  templates: string[];
+  templates: string[][];
 }
 
 export interface ILogoParameters {
@@ -33,4 +32,13 @@ export interface ILogoParameters {
 
 export interface IImage {
   image: HTMLImageElement;
+}
+
+export interface ILayoutTemplate {
+  createEmptyTemplate: (size: MainCardTemplate) => HTMLDivElement;
+  render: (id: string, cards: HTMLDivElement[]) => HTMLDivElement;
+}
+
+export interface ICreateTemplate extends ILayoutTemplate {
+  allTemplates: () => HTMLDivElement[];
 }

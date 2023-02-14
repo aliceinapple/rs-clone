@@ -1,10 +1,10 @@
-import { createPanelTemplates } from '..';
+import { createLayout, createPanelTemplates } from '..';
 import logo_1 from '../../../assets/templateImages/logo_1.png';
 import logo_2 from '../../../assets/templateImages/logo_2.png';
 import logo_3 from '../../../assets/templateImages/logo_3.png';
 import logo_4 from '../../../assets/templateImages/logo_4.png';
 import { logoCardSize } from '../../../data/layoutTemplateData';
-import { LayOutTemplate } from '../mainTemplate';
+import { CreateTemplates, LayOutTemplate } from '../mainTemplate';
 
 import monica from '../../../assets/templateImages/monica.png';
 import minimalism_mountains from '../../../assets/templateImages/minimalism_mountains.png';
@@ -12,16 +12,11 @@ import gold_ring from '../../../assets/templateImages/gold_ring.png';
 import fashion_girl from '../../../assets/templateImages/fashion_girl.png';
 
 import { createTemplateImg, createTemplateText, createTemplateTextArea } from '../elementsTemplate';
+import { TypesDesigne } from '../../../types/enums';
 
 //Post cards templates
 
-export class LogoTemplates {
-  createEmptyTemplate() {
-    const card = new LayOutTemplate(logoCardSize, 'white');
-
-    return card.add();
-  }
-
+export class LogoTemplates extends CreateTemplates {
   createTemplate1() {
     const card = new LayOutTemplate(logoCardSize, 'white');
 
@@ -64,38 +59,19 @@ export class LogoTemplates {
     return card.add(img, title);
   }
 
-  render(id: string) {
-    let card: HTMLDivElement = document.createElement('div');
+  allTemplates() {
+    const card1 = this.createTemplate1();
+    const card2 = this.createTemplate2();
+    const card3 = this.createTemplate3();
+    const card4 = this.createTemplate4();
 
-    switch (id) {
-      case '1':
-        card = this.createTemplate1();
-        break;
-      case '2':
-        card = this.createTemplate2();
-        break;
-      case '3':
-        card = this.createTemplate3();
-        break;
-      case '4':
-        card = this.createTemplate4();
-        break;
-    }
-
-    return card;
+    const arr = [card1, card2, card3, card4];
+    return arr;
   }
 }
 
-export const logoPanelTemplates = createPanelTemplates(200, 200, logo_1, logo_2, logo_3, logo_4);
+const images = [logo_1, logo_2, logo_3, logo_4];
+export const logoPanelTemplates = createPanelTemplates(TypesDesigne.Logo, 200, 200, images);
 
-logoPanelTemplates.addEventListener('click', (event) => {
-  const canvas = document.querySelector('.layout-canvas');
-  if (canvas) canvas.innerHTML = '';
-  const target = event.target;
-  const template = new LogoTemplates();
-
-  if (target instanceof HTMLImageElement) {
-    const card = template.render(target?.id);
-    canvas?.append(card);
-  }
-});
+const template = new LogoTemplates();
+createLayout(logoPanelTemplates, template);

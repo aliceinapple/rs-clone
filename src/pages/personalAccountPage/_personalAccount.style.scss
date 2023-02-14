@@ -1,15 +1,16 @@
 .account__wrapper {
   width: 100%;
-  height: calc(100vh - 140px);
+  min-height: calc(100vh - 150px);
+  max-height: 100%;
+  @include display-flex(column, flex-start, flex-start);
+  padding: 20px 20px 20px;
 }
 
-.account__personal-data-block {
-  padding: 50px 30px;
-  @include display-flex(row, flex-start, flex-start);
-}
-
-.personal-layouts_empty {
-  @include display-flex(row, center, center);
+.account__default-wrapper {
+  width: 100%;
+  min-height: calc(100vh - 180px);
+  max-height: 100%;
+  @include display-flex(column, center, center);
 }
 
 .account__default-block {
@@ -20,4 +21,50 @@
   width: 300px;
   height: 300px;
   background-image: url('assets/img/image.png');
+}
+
+.layout-block {
+  width: 100%;
+  margin: 0 0 30px;
+  border-bottom: 1px solid $color_gray;
+}
+
+.layout-block__title {
+  @include font-size(18px, 20px, 600);
+  margin: 0 0 20px;
+}
+
+.layout-block__content {
+  width: 100%;
+  @include display-flex(row, flex-start, flex-start);
+  flex-wrap: wrap;
+}
+
+.layout-block__wrapper {
+  box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.layout-block__postcard-wrapper {
+  width: 240px;
+  height: 160px;
+  margin: 0 25px 25px 0;
+}
+
+.layout-block__logotype-wrapper {
+  width: 160px;
+  height: 160px;
+  margin: 0 25px 25px 0;
+}
+
+.layout-block__visit-card-wrapper {
+  width: 280px;
+  height: 160px;
+  margin: 0 25px 25px 0;
+}
+
+.layout-block__resume-wrapper {
+  width: 200px;
+  height: 260px;
+  margin: 0 25px 25px 0;
 }
