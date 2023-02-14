@@ -1,0 +1,171 @@
+.paint-block__tools {
+    @include display-flex(column, space-around, center);
+    gap: 10px;
+}
+
+@mixin block-style() {
+    padding: 0 35px;
+    height: 40px;
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .paint-header__save-block,
+  .paint-header__remove-block {
+    @include display-flex(row, flex-start, center);
+    @include block-style();
+}
+
+.paint-block__tools-width-container, .paint-block__tools-color-container {
+    @include display-flex(row, space-around, center);
+    width: 100%;
+}
+
+.paint-block__tools-width {
+    width: 90px;
+    height: 30px;
+    padding: 0 0 0 5px;
+    color: rgb(79, 79, 79);
+    background-color: #ebecf0;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+.paint-block__tools-container {
+    @include display-flex(column, flex-start, center);
+    padding: 15px 20px 20px 20px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 14px rgb(0 0 0 / 15%);
+    gap: 20px;
+}
+
+.paint-block__tools-title {
+    font-size: 14px;
+    color: $color_gray;
+}
+
+.paint-block__tools-top, .paint-block__tools-bottom {
+    @include display-flex(row, space-around, center);
+    gap: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $color_gray;
+}
+
+.paint-canvas {
+    width: calc(100% / 2 + 50px);
+    max-height: 600px;
+    min-height: 100px;
+    box-shadow: 0px 0px 14px rgb(0 0 0 / 15%);
+}
+
+.paint-page__paint-block {
+    width: 100%;
+    height: 100%;
+}
+
+.brush-color-block {
+    
+    input {
+        outline: none;
+        width: 80px;
+        height: 30px;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          box-shadow: 0px 0px 0px 2px $color_gray;
+          border-radius: 4px;
+        }
+        &:active {
+          box-shadow: 0px 0px 0px 2px $color_gray;
+          border-radius: 4px;
+        }
+        &::-webkit-color-swatch-wrapper {
+          padding: 0;
+        }
+        &::-webkit-color-swatch {
+          border: none;
+        }
+      }
+}
+.draw-block__wrapper {
+    @include display-flex(row, center, flex-start);
+    gap: 100px;
+    padding-top: 40px;
+}
+
+.paint-block__toolset {
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0px 0px 0px 2px $color_gray;
+        border-radius: 2px;
+      }
+      &:active {
+        box-shadow: 0px 0px 0px 2px $color_gray;
+        border-radius: 2px;
+      }
+      &::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+      &::-webkit-color-swatch {
+        border: none;
+      }
+}
+
+.paint-block__tools-pencil {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-pencil.png');
+}
+
+.paint-block__tools-eraser {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-eraser.png');
+}
+
+.paint-block__tools-spray {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-spray.png');
+}
+
+.paint-block__tools-pouring {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-pouring.png');
+}
+
+.paint-block__tools-circle {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-circle.png');
+}
+
+.paint-block__tools-square {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-square.png');
+}
+
+.paint-block__tools-line {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-line.png');
+}
+
+.paint-block__tools-polygon {
+    @include ico-style(35px, 35px, 'assets/ico/ico_paint-polygon.png');
+}
+
+.highlightTools {
+    box-shadow: 0px 0px 0px 2px $color_gray;
+    border-radius: 2px;
+}
+
+@media (max-width: 750px) {
+
+    .draw-block__wrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
+
+}
+
+@media (max-width: 590px) {
+
+    .paint-header__save-block,
+    .paint-header__remove-block {
+        padding: 0 10px;
+    }
+    
+    .paint-header__remove-block {
+        border: none;
+    }
+
+}

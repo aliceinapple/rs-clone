@@ -24,6 +24,7 @@
   margin: 35px 0;
   @include display-flex(row, space-between, center);
   cursor: pointer;
+  flex-wrap: wrap;
 }
 
 .templates-block__template-card:hover {

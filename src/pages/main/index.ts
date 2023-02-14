@@ -15,7 +15,7 @@ export const createMainHeader = () => {
   const logo = createHtmlElement('div', 'logo');
   
   const navigation = createHtmlElement('ul', 'nav');
-  const navItems = ['Главная', 'Шаблоны', 'Обучение'];
+  const navItems = ['Главная', 'Сгенерировать логотип', 'Рисование'];
   navItems.forEach(item => {
     if (item === 'Главная') {
       const navItem = createHtmlElement('li', 'nav__item');
@@ -24,6 +24,20 @@ export const createMainHeader = () => {
       linkHome.setAttribute('href', '#main-page');
       linkHome.textContent = item;
       navItem.append(linkHome);
+      navigation.append(navItem);
+    } else if (item === 'Рисование') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkPaint: HTMLAnchorElement = document.createElement('a');
+      linkPaint.classList.add('link-paint');
+      linkPaint.textContent = item;
+      navItem.append(linkPaint);
+      navigation.append(navItem);
+    } else if (item === 'Сгенерировать логотип') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkPaint: HTMLAnchorElement = document.createElement('a');
+      linkPaint.classList.add('banner__btn-create-logo');
+      linkPaint.textContent = item;
+      navItem.append(linkPaint);
       navigation.append(navItem);
     } else {
       const navItem = createHtmlElement('li', 'nav__item');
@@ -36,9 +50,51 @@ export const createMainHeader = () => {
   const btnBlock = createHtmlElement('div', 'buttons-block');
   const btnCreateDisigne = createButtonElement('btn-create-disign', 'Создать дизайн');
   const btnLog = createLogInButton();
+
   btnBlock.append(btnCreateDisigne, btnLog);
 
-  headerWrapper.append(navBlock, btnBlock);
+  const burgerWrapper = createHtmlElement('div', 'burger-menu');
+  const burgerCheck = createHtmlElement('input', 'burger-menu-input');
+  burgerCheck.setAttribute('id', 'menu__toggle');
+  burgerCheck.setAttribute('type', 'checkbox');
+  const burgerLabel = createHtmlElement('label', 'menu__btn');
+  burgerLabel.setAttribute('for', 'menu__toggle');
+  const span = createHtmlElement('span', 'burger-menu-span');
+  burgerLabel.append(span);
+
+  const burgerUl = createHtmlElement('ul', 'menu__box');
+  navItems.forEach(item => {
+    if (item === 'Главная') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkHome: HTMLAnchorElement = document.createElement('a');
+      linkHome.classList.add('link-back-home');
+      linkHome.setAttribute('href', '#main-page');
+      linkHome.textContent = item;
+      navItem.append(linkHome);
+      burgerUl.append(navItem);
+    } else if (item === 'Рисование') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkPaint: HTMLAnchorElement = document.createElement('a');
+      linkPaint.classList.add('link-paint');
+      linkPaint.textContent = item;
+      navItem.append(linkPaint);
+      burgerUl.append(navItem);
+    } else if (item === 'Сгенерировать логотип') {
+      const navItem = createHtmlElement('li', 'nav__item');
+      const linkPaint: HTMLAnchorElement = document.createElement('a');
+      linkPaint.classList.add('banner__btn-create-logo');
+      linkPaint.textContent = item;
+      navItem.append(linkPaint);
+      burgerUl.append(navItem);
+    } else {
+      const navItem = createHtmlElement('li', 'nav__item');
+      navItem.textContent = item;
+      burgerUl.append(navItem);
+    }
+  });
+
+  burgerWrapper.append(burgerCheck, burgerLabel, burgerUl);
+  headerWrapper.append(burgerWrapper, navBlock, btnBlock);
   header.append(headerWrapper);
   return header;
 };
@@ -65,8 +121,7 @@ const createMainContent = () => {
 
   const banner = createHtmlElement('div', 'banner');
   const bannerTextBlock = createHtmlElement('div', 'banner__text-block');
-  const btnCreateLogo = createButtonElement('banner__btn-create-logo', 'Создать логотип');
-  banner.append(bannerTextBlock, btnCreateLogo);
+  banner.append(bannerTextBlock);
 
   
   const templatesBlock = createHtmlElement('div', 'templates-block');

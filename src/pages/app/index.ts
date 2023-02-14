@@ -18,6 +18,8 @@ import {
 } from '../../components/modalLogIn';
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
+import { PaintPage } from '../paintPage';
+import { renderPaintTools } from '../../components/paintTools';
 
 const usersData: User[] = [];
 
@@ -52,6 +54,8 @@ export class App {
       page = new LogoResultPage(PagesId.LogoResultPage);
     } else if (idPage.includes(PagesId.PersonalAccountPage)) {
       page = new PersonalAccountPage(PagesId.PersonalAccountPage);
+    } else if (idPage.includes(PagesId.PaintPage)) {
+      page = new PaintPage(idPage);
     }
 
     if (page) {
@@ -120,7 +124,7 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.logo-result-card')) {
     const parentBlock = clickedItem.closest('.logo-result-card') as HTMLDivElement;
     if (parentBlock !== null) checkLogo(parentBlock);
-    convertationToCanvas(parentBlock.id);
+    convertationToCanvas(parentBlock.id); //
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Postcard}`)) {
@@ -129,7 +133,7 @@ containerForContent.addEventListener('click', (event) => {
   }
 
   if (clickedItem.closest('#btn-next__logo-select')) {
-    saveImage(imageSaveSrc.image);
+    saveImage(imageSaveSrc.image); //
   }
 
   if (clickedItem.closest(`#${TypesDesigne.Resume}`)) {
@@ -146,7 +150,7 @@ containerForContent.addEventListener('click', (event) => {
     App.renderNewPage(`${PagesId.DesignePage}/${TypesDesigne.Logo}`);
     updateURL(`${PagesId.DesignePage}/${TypesDesigne.Logo}`);
   }
-
+  
   if (clickedItem.closest('.btn-log')) {
     openModalWindow(usersData);
   }
@@ -183,4 +187,11 @@ containerForContent.addEventListener('click', (event) => {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
   }
+
+  if (clickedItem.closest('.link-paint')) {
+    App.renderNewPage(PagesId.PaintPage);
+    updateURL(PagesId.PaintPage);
+    renderPaintTools();
+  }
+
 });

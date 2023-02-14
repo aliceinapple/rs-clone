@@ -61,3 +61,9 @@
       transition: $transition;
     }
 }
+
+@media (max-width: 780px) {
+  .navigation-block {
+    display: none;
+  }
+}
