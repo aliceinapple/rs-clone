@@ -104,6 +104,7 @@ export function renderPaintTools() {
     } else {
       shapeBoundingBox.top = loc.y;
     }
+    console.log(shapeBoundingBox);
   }
  
   function radiansToDegrees(rad: number) {
@@ -264,6 +265,12 @@ export function renderPaintTools() {
   }
  
   function MouseDown(e: MouseEvent | TouchEvent) {
+    // const mouseX = (e as TouchEvent).changedTouches ?
+    //   (e as TouchEvent).changedTouches[0].clientY :
+    //   (e as MouseEvent).clientX;
+    // const mouseY = (e as TouchEvent).changedTouches ?
+    //   (e as TouchEvent).changedTouches[0].clientY :
+    //   (e as MouseEvent).clientY;
     const mouseX = (e as TouchEvent).changedTouches ?
       (e as TouchEvent).changedTouches[0].pageX :
       (e as MouseEvent).pageX;
@@ -284,6 +291,10 @@ export function renderPaintTools() {
     if (currentTool === 'brush' || currentTool === 'eraser' || currentTool === 'spray') {
       usingBrush = true;
       AddBrushPoint(loc.x, loc.y, undefined);
+      // console.log(`${canvasWidth} ширина и ${canvasHeight} высота`);
+      // console.log(`${canvas.offsetWidth} ширина и ${canvas.offsetHeight} высота`);
+      // console.log(`${mousedown.x} опустили down и ${mousedown.y} down y`);
+      // console.log(`${mouseX} mouse x ${mousedown.x} mouse y`);
     }
   }
  
@@ -302,6 +313,10 @@ export function renderPaintTools() {
       if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
         AddBrushPoint(loc.x, loc.y, true);
       }
+      console.log(loc.x);
+      console.log(loc.y);
+      console.log(canvasWidth);
+      console.log(canvasHeight);
       RedrawCanvasImage();
       DrawBrush();
     } else if (currentTool === 'eraser' && dragging && usingBrush) {
@@ -313,6 +328,10 @@ export function renderPaintTools() {
     } else if (currentTool === 'spray' && dragging && usingBrush) {
       if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
         AddBrushPoint(loc.x, loc.y, true);
+        console.log(loc.x);
+        console.log(loc.y);
+        console.log(canvasWidth);
+        console.log(canvasHeight);
       }
       RedrawCanvasImage();
       UpdateRubberbandOnMove();
@@ -391,14 +410,15 @@ export function renderPaintTools() {
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.fillStyle = 'white';
-    canvas.addEventListener('mousedown', MouseDown);
-    canvas.addEventListener('mousemove', MouseMove);
-    canvas.addEventListener('mouseup', MouseUp);
+    canvas.addEventListener('mousedown', MouseDown, { passive: true });
+    canvas.addEventListener('mousemove', MouseMove, { passive: true });
+    canvas.addEventListener('mouseup', MouseUp, { passive: true });
 
-    canvas.addEventListener('touchstart', MouseDown);
-    canvas.addEventListener('touchmove', MouseMove);
-    canvas.addEventListener('touchend', MouseUp);
-    
+    canvas.addEventListener('touchstart', MouseDown, { passive: true });
+    canvas.addEventListener('touchmove', MouseMove, { passive: true });
+    canvas.addEventListener('touchend', MouseUp, { passive: true });
+    console.log(canvas.offsetWidth);
+    console.log(canvas.offsetHeight);
   }
 
   setupCanvas();
