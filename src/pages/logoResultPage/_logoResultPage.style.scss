@@ -51,10 +51,20 @@
 }
 
 @media (max-width: 1000px) {
+
     .logo-result-content {
         @include display-flex(column, center, center);
     }
     .logo-result-card {
         width: 40%;
     }
+    
+}
+
+@media (max-width: 590px) {
+
+    .page-question-result {
+        padding: 50px 10px 50px 10px;
+    }
+
 }

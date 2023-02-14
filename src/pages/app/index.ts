@@ -7,7 +7,6 @@ import { DesignePage } from '../designPage';
 import { InfoBusinessPage, ColorSelectPage, StyleSelectPage } from '../questionPages';
 import { LogoResultPage } from '../logoResultPage';
 import { PersonalAccountPage } from '../personalAccountPage';
-
 import { 
   openModalWindow, 
   logOutAccount, 
@@ -17,7 +16,6 @@ import {
   validationOfregistration, 
   registrationUser, 
 } from '../../components/modalLogIn';
-
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
 import { PaintPage } from '../paintPage';

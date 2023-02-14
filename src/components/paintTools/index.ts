@@ -22,9 +22,9 @@ export function renderPaintTools() {
   let brushXPoints: number[] = [];
   let brushYPoints: number[] = [];
 
-  let brushDownPos: (undefined | boolean)[] = [];
+  let brushDownPosition: (undefined | boolean)[] = [];
 
-  class ShapeBoundingBox {
+  class BoundingBox {
     [x: string]: number;
 
     constructor(left: number, top: number, width: number, height: number) {
@@ -53,7 +53,7 @@ export function renderPaintTools() {
     }
   }
  
-  class PolygonPoint {
+  class Polygon {
     [x: string]: number;
 
     constructor(x: number, y: number) {
@@ -62,7 +62,7 @@ export function renderPaintTools() {
     }
   }
 
-  const shapeBoundingBox = new ShapeBoundingBox(0, 0, 0, 0);
+  const shapeBoundingBox = new BoundingBox(0, 0, 0, 0);
 
   const mousedown = new MouseDownPos(0, 0);
 
@@ -74,7 +74,7 @@ export function renderPaintTools() {
   });
 
 
-  function GetMousePosition(x: number, y: number) {
+  function MousePosition(x: number, y: number) {
     const canvasSizeData = canvas.getBoundingClientRect();
     return { x: (x - canvasSizeData.left) * (canvas.width  / canvasSizeData.width),
       y: (y - canvasSizeData.top)  * (canvas.height / canvasSizeData.height),
@@ -132,7 +132,7 @@ export function renderPaintTools() {
     const polygonPoints = [];
 
     for (let i = 0; i < polygonSides; i++) {
-      polygonPoints.push(new PolygonPoint(loc.x + radiusX * Math.sin(angle), loc.y - radiusY * Math.cos(angle)));
+      polygonPoints.push(new Polygon(loc.x + radiusX * Math.sin(angle), loc.y - radiusY * Math.cos(angle)));
       angle += 2 * Math.PI / polygonSides;
     }
 
@@ -162,7 +162,7 @@ export function renderPaintTools() {
     ctx.globalCompositeOperation = 'destination-out';
     for (let i = 1; i < brushXPoints.length; i++) {
       ctx.beginPath();
-      if (brushDownPos[i]) {
+      if (brushDownPosition[i]) {
         ctx.moveTo(brushXPoints[i - 1], brushYPoints[i - 1]);
       } else {
         ctx.moveTo(brushXPoints[i] - 1, brushYPoints[i]);
@@ -177,7 +177,7 @@ export function renderPaintTools() {
     ctx.globalCompositeOperation = 'source-over';
     for (let i = 1; i < brushXPoints.length; i++) {
       ctx.beginPath();
-      if (brushDownPos[i]) {
+      if (brushDownPosition[i]) {
         ctx.moveTo(brushXPoints[i - 1], brushYPoints[i - 1]);
       } else {
         ctx.moveTo(brushXPoints[i] - 1, brushYPoints[i]);
@@ -193,7 +193,7 @@ export function renderPaintTools() {
     currentTool = 'eraser';
     brushXPoints = [];
     brushYPoints = [];
-    brushDownPos = [];
+    brushDownPosition = [];
   }
   
   function fill() {
@@ -208,7 +208,7 @@ export function renderPaintTools() {
     currentTool = 'spray';
     const radius = ctx.lineWidth / 2;
     const area = radius * radius * Math.PI;
-    const dotsPerTick = Math.ceil(area / 30);
+    const dotsPerTick = Math.ceil(area / 15);
     for (let i = 0; i < dotsPerTick; i++) {
       const offset = randomPointInRadius(radius);
       ctx.fillStyle = ctx.strokeStyle;
@@ -260,18 +260,18 @@ export function renderPaintTools() {
   function AddBrushPoint(x: number, y: number, mouseDown: boolean | undefined) {
     brushXPoints.push(x);
     brushYPoints.push(y);
-    brushDownPos.push(mouseDown);
+    brushDownPosition.push(mouseDown);
   }
  
   function MouseDown(e: MouseEvent) {
-    loc = GetMousePosition(e.clientX, e.clientY);
+    loc = MousePosition(e.clientX, e.clientY);
     SaveCanvasImage();
     mousedown.x = loc.x;
     mousedown.y = loc.y;
     dragging = true;
     brushXPoints = [];
     brushYPoints = [];
-    brushDownPos = [];
+    brushDownPosition = [];
     if (currentTool === 'brush' || currentTool === 'eraser' || currentTool === 'spray') {
       usingBrush = true;
       AddBrushPoint(loc.x, loc.y, undefined);
@@ -279,7 +279,7 @@ export function renderPaintTools() {
   }
  
   function MouseMove(e: MouseEvent) {
-    loc = GetMousePosition(e.clientX, e.clientY);
+    loc = MousePosition(e.clientX, e.clientY);
     if (currentTool === 'brush' && dragging && usingBrush) {
       if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
         AddBrushPoint(loc.x, loc.y, true);
@@ -309,7 +309,7 @@ export function renderPaintTools() {
   }
  
   function MouseUp(e: MouseEvent) {
-    loc = GetMousePosition(e.clientX, e.clientY);
+    loc = MousePosition(e.clientX, e.clientY);
     RedrawCanvasImage();
     UpdateRubberbandOnMove();
     dragging = false;
@@ -327,6 +327,7 @@ export function renderPaintTools() {
   removeIco.addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   });
+
   saveIco.addEventListener('click', () => {
     saveCanvasAsImageFile(canvas);
     saveImage(imageSaveSrc.image);

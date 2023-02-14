@@ -6,21 +6,16 @@ import Page from '../../components/pageTemplates';
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
   const headerWrapper = createHtmlElement('div', 'header__wrapper');
-
   const controlBlock = createHtmlElement('div', 'header__control-block');
   const link = createlinkForBackOnMainPage();
-  const arrowBlock = createHtmlElement('div', 'design-header__arrow-block');
-  const arrowBack = createHtmlElement('div', 'arrow-block__arrow-back');
-  const arrowForward = createHtmlElement('div', 'arrow-block__arrow-forward');
-  arrowBlock.append(arrowBack, arrowForward);
-  const saveBlock = createHtmlElement('div', 'design-header__save-block');
+  const saveBlock = createHtmlElement('div', 'paint-header__save-block');
   const saveIco = createHtmlElement('div', 'save-block__ico');
   saveBlock.append(saveIco);
-  const removeBlock = createHtmlElement('div', 'design-header__remove-block');
+  const removeBlock = createHtmlElement('div', 'paint-header__remove-block');
   const removeIco = createHtmlElement('div', 'remove-block__ico');
   removeBlock.append(removeIco);
 
-  controlBlock.append(link, arrowBlock, saveBlock, removeBlock);
+  controlBlock.append(link, saveBlock, removeBlock);
 
   const title = createHtmlElement('p', 'header__title');
   title.textContent = 'Рисование';
@@ -104,11 +99,11 @@ const createToolsPanel = () => {
   titleWidthCont.innerHTML = 'Толщина';
   const widthPencil = createHtmlElement('select', 'paint-block__tools-width');
   widthPencil.setAttribute('id', 'width');
-  const width = [2, 4, 8, 12, 16, 20, 25, 40, 60, 100];
-  width.forEach((element => {
+  const widthOptions = [2, 4, 8, 12, 16, 20, 25, 40, 60, 100];
+  widthOptions.forEach((width => {
     const item = createHtmlElement('option', 'bruches-item');
-    item.innerHTML = `${element} px`;
-    item.setAttribute('value', `${element}`);
+    item.innerHTML = `${width} px`;
+    item.setAttribute('value', `${width}`);
     widthPencil.append(item);
   }));
   widthContainer.append(titleWidthCont, widthPencil);
