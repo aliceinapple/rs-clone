@@ -271,7 +271,6 @@ export function renderPaintTools() {
       (e as TouchEvent).changedTouches[0].pageY :
       (e as MouseEvent).pageY;
     loc = MousePosition(mouseX, mouseY);
-    //loc = MousePosition(e.clientX, e.clientY);
     SaveCanvasImage();
     mousedown.x = loc.x;
     mousedown.y = loc.y;
@@ -293,7 +292,6 @@ export function renderPaintTools() {
       (e as TouchEvent).changedTouches[0].pageY :
       (e as MouseEvent).pageY;
     loc = MousePosition(mouseX, mouseY);
-    // loc = MousePosition(e.clientX, e.clientY);
     if (currentTool === 'brush' && dragging && usingBrush) {
       if (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight) {
         AddBrushPoint(loc.x, loc.y, true);
@@ -330,7 +328,6 @@ export function renderPaintTools() {
       (e as TouchEvent).changedTouches[0].pageY :
       (e as MouseEvent).pageY;
     loc = MousePosition(mouseX, mouseY);
-    //loc = MousePosition(e.clientX, e.clientY);
     RedrawCanvasImage();
     UpdateRubberbandOnMove();
     dragging = false;
