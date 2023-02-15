@@ -327,7 +327,10 @@
       }
     }
 
-    .hiding-panel__visit-card-block {
+    .hiding-panel__visit-card-block,
+    .hiding-panel__logo-block,
+    .hiding-panel__postcard-block,
+    .hiding-panel__resume-block {
       width: 100%;
       .template-elements-block {
         height: 150px;
@@ -345,8 +348,33 @@
       }
     }
 
+    .hiding-panel__logo-block {
+      .layout-templates {
+        transform: scale(0.8);
+      }
+    }
+
+    .hiding-panel__resume-block {
+      .layout-templates {
+        transform: scale(0.5);
+      }
+    }
+
     .template-text-block {
       flex-direction: row;
+      &::-webkit-scrollbar {
+        width: 5px;
+        background-color: $color_dark-gray;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: $color_gray;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: $color_dark-gray;
+      }
     }
   }
   .hiding-panel_hidden {
@@ -401,12 +429,20 @@
     }
 
     .layout-canvas {
-      transform: scale(0.7);
       overflow: hidden;
+      box-shadow: none;
+
+      .container {
+        transform: scale(0.7);
+        box-shadow: 0px 0px 14px rgb(0 0 0 / 15%);
+      }
     }
   }
 
-  .hiding-panel__visit-card-block {
+  .hiding-panel__visit-card-block,
+  .hiding-panel__logo-block,
+  .hiding-panel__postcard-block,
+  .hiding-panel__resume-block {
     .template-text-block {
       flex-direction: column;
       overflow-y: scroll;
@@ -423,7 +459,9 @@
       width: 360px !important;
     }
     .layout-canvas {
-      transform: scale(0.5);
+      .container {
+        transform: scale(0.5);
+      }
     }
   }
 }

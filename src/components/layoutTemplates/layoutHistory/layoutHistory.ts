@@ -17,7 +17,6 @@ export function saveElemProperties(elemProps: ElemProps) {
 
   if (stackLength < historyStack.length) {
     historyStack = historyStack.slice(0, stackLength);
-    console.log(historyStack);
   }
 
   if (historyStack.length > 0) {
