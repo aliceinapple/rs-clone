@@ -48,10 +48,10 @@ export const createMainHeader = () => {
   navBlock.append(logo, navigation);
 
   const btnBlock = createHtmlElement('div', 'buttons-block');
-  const btnCreateDisigne = createButtonElement('btn-create-disign', 'Создать дизайн');
+  const btnAboutApp = createButtonElement('btn-about-app', 'О проекте');
   const btnLog = createLogInButton();
 
-  btnBlock.append(btnCreateDisigne, btnLog);
+  btnBlock.append(btnAboutApp, btnLog);
 
   const burgerWrapper = createHtmlElement('div', 'burger-menu');
   const burgerCheck = createHtmlElement('input', 'burger-menu-input');
