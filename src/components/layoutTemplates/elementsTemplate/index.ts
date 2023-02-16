@@ -5,7 +5,16 @@ import { makeResizable, showHandles } from '../elementsActions';
 import { saveElemProperties } from '../layoutHistory/layoutHistory';
 
 export function setProps(element: HTMLDivElement | null) {
+  const parent = element?.parentElement;
   const child = element?.querySelector('[contentEditable = "true"]') as HTMLDivElement;
+  const elemArr: HTMLDivElement[] = [];
+
+  if (parent) {
+    for (const elem of parent.children) {
+      elemArr.push(elem as HTMLDivElement);
+    }
+  }
+
   if (
     element &&
     !element.classList.contains('resize-handle') &&
@@ -14,6 +23,7 @@ export function setProps(element: HTMLDivElement | null) {
   ) {
     const elemProps: ElemProps = {
       elem: element,
+      elements: elemArr,
       width: element.style.width,
       height: element.style.height,
       x: element.style.left,
@@ -32,7 +42,9 @@ export function setProps(element: HTMLDivElement | null) {
       fontWeight: child?.style.fontWeight,
       fontStyle: child?.style.fontStyle,
       textAlign: child?.style.textAlign,
+      textColor: child?.style.color,
     };
+
     saveElemProperties(elemProps);
   }
 }

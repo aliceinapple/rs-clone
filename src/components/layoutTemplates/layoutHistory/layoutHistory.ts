@@ -57,6 +57,7 @@ function changeElemProps() {
     if (obj.textDecoration) child.style.textDecoration = obj.textDecoration;
     if (obj.fontWeight) child.style.fontWeight = obj.fontWeight;
     if (obj.textAlign) child.style.textAlign = obj.textAlign;
+    if (obj.textColor) child.style.color = obj.textColor;
   }
 }
 
