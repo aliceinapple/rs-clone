@@ -2,6 +2,33 @@ import { makeResizable, showHandles } from '../elementsActions';
 import { createElementTools, setProps } from '../elementsTemplate';
 import { targetTextElement, targetTextElementParent } from '../targetElement';
 
+// export function loadPhoto(preview: HTMLDivElement) {
+//   const fileInput = document.createElement('input');
+//   fileInput.setAttribute('type', 'file');
+//   fileInput.setAttribute('accept', '.jpg, .jpeg, .png, .svg');
+//   fileInput.classList.add('file-input');
+
+//   preview.classList.add('preview');
+
+//   preview.append(fileInput);
+
+//   fileInput.addEventListener('change', function () {
+//     if (fileInput.files) {
+//       const file = fileInput.files[0];
+//       const blob = new Blob([file]);
+//       const reader = new FileReader();
+
+//       reader.addEventListener('load', function () {
+//         preview.style.backgroundImage = `url(${reader.result})`;
+//       });
+
+//       reader.readAsDataURL(blob);
+//     }
+//   });
+
+//   return preview;
+// }
+
 export function loadPhoto(preview: HTMLDivElement) {
   const fileInput = document.createElement('input');
   fileInput.setAttribute('type', 'file');
@@ -15,14 +42,14 @@ export function loadPhoto(preview: HTMLDivElement) {
   fileInput.addEventListener('change', function () {
     if (fileInput.files) {
       const file = fileInput.files[0];
-      const blob = new Blob([file]);
       const reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        preview.style.backgroundImage = `url(${reader.result})`;
+        const imageData = reader.result;
+        preview.style.backgroundImage = `url(${imageData})`;
       });
 
-      reader.readAsDataURL(blob);
+      reader.readAsDataURL(file);
     }
   });
 

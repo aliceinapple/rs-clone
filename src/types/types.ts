@@ -20,4 +20,5 @@ export type ElemProps = {
   fontWeight?: string;
   fontStyle?: string;
   textAlign?: string;
+  textColor?: string;
 };

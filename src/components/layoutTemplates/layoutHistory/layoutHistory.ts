@@ -1,10 +1,24 @@
 import { ElemProps } from '../../../types/types';
 
-export const historyStack: ElemProps[] = [];
+export let historyStack: ElemProps[] = [];
 let stackLength = historyStack.length;
+let alreadyCalled = false;
+
+function decreaseStackLength() {
+  if (!alreadyCalled) {
+    stackLength--;
+    alreadyCalled = true;
+  }
+}
 
 export function saveElemProperties(elemProps: ElemProps) {
+  alreadyCalled = false;
   const obj = elemProps;
+
+  if (stackLength < historyStack.length) {
+    historyStack = historyStack.slice(0, stackLength);
+  }
+
   if (historyStack.length > 0) {
     if (JSON.stringify(historyStack[historyStack.length - 1]) !== JSON.stringify(elemProps)) {
       historyStack.push(obj);
@@ -43,6 +57,7 @@ function changeElemProps() {
     if (obj.textDecoration) child.style.textDecoration = obj.textDecoration;
     if (obj.fontWeight) child.style.fontWeight = obj.fontWeight;
     if (obj.textAlign) child.style.textAlign = obj.textAlign;
+    if (obj.textColor) child.style.color = obj.textColor;
   }
 }
 
@@ -52,6 +67,7 @@ export function undo() {
     stackLength = 0;
   }
   if (historyStack.length > 1) {
+    decreaseStackLength();
     changeElemProps();
   }
 }
@@ -59,6 +75,7 @@ export function undo() {
 export function redo() {
   stackLength++;
   if (stackLength > historyStack.length) {
+    alreadyCalled = false;
     stackLength = historyStack.length;
   } else if (stackLength < historyStack.length) {
     changeElemProps();
