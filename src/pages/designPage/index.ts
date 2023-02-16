@@ -26,6 +26,7 @@ import {
 import { redo, saveElemProperties, undo } from '../../components/layoutTemplates/layoutHistory/layoutHistory';
 import { ElemProps } from '../../types/types';
 import { setProps } from '../../components/layoutTemplates/elementsTemplate';
+import { convertationLayoutToCanvas } from '../../components/saveImages';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -42,6 +43,10 @@ const createDesignPageHeader = () => {
   saveBlock.append(saveIco);
   const removeBlock = createHtmlElement('div', 'design-header__remove-block');
   const removeIco = createHtmlElement('div', 'remove-block__ico');
+
+  saveIco.addEventListener('click', () => {
+    convertationLayoutToCanvas('.container');
+  });
 
   arrowBack.addEventListener('click', undo);
   arrowForward.addEventListener('click', redo);

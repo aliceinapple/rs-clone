@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap'); //
 
 @mixin display-flex($direction, $justify, $align) {
   display: flex;
@@ -84,3 +84,4 @@ body {
 @import 'components/modalLogIn/modalLogIn.style';
 @import 'pages/personalAccountPage/personalAccount.style';
 @import 'components/modalLogIn/modalUserData.sryle';
+@import 'pages/paintPage/_paintPage.style';
