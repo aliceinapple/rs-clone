@@ -4,6 +4,8 @@
   margin: 0 0 0 35px;
   border-radius: 100%;
   background-color: $color_green;
+  color: $color_white;
+  font-size: 20px;
   @include display-flex(row, center, center);
 
   &:hover {

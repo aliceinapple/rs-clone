@@ -50,14 +50,44 @@
 
 .btn-block__btn-save-in-account {
   opacity: 0.6;
-  @include ico-style(24px, 24px, 'assets/ico/ico_favorite.png');
+  @include ico-style(24px, 24px, 'assets/ico/ico_save_design.png');
+  @include block-style();
   cursor: pointer;
-    &:hover {
-      transform: scale(1.1);
-    }
-    &:active {
-      transform: scale(1);
-    }
-    transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(1);
+  }
+  transition: all 0.2s ease-in-out;
 }
 
+@media screen and (max-width: 780px) {
+  .btn-log {
+    margin-left: 15px;
+  }
+  .design-header__arrow-block,
+  .design-header__save-block,
+  .design-header__remove-block {
+    padding: 0 15px;
+  }
+  .btn-block__btn-save-in-account {
+    padding: 0 15px;
+    border: none;
+  }
+  .arrow-block__arrow-back {
+    margin: 0 15px 0 0;
+  }
+  .header__title {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .header {
+    padding: 0 15px;
+  }
+  .link__text {
+    display: none;
+  }
+}
