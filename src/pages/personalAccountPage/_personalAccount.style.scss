@@ -41,7 +41,16 @@
 }
 
 .layout-block__wrapper {
+  position: relative;
   box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.3);
+}
+
+.layout-block__opacity-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 }
 
@@ -67,4 +76,154 @@
   width: 200px;
   height: 260px;
   margin: 0 25px 25px 0;
+}
+
+.layouts-modal__opasity {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  @include display-flex(row, center,center);
+}
+
+.layouts-modal__container {
+  @include display-flex(row, center, center);
+}
+
+.layouts-modal__tools {
+  width: 30px;
+  height: 110px;
+  margin: 0 0 0 20px;
+  @include display-flex(column, space-between, center);
+}
+
+.layouts-modal__btn-edit {
+  @include ico-style(24px, 24px, 'assets/ico/ico_edit-white.png');
+  opacity: 0.6;
+}
+
+.layouts-modal__btn-save {
+  @include ico-style(24px, 24px, 'assets/ico/ico_save.png');
+}
+
+.layouts-modal__btn-remove {
+  @include ico-style(24px, 24px, 'assets/ico/ico_trash.png');
+}
+
+.layouts-modal__btn-edit,
+.layouts-modal__btn-save,
+.layouts-modal__btn-remove {
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(1);
+  }
+  transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 950px) {
+
+  .account__wrapper {
+    padding: 10px;
+  }
+
+  .layouts-modal__container {
+    @include display-flex(column, center, center);
+  }
+
+  .layouts-modal__tools {
+    width: 110px;
+    height: 30px;
+    margin: 20px 0 0;
+    @include display-flex(row, space-between, center);
+  }
+
+  .layouts-modal__content .container {
+    transform: scale(0.8);
+    transform-origin: top left;
+  }
+
+  .content-postcard {
+    width: 480px;
+    height: 320px;
+  }
+
+  .content-logotype {
+    width: 320px;
+    height: 320px;
+  }
+
+  .content-visit-card {
+    width: 560px;
+    height: 320px;
+  }
+
+  .content-resume {
+    width: 400px;
+    height: 520px;
+  }
+}
+
+@media (max-width: 660px) {
+
+  .layout-block__content {
+    @include display-flex(row, center, flex-start);
+  }
+
+  .layouts-modal__content .container {
+    transform: scale(0.7);
+    transform-origin: top left;
+  }
+
+  .content-postcard {
+    width: 420px;
+    height: 280px;
+  }
+
+  .content-logotype {
+    width: 280px;
+    height: 280px;
+  }
+
+  .content-visit-card {
+    width: 490px;
+    height: 280px;
+  }
+
+  .content-resume {
+    width: 350px;
+    height: 455px;
+  }
+}
+
+@media (max-width: 530px) {
+
+  .account__wrapper {
+    padding: 10px 5px;
+  }
+
+  .layouts-modal__content .postcard {
+    transform: scale(0.58);
+    transform-origin: top left;
+  }
+
+  .layouts-modal__content .visit-card {
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+
+  .content-postcard {
+    width: 348px;
+    height: 232px;
+  }
+
+  .content-visit-card {
+    width: 350px;
+    height: 200px;
+  }
+
 }

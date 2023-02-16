@@ -18,8 +18,10 @@ import {
 } from '../../components/modalLogIn';
 import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
+import { savinglayoutsInAccount } from '../personalAccountPage';
 import { PaintPage } from '../paintPage';
 import { renderPaintTools } from '../../components/paintTools';
+
 
 const usersData: User[] = [];
 
@@ -186,6 +188,21 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.user-data-modal__link-personal-account')) {
     const modal = document.querySelector('.user-data-modal');
     modal?.remove();
+  }
+
+  if (clickedItem.closest('.btn-block__btn-save-in-account')) {
+    let currentUserFromLocal: User;
+    if (localStorage.getItem('currentUser')) {
+      currentUserFromLocal = JSON.parse(localStorage.getItem('currentUser') as string);
+
+      if (currentUserFromLocal.authorization === true) {
+        savinglayoutsInAccount();
+      } else {
+        openModalWindow(usersData);
+      }
+    } else {
+      openModalWindow(usersData);
+    }
   }
 
   if (clickedItem.closest('.link-paint')) {

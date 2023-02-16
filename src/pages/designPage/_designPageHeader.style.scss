@@ -43,3 +43,21 @@
   }
   transition: all 0.2s ease-in-out;
 }
+
+.header__btn-block {
+  @include display-flex(row, flex-start, center);
+}
+
+.btn-block__btn-save-in-account {
+  opacity: 0.6;
+  @include ico-style(24px, 24px, 'assets/ico/ico_favorite.png');
+  cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
+    &:active {
+      transform: scale(1);
+    }
+    transition: all 0.2s ease-in-out;
+}
+
