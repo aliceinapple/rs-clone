@@ -41,7 +41,16 @@
 }
 
 .layout-block__wrapper {
+  position: relative;
   box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.3);
+}
+
+.layout-block__opacity-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 }
 
@@ -67,4 +76,51 @@
   width: 200px;
   height: 260px;
   margin: 0 25px 25px 0;
+}
+
+.layouts-modal__opasity {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  @include display-flex(row, center,center);
+}
+
+.layouts-modal__container {
+  @include display-flex(row, center, center);
+}
+
+.layouts-modal__tools {
+  width: 30px;
+  height: 110px;
+  margin: 0 0 0 20px;
+  @include display-flex(column, space-between, center);
+}
+
+.layouts-modal__btn-edit {
+  @include ico-style(24px, 24px, 'assets/ico/ico_edit-white.png');
+  opacity: 0.6;
+}
+
+.layouts-modal__btn-save {
+  @include ico-style(24px, 24px, 'assets/ico/ico_save.png');
+}
+
+.layouts-modal__btn-remove {
+  @include ico-style(24px, 24px, 'assets/ico/ico_trash.png');
+}
+
+.layouts-modal__btn-edit,
+.layouts-modal__btn-save,
+.layouts-modal__btn-remove {
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(1);
+  }
+  transition: all 0.2s ease-in-out;
 }

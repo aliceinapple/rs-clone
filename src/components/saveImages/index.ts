@@ -11,7 +11,7 @@ export function saveImage(image: HTMLImageElement) {
   link.click();
 }
   
-function getImage(canvas: HTMLCanvasElement) {
+export function getImage(canvas: HTMLCanvasElement) {
   const imageData = canvas.toDataURL();
   const image = new Image();
   image.src = imageData;

@@ -84,8 +84,9 @@ const createDesignPageHeader = () => {
   }, 0);
 
   const btnBlock = createHtmlElement('div', 'header__btn-block');
+  const btnSaveInAccount = createHtmlElement('div', 'btn-block__btn-save-in-account');
   const btn = createLogInButton();
-  btnBlock.append(btn);
+  btnBlock.append(btnSaveInAccount, btn);
 
   headerWrapper.append(controlBlock, title, btnBlock);
   header.append(headerWrapper);
