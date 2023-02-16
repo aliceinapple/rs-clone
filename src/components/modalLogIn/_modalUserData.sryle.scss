@@ -75,3 +75,11 @@
 .log-out-block__log-out {
   @include font-size(18px, 19px, 500);
 }
+
+@media (max-width: 950px) {
+
+  .user-data-modal {
+    width: 250px;
+  }
+  
+}

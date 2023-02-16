@@ -143,6 +143,7 @@ const showLayoutsModal = (typeDesigne: string, id: string) => {
   const container =  createHtmlElement('div', 'layouts-modal__container');
   
   const content = createHtmlElement('div', 'layouts-modal__content');
+  content.classList.add(`content-${typeDesigne}`);
   const currentUserFromLocal: User = JSON.parse(localStorage.getItem('currentUser') as string);
   const layout = currentUserFromLocal.templates.filter(item => item[0] === typeDesigne && item[1] === id);
   content.innerHTML = layout[0][2];

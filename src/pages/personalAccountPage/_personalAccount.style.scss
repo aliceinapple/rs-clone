@@ -124,3 +124,106 @@
   }
   transition: all 0.2s ease-in-out;
 }
+
+@media (max-width: 950px) {
+
+  .account__wrapper {
+    padding: 10px;
+  }
+
+  .layouts-modal__container {
+    @include display-flex(column, center, center);
+  }
+
+  .layouts-modal__tools {
+    width: 110px;
+    height: 30px;
+    margin: 20px 0 0;
+    @include display-flex(row, space-between, center);
+  }
+
+  .layouts-modal__content .container {
+    transform: scale(0.8);
+    transform-origin: top left;
+  }
+
+  .content-postcard {
+    width: 480px;
+    height: 320px;
+  }
+
+  .content-logotype {
+    width: 320px;
+    height: 320px;
+  }
+
+  .content-visit-card {
+    width: 560px;
+    height: 320px;
+  }
+
+  .content-resume {
+    width: 400px;
+    height: 520px;
+  }
+}
+
+@media (max-width: 660px) {
+
+  .layout-block__content {
+    @include display-flex(row, center, flex-start);
+  }
+
+  .layouts-modal__content .container {
+    transform: scale(0.7);
+    transform-origin: top left;
+  }
+
+  .content-postcard {
+    width: 420px;
+    height: 280px;
+  }
+
+  .content-logotype {
+    width: 280px;
+    height: 280px;
+  }
+
+  .content-visit-card {
+    width: 490px;
+    height: 280px;
+  }
+
+  .content-resume {
+    width: 350px;
+    height: 455px;
+  }
+}
+
+@media (max-width: 530px) {
+
+  .account__wrapper {
+    padding: 10px 5px;
+  }
+
+  .layouts-modal__content .postcard {
+    transform: scale(0.58);
+    transform-origin: top left;
+  }
+
+  .layouts-modal__content .visit-card {
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+
+  .content-postcard {
+    width: 348px;
+    height: 232px;
+  }
+
+  .content-visit-card {
+    width: 350px;
+    height: 200px;
+  }
+
+}
