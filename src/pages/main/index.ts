@@ -121,6 +121,11 @@ const createMainContent = () => {
 
   const banner = createHtmlElement('div', 'banner');
   const bannerTextBlock = createHtmlElement('div', 'banner__text-block');
+  const bannerMainTitle = createHtmlElement('p', 'banner__text-block_title');
+  const bannerTitle = createHtmlElement('p', 'banner__text-block_title');
+  bannerMainTitle.textContent = 'Превратите свои мысли в креативные проекты.';
+  bannerTitle.textContent = 'Рисуйте, генерируйте, дизайните - все в одном приложении!';
+  bannerTextBlock.append(bannerMainTitle, bannerTitle);
   banner.append(bannerTextBlock);
 
   

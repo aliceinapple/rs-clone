@@ -1,6 +1,7 @@
 .page-question-result {
     width: 100%;
-    padding: 50px 0 50px;
+    padding: 50px 10px 50px 10px;
+    text-align: center;
     @include display-flex(column, center, center);
 }
 
