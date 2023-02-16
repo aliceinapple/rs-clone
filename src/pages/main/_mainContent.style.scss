@@ -50,9 +50,11 @@
   @include font-size(24px, 33px, 600);
   text-align: left;
   width: 100%;
+  margin: 0 0 20px;
 }
 
 .lates-designs-block__bg-block {
+  width: 100%;
   @include display-flex(column, center, center);
 }
 

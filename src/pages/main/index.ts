@@ -1,6 +1,9 @@
-import { createHtmlElement, createButtonElement } from '../../utils';
+import { createHtmlElement, createButtonElement, updateURL } from '../../utils';
 import { createLogInButton } from '../../components/buttons/index';
 import Page from '../../components/pageTemplates';
+import { App } from '../app';
+import { lastDesigneCollection } from '../../components/last-designe';
+import { PagesId } from '../../types/enums';
 
 import card1 from '../../assets/card/card-1.png';
 import card2 from '../../assets/card/card-2.png';
@@ -115,6 +118,46 @@ const createViewTemplates = (className: string, id: number, text: string) => {
   return block;
 };
 
+const renderCollection: HTMLElement[] = [];
+
+const createLastDesigneBlock = () => {
+  const container = createHtmlElement('div', 'lates-designs-block__container');
+
+  lastDesigneCollection.forEach(collection => {
+    collection.forEach(layoutInstance => {
+      if (layoutInstance.length !== 0) {
+        const lastInstance = layoutInstance[layoutInstance.length - 1];
+        renderCollection.push(lastInstance);
+      }
+    });
+  });
+
+  if (renderCollection.length === 0) {
+    const bg = createHtmlElement('div', 'lates-designs-block__bg-block');
+    const bgImg = createHtmlElement('div', 'bg-block__img');
+    const bgTitle = createHtmlElement('p', 'bg-block__title');
+    bgTitle.textContent = 'Здесь будут отображаться дизайны, которые вы создаете';
+    bg.append(bgImg, bgTitle);
+
+    container.append(bg);
+  } else {
+    renderCollection.forEach((layout, index) => {
+      const classesLayout = layout.className.split(' ');
+      const classNameForLayoutWrapper = classesLayout[1];
+      const wrapper = createHtmlElement('div', 'lates-designs-block__wrapper-for-layout');
+      wrapper.classList.add(`lates-designs-wrapper-${classNameForLayoutWrapper}`);
+      const opasity = createHtmlElement('div', 'lates-designs-opasity');
+      opasity.setAttribute('data-type', `${classNameForLayoutWrapper}`);
+      opasity.setAttribute('id', `${index}`);
+      wrapper.append(layout, opasity);
+
+      container.append(wrapper);
+    });
+  }
+
+  return container;
+};
+
 const createMainContent = () => {
   const main = createHtmlElement('main', 'main');
   const wrapper = createHtmlElement('div', 'main__wrapper');
@@ -134,11 +177,7 @@ const createMainContent = () => {
   const latestDesigns = createHtmlElement('div', 'lates-designs-block');
   const latestDesignsTitle = createHtmlElement('p', 'lates-designs-block__title');
   latestDesignsTitle.textContent = 'Последние дизайны';
-  const bg = createHtmlElement('div', 'lates-designs-block__bg-block');
-  const bgImg = createHtmlElement('div', 'bg-block__img');
-  const bgTitle = createHtmlElement('p', 'bg-block__title');
-  bgTitle.textContent = 'Здесь будут отображаться дизайны, которые вы создаете';
-  bg.append(bgImg, bgTitle);
+  const bg = createLastDesigneBlock();
   latestDesigns.append(latestDesignsTitle, bg);
 
   wrapper.append(banner, templatesBlock, latestDesigns);
@@ -162,3 +201,22 @@ export class MainPage extends Page {
     return this.container;
   }
 }
+
+document.querySelector('.content')?.addEventListener('click', (event) => {
+  const item = event.target;
+  const clickedItem = item as HTMLElement;
+
+  if (clickedItem.closest('.lates-designs-opasity')) {
+    const typeDesigne = clickedItem.dataset.type;
+    const getId = clickedItem.getAttribute('id') as string;
+    const id = Number(getId);
+
+    App.renderNewPage(`${PagesId.DesignePage}/${typeDesigne}`);
+    updateURL(`${PagesId.DesignePage}/${typeDesigne}`);
+
+    const container = document.querySelector('.layout-canvas') as HTMLDivElement;
+    container.innerHTML = '';
+    const layout = renderCollection[id];
+    container.append(layout);
+  }
+});
