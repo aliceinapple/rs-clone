@@ -1,7 +1,7 @@
 import html2canvas from '../../../node_modules/html2canvas';
 import { IImage } from '../../types/interfaces';
 
-export const imageSaveSrc = {} as IImage;
+export const imageSaveSrc = {} as IImage; //
 
 export function saveImage(image: HTMLImageElement) {
   const link = document.createElement('a');
@@ -18,7 +18,7 @@ function getImage(canvas: HTMLCanvasElement) {
   return image;
 }
 
-function saveCanvasAsImageFile(file: HTMLCanvasElement) {
+export function saveCanvasAsImageFile(file: HTMLCanvasElement) {
   const image = getImage(file);
   imageSaveSrc.image = image;
   //saveImage(image);

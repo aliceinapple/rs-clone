@@ -6,6 +6,7 @@ export const enum PagesId {
   StyleSelectPage = 'style-select-page',
   LogoResultPage = 'logo-result-page',
   PersonalAccountPage = 'personal-account-page',
+  PaintPage = 'paint-page',
 }
 
 export const enum TypesDesigne {

@@ -34,3 +34,11 @@
   @include display-flex(row, center, center);
   text-transform: uppercase;
 }
+
+@media (max-width: 490px) {
+
+  .btn-log {
+    margin: 0 0 0 15px;
+  }
+
+}
