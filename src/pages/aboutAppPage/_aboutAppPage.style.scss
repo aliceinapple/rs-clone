@@ -1,0 +1,18 @@
+.page-about-app {
+    width: 100%;
+    padding: 50px 10px 50px 10px;
+    text-align: center;
+    @include display-flex(column, center, center);
+}
+
+.about-app-content {
+    width: 80%;
+    padding-top: 20px;
+    gap: 20px;
+    @include display-flex(column, center, center);
+    text-align: center
+}
+
+.about-app-content_title {
+    @include font-size(30px, 35px, 600);
+}
