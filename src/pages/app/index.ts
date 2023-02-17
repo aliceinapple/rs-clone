@@ -21,6 +21,7 @@ import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/
 import { savinglayoutsInAccount } from '../personalAccountPage';
 import { PaintPage } from '../paintPage';
 import { renderPaintTools } from '../../components/paintTools';
+import { AboutAppPage } from '../aboutAppPage';
 
 
 const usersData: User[] = [];
@@ -58,6 +59,8 @@ export class App {
       page = new PersonalAccountPage(PagesId.PersonalAccountPage);
     } else if (idPage.includes(PagesId.PaintPage)) {
       page = new PaintPage(idPage);
+    } else if (idPage.includes(PagesId.AboutApp)) {
+      page = new AboutAppPage(idPage);
     }
 
     if (page) {
@@ -209,6 +212,11 @@ containerForContent.addEventListener('click', (event) => {
     App.renderNewPage(PagesId.PaintPage);
     updateURL(PagesId.PaintPage);
     renderPaintTools();
+  }
+
+  if (clickedItem.closest('.btn-about-app')) {
+    App.renderNewPage(PagesId.AboutApp);
+    updateURL(PagesId.AboutApp);
   }
 
 });

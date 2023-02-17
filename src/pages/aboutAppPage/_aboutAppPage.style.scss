@@ -1,0 +1,94 @@
+.page-about-app {
+    width: 100%;
+    padding: 50px 10px 50px 10px;
+    text-align: center;
+    @include display-flex(column, center, center);
+}
+
+.about-app-content {
+    width: 85%;
+    padding-top: 20px;
+    gap: 20px;
+    @include display-flex(column, center, center);
+    text-align: center
+}
+
+.about-app-team-member {
+    @include display-flex(column, center, center);
+    width: 25%;
+    gap: 15px;
+}
+
+.about-app-team-member-name {
+    @include font-size(25px, 35px, 600);
+}
+
+.about-app-team-member-info {
+    @include display-flex(column, center, center);
+    gap: 15px;
+}
+
+.about-app-team-member-title {
+    @include font-size(20px, 25px, 500);
+}
+
+.about-app-team-member-photo {
+    height: 30%;
+    width: 100%;
+}
+
+.about-app-content_title {
+    @include font-size(30px, 35px, 500); 
+}
+
+.about-app-content_team {
+    width: 100%;
+    @include display-flex(row, space-between, flex-start);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+@media (max-width: 700px) {
+
+    .about-app-content_title {
+        @include font-size(20px, 30px, 600);
+    }
+
+    .about-app-team-member-title {
+        @include font-size(18px, 25px, 400);
+    }
+
+    .about-app-team-member-name {
+        @include font-size(20px, 35px, 600);
+    }
+
+    .about-app-team-member {
+        @include display-flex(row, center, flex-start);
+        width: 100%;
+        padding-bottom: 10px;
+        border-bottom: 1px solid black;
+    }
+
+    .about-app-content_team {
+        width: 100%;
+        @include display-flex(column, space-between, flex-start);
+    }
+
+    .about-app-team-member-photo {
+        height: 100%;
+        width: 35%;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .about-app-team-member {
+        @include display-flex(column, center, center);
+        width: 100%;
+    }
+
+    .about-app-team-member-photo {
+        height: 30%;
+        width: 100%;
+    }
+}
