@@ -84,3 +84,10 @@ export function updateURL(pageId: string, URL = '') {
 export function getRandomInt(max: number) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+export const createImage = (className: string) => {
+  const img: HTMLImageElement = document.createElement('img');
+  img.classList.add(className);
+
+  return img;
+};
