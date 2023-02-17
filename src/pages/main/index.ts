@@ -2,8 +2,10 @@ import { createHtmlElement, createButtonElement, updateURL } from '../../utils';
 import { createLogInButton } from '../../components/buttons/index';
 import Page from '../../components/pageTemplates';
 import { App } from '../app';
-import { lastDesigneCollection } from '../../components/last-designe';
 import { PagesId } from '../../types/enums';
+import { lastDesigneCollection } from '../../components/last-designe';
+import { createElementTools } from '../../components/layoutTemplates/elementsTemplate';
+import { showHandles } from '../../components/layoutTemplates/elementsActions';
 
 import card1 from '../../assets/card/card-1.png';
 import card2 from '../../assets/card/card-2.png';
@@ -118,11 +120,11 @@ const createViewTemplates = (className: string, id: number, text: string) => {
   return block;
 };
 
-const renderCollection: HTMLElement[] = [];
 
 const createLastDesigneBlock = () => {
   const container = createHtmlElement('div', 'lates-designs-block__container');
-
+  
+  const renderCollection: HTMLElement[] = [];
   lastDesigneCollection.forEach(collection => {
     collection.forEach(layoutInstance => {
       if (layoutInstance.length !== 0) {
@@ -154,7 +156,6 @@ const createLastDesigneBlock = () => {
       container.append(wrapper);
     });
   }
-
   return container;
 };
 
@@ -214,9 +215,33 @@ document.querySelector('.content')?.addEventListener('click', (event) => {
     App.renderNewPage(`${PagesId.DesignePage}/${typeDesigne}`);
     updateURL(`${PagesId.DesignePage}/${typeDesigne}`);
 
+    const renderCollection: HTMLElement[] = [];
+    lastDesigneCollection.forEach(collection => {
+      collection.forEach(layoutInstance => {
+        if (layoutInstance.length !== 0) {
+          const lastInstance = layoutInstance[layoutInstance.length - 1];
+          renderCollection.push(lastInstance);
+        }
+      });
+    });
+
     const container = document.querySelector('.layout-canvas') as HTMLDivElement;
     container.innerHTML = '';
     const layout = renderCollection[id];
     container.append(layout);
+
+    const allElements: HTMLDivElement[] = [];
+    const templateText = container.querySelectorAll('.template-text');
+    templateText.forEach(text => allElements.push(text as HTMLDivElement));
+    const templateElements = container.querySelectorAll('.template-element');
+    templateElements.forEach(element => allElements.push(element as HTMLDivElement));
+  
+    allElements.forEach(element => {
+      const handleHode = element.querySelectorAll('.resize-handle');
+      const handle: HTMLDivElement[] = [];
+      const tools = createElementTools(element as HTMLDivElement);
+      handleHode.forEach(elem => handle.push(elem as HTMLDivElement));
+      showHandles(element as HTMLDivElement, handle, tools);
+    });
   }
 });

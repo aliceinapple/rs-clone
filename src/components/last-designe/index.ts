@@ -42,6 +42,7 @@ const saveUsingLayout = (
   else if (id === '1') layout1.push(layout);
   else if (id === '2') layout2.push(layout);
   else if (id === '3') layout3.push(layout);
+  else if (id === 'empty') return;
 
 };
 
@@ -49,11 +50,8 @@ const mainContainer = document.querySelector('.content');
 mainContainer?.addEventListener('click', (event) => {
   const item = event.target;
   const clickedItem = item as HTMLElement;
-  console.log(clickedItem);
 
-  if (clickedItem.closest('.postcard') 
-    && clickedItem.getAttribute('id') !== 'empty'
-    && !clickedItem.closest('.paint-block__wrapper')) {
+  if (clickedItem.closest('.postcard') && clickedItem.getAttribute('id') !== 'empty') {
     saveUsingLayout(
       postcardLayout0,
       postcardLayout1,
@@ -62,9 +60,7 @@ mainContainer?.addEventListener('click', (event) => {
     );
   }
 
-  if (clickedItem.closest('.logotype') 
-    && clickedItem.getAttribute('id') !== 'empty'
-    && !clickedItem.closest('.paint-block__wrapper')) {
+  if (clickedItem.closest('.logotype') && clickedItem.getAttribute('id') !== 'empty') {
     saveUsingLayout(
       logotypeLayout0,
       logotypeLayout1,
@@ -73,9 +69,7 @@ mainContainer?.addEventListener('click', (event) => {
     );
   }
 
-  if (clickedItem.closest('.visit-card') 
-    && clickedItem.getAttribute('id') !== 'empty'
-    && !clickedItem.closest('.paint-block__wrapper')) {
+  if (clickedItem.closest('.visit-card') && clickedItem.getAttribute('id') !== 'empty') {
     saveUsingLayout(
       visitcardLayout0,
       visitcardLayout1,
@@ -84,9 +78,7 @@ mainContainer?.addEventListener('click', (event) => {
     );
   }
 
-  if (clickedItem.closest('.resume') 
-    && clickedItem.getAttribute('id') !== 'empty'
-    && !clickedItem.closest('.paint-block__wrapper')) {
+  if (clickedItem.closest('.resume') && clickedItem.getAttribute('id') !== 'empty') {
     saveUsingLayout(
       resumeLayout0,
       resumeLayout1,
@@ -95,5 +87,6 @@ mainContainer?.addEventListener('click', (event) => {
     );
   }
 });
+
 
 

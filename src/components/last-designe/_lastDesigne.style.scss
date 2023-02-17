@@ -16,6 +16,14 @@
   height: 100%;
   cursor: pointer;
   box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+      background-image: url('assets/ico/ico_edit-white.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: $transition;
+    }
 }
 
 .lates-designs-block__wrapper-for-layout .container {
