@@ -15,6 +15,7 @@ export class Template {
   create() {
     const container: HTMLDivElement = document.createElement('div');
     container.classList.add('container');
+    container.setAttribute('id', 'empty');
     container.style.width = this.data.width;
     container.style.height = this.data.height;
     deleteElement(container);

@@ -267,7 +267,7 @@ mainContainer?.addEventListener('click', (event) => {
 
   if (clickedItem.closest('.layout-block__opacity-wrapper')) {
     const typeDedigne = clickedItem.dataset.type as string;
-    const id = clickedItem.getAttribute('id') as string; 
+    const id = clickedItem.getAttribute('id') as string;
     const modal = showLayoutsModal(typeDedigne, id);
     mainContainer?.append(modal);
   }
