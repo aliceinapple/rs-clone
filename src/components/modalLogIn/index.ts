@@ -346,7 +346,6 @@ export const validationOfLogIn = (usersData: User[]) => {
   const userLoginValue = login.value;
   const userPassordValue = password.value;
   const userIndex = usersData.findIndex(item => item.login === userLoginValue);
-  console.log(userIndex);
 
   if (userIndex >= 0) {
     const userLogin = usersData[userIndex].login;
