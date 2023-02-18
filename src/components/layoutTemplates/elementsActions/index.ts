@@ -161,6 +161,7 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
         let newTop = startTop;
         let newRight = startRight;
         let newBottom = startBottom;
+        const isShiftPressed = e.shiftKey;
 
         if (handleClass === 'resize-handle-n') {
           newHeight = startHeight + (-e.clientY + startY);
@@ -178,26 +179,49 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
         }
 
         if (handleClass === 'resize-handle-nw') {
-          newWidth = startWidth + (-e.clientX + startX);
-          newHeight = startHeight + (-e.clientY + startY);
+          if (isShiftPressed) {
+            newWidth = startWidth + (-e.clientX + startX);
+            newHeight = startHeight * (newWidth / startWidth);
+          } else {
+            newWidth = startWidth + (-e.clientX + startX);
+            newHeight = startHeight + (-e.clientY + startY);
+          }
           newLeft = startLeft + (e.clientX - startX);
           newTop = startTop + (e.clientY - startY);
         }
+
         if (handleClass === 'resize-handle-ne') {
-          newWidth = startWidth + (e.clientX - startX);
-          newHeight = startHeight + (-e.clientY + startY);
+          if (isShiftPressed) {
+            newWidth = startWidth + (e.clientX - startX);
+            newHeight = startHeight * (newWidth / startWidth);
+          } else {
+            newWidth = startWidth + (e.clientX - startX);
+            newHeight = startHeight + (-e.clientY + startY);
+          }
           newRight = startRight + (-e.clientX + startX);
           newTop = startTop + (e.clientY - startY);
         }
+
         if (handleClass === 'resize-handle-sw') {
-          newWidth = startWidth + (-e.clientX + startX);
-          newHeight = startHeight + (e.clientY - startY);
+          if (isShiftPressed) {
+            newWidth = startWidth + (-e.clientX + startX);
+            newHeight = startHeight * (newWidth / startWidth);
+          } else {
+            newWidth = startWidth + (-e.clientX + startX);
+            newHeight = startHeight + (e.clientY - startY);
+          }
           newLeft = startLeft + (e.clientX - startX);
           newBottom = startBottom + (-e.clientY + startY);
         }
+
         if (handleClass === 'resize-handle-se') {
-          newWidth = startWidth + (e.clientX - startX);
-          newHeight = startHeight + (e.clientY - startY);
+          if (isShiftPressed) {
+            newWidth = startWidth + (e.clientX - startX);
+            newHeight = startHeight * (newWidth / startWidth);
+          } else {
+            newWidth = startWidth + (e.clientX - startX);
+            newHeight = startHeight + (e.clientY - startY);
+          }
         }
         if (handleClass === 'resize-handle-r') {
           rotateElement(resizableElement, handle);
