@@ -352,7 +352,30 @@ export function deleteElement(template: HTMLDivElement) {
 
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Delete') if (target?.parentElement === template) template.removeChild(target);
+    setProps(target);
   });
+}
+
+export function giveCopyTools(copyElem: HTMLDivElement) {
+  if (copyElem?.className.includes('preview')) {
+    copyElem = loadPhoto(copyElem);
+  }
+
+  const handles = copyElem?.querySelectorAll('.resize-handle');
+  if (handles) {
+    const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
+
+    const tools = copyElem.querySelector('.element-tools');
+    if (tools) copyElem.removeChild(tools);
+
+    const copyTools = createElementTools(copyElem);
+    copyElem.appendChild(copyTools);
+
+    makeResizable(copyElem, divElements);
+    showHandles(copyElem, divElements, copyTools);
+
+    return copyElem;
+  }
 }
 
 export function copyElement(template: HTMLDivElement) {
@@ -366,33 +389,20 @@ export function copyElement(template: HTMLDivElement) {
   });
 
   document.addEventListener('keydown', function (e) {
-    let copiedElement = target as Node;
+    let copiedElement = target;
 
     if (e.ctrlKey && e.key === 'c') {
-      copiedElement = target?.cloneNode(true);
+      copiedElement = target?.cloneNode(true) as HTMLDivElement;
     } else if (e.ctrlKey && e.key === 'v') {
       e.preventDefault();
+
       const pasteElement = template;
-      let copy = copiedElement?.cloneNode(true) as HTMLDivElement;
+      const copy = copiedElement?.cloneNode(true) as HTMLDivElement;
 
-      if (copy?.className.includes('preview')) {
-        copy = loadPhoto(copy);
-      }
+      const copyElem = giveCopyTools(copy);
+      if (copyElem) pasteElement.appendChild(copyElem);
 
-      const handles = copy?.querySelectorAll('.resize-handle');
-      let divElements;
-      if (handles)
-        divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
-
-      const copyTools = createElementTools(copy);
-      copy?.appendChild(copyTools);
-
-      if (divElements) {
-        makeResizable(copy, divElements);
-        showHandles(copy, divElements, copyTools);
-      }
-
-      if (copiedElement) pasteElement.appendChild(copy);
+      if (copyElem) setProps(copyElem);
     }
   });
 }

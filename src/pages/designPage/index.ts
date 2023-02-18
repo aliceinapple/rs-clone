@@ -23,8 +23,7 @@ import {
   fontSizeBtnsActions,
   fontStyleBtnsActions,
 } from '../../components/layoutTemplates/buttonActions';
-import { redo, saveElemProperties, undo } from '../../components/layoutTemplates/layoutHistory/layoutHistory';
-import { ElemProps } from '../../types/types';
+import { redo, undo } from '../../components/layoutTemplates/layoutHistory/layoutHistory';
 import { setProps } from '../../components/layoutTemplates/elementsTemplate';
 import { convertationLayoutToCanvas } from '../../components/saveImages';
 
@@ -305,21 +304,13 @@ const createPainControlPanel = () => {
 
   colorInput.addEventListener('click', () => {
     const background = document.querySelector('.container') as HTMLDivElement;
-    const elemProps: ElemProps = {
-      elem: background,
-      containerColor: background.style.background,
-    };
-    saveElemProperties(elemProps);
+    setProps(background);
   });
 
   colorInput.addEventListener('change', () => {
     const background = document.querySelector('.container') as HTMLDivElement;
     if (background && background instanceof HTMLDivElement) background.style.background = colorInput.value;
-    const elemProps: ElemProps = {
-      elem: background,
-      containerColor: background.style.background,
-    };
-    saveElemProperties(elemProps);
+    setProps(background);
   });
 
   fontSizeBtnsActions(fontSizePlus, fontSizeMinus, fontSizeInput);

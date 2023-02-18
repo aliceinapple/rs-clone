@@ -56,6 +56,7 @@ export class LayOutTemplate {
 
 export class CreateTemplates implements ILayoutTemplate {
   createEmptyTemplate(size: MainCardTemplate) {
+    historyStack.length = 0;
     const card = new LayOutTemplate(size, 'white');
 
     const emptyTemplate = card.add();

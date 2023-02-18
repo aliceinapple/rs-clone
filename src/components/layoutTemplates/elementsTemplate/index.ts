@@ -1,51 +1,32 @@
 import { elemStyleTemplates } from '../../../data/layoutTemplateData';
-import { ElemProps } from '../../../types/types';
+import { LayoutProps } from '../../../types/types';
 import { addElementToolsActions, borderStyleBtnsActions, loadPhoto } from '../buttonActions';
 import { makeResizable, showHandles } from '../elementsActions';
-import { saveElemProperties } from '../layoutHistory/layoutHistory';
+import { saveLayoutProperties } from '../layoutHistory/layoutHistory';
 
 export function setProps(element: HTMLDivElement | null) {
-  const parent = element?.parentElement;
-  const child = element?.querySelector('[contentEditable = "true"]') as HTMLDivElement;
-  const elemArr: HTMLDivElement[] = [];
-
-  if (parent) {
-    for (const elem of parent.children) {
-      elemArr.push(elem as HTMLDivElement);
-    }
-  }
-
-  if (
-    element &&
-    !element.classList.contains('resize-handle') &&
-    !element.classList.contains('container') &&
-    !element.hasAttribute('contentEditable')
-  ) {
-    const elemProps: ElemProps = {
-      elem: element,
-      elements: elemArr,
-      width: element.style.width,
-      height: element.style.height,
-      x: element.style.left,
-      y: element.style.top,
-      zIndex: element.style.zIndex,
-      borderWidth: element.style.borderWidth,
-      borderStyle: element.style.borderStyle,
-      borderRadius: element.style.borderRadius,
-      borderColor: element.style.borderColor,
-      bgColor: element.style.background,
-      transform: element.style.transform,
-      textContent: child?.innerHTML,
-      fontFamily: child?.style.fontFamily,
-      fontSize: child?.style.fontSize,
-      textDecoration: child?.style.textDecoration,
-      fontWeight: child?.style.fontWeight,
-      fontStyle: child?.style.fontStyle,
-      textAlign: child?.style.textAlign,
-      textColor: child?.style.color,
+  let container: string;
+  if (element?.classList.contains('container')) {
+    container = element.innerHTML;
+    container = container.replace(/cursor: grabbing/g, 'cursor: grab');
+    container = container.replace(/display: block/g, 'display: none');
+    const props: LayoutProps = {
+      bgColor: element.style.backgroundColor,
+      content: container,
     };
-
-    saveElemProperties(elemProps);
+    saveLayoutProperties(props);
+  } else {
+    const parent = element?.parentElement;
+    if (parent && parent.classList.contains('container')) {
+      container = parent?.innerHTML;
+      container = container.replace(/cursor: grabbing/g, 'cursor: grab');
+      container = container.replace(/display: block/g, 'display: none');
+      const props: LayoutProps = {
+        bgColor: parent.style.backgroundColor,
+        content: container,
+      };
+      saveLayoutProperties(props);
+    }
   }
 }
 
