@@ -24,7 +24,8 @@
 
 .templates-block {
   margin: 35px 0;
-  @include display-flex(row, space-between, center);
+  @include display-flex(row, center, center);
+  gap: 35px;
   cursor: pointer;
   flex-wrap: wrap;
 }

@@ -1,33 +1,6 @@
-import { makeResizable, showHandles } from '../elementsActions';
-import { createElementTools, setProps } from '../elementsTemplate';
+import { giveCopyTools } from '../elementsActions';
+import { setProps } from '../elementsTemplate';
 import { targetTextElement, targetTextElementParent } from '../targetElement';
-
-// export function loadPhoto(preview: HTMLDivElement) {
-//   const fileInput = document.createElement('input');
-//   fileInput.setAttribute('type', 'file');
-//   fileInput.setAttribute('accept', '.jpg, .jpeg, .png, .svg');
-//   fileInput.classList.add('file-input');
-
-//   preview.classList.add('preview');
-
-//   preview.append(fileInput);
-
-//   fileInput.addEventListener('change', function () {
-//     if (fileInput.files) {
-//       const file = fileInput.files[0];
-//       const blob = new Blob([file]);
-//       const reader = new FileReader();
-
-//       reader.addEventListener('load', function () {
-//         preview.style.backgroundImage = `url(${reader.result})`;
-//       });
-
-//       reader.readAsDataURL(blob);
-//     }
-//   });
-
-//   return preview;
-// }
 
 export function loadPhoto(preview: HTMLDivElement) {
   const fileInput = document.createElement('input');
@@ -100,31 +73,18 @@ export function addElementToolsActions(
   back: HTMLDivElement,
 ) {
   copy.addEventListener('click', () => {
-    const parent = element.parentElement;
-    let copyElem = element.cloneNode(true) as HTMLDivElement;
+    const parent = element.parentElement as HTMLDivElement;
+    const copyElem = element.cloneNode(true) as HTMLDivElement;
 
-    if (copyElem?.className.includes('preview')) {
-      copyElem = loadPhoto(copyElem);
-    }
-
-    const handles = copyElem.querySelectorAll('.resize-handle');
-    const divElements = Array.from(handles).filter((node) => node instanceof HTMLDivElement) as HTMLDivElement[];
-
-    const tools = copyElem.querySelector('.element-tools');
-    if (tools) copyElem.removeChild(tools);
-
-    const copyTools = createElementTools(copyElem);
-    copyElem.appendChild(copyTools);
-
-    makeResizable(copyElem, divElements);
-    showHandles(copyElem, divElements, copyTools);
-
-    parent?.appendChild(copyElem);
+    const newCopyElem = giveCopyTools(copyElem);
+    if (newCopyElem) parent.appendChild(newCopyElem);
+    setProps(element);
   });
 
   del.addEventListener('click', () => {
     const parent = element.parentElement;
     parent?.removeChild(element);
+    setProps(element);
   });
 
   color.addEventListener('change', () => {
