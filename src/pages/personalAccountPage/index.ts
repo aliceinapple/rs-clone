@@ -43,9 +43,11 @@ const createLayoutsBlock = (typeDesigne: string, titleText: string, collection: 
     layoutContent.style.transformOrigin = 'top left';
 
     const layoutId = layoutContent.getAttribute('id');
+    const index = layoutContent.dataset.index as string;
     const opasity = createHtmlElement('div', 'layout-block__opacity-wrapper');
     opasity.setAttribute('data-type', `${typeDesigne}`);
     opasity.setAttribute('id', `${layoutId}`);
+    opasity.setAttribute('data-index', index);
     layoutWrapper.append(opasity);
   });
   
@@ -122,14 +124,21 @@ export const savinglayoutsInAccount = () => {
     const currentUserIndex = usersDataFromLocal.findIndex(user => user.login === currentUserFromLocal.login);
 
     const layoutData: string[] = [];
-
+    const index = currentUserFromLocal.templates.length;
+    
     const layout = document.querySelector('.layout-canvas') as HTMLElement;
+    const content = document.querySelector('.container') as HTMLDivElement;
+    content.setAttribute('data-index', `${index}`);
+    const tools = layout.querySelectorAll('.element-tools');
+    const handles = layout.querySelectorAll('.resize-handle');
+    tools.forEach(tool => (tool as HTMLElement).style.display = 'none');
+    handles.forEach(handl => (handl as HTMLElement).style.display = 'none');
+
     const parser = layout.innerHTML;
     const typeDedigne = window.location.hash.slice(14, window.location.hash.length - 1);
-    const content = document.querySelector('.container') as HTMLDivElement;
     const id = content.getAttribute('id') as string;
+    layoutData.push(typeDedigne, id, parser, `${index}`);
 
-    layoutData.push(typeDedigne, id, parser);
     currentUserFromLocal.templates.push(layoutData);
     usersDataFromLocal[currentUserIndex].templates.push(layoutData);
 
@@ -145,17 +154,17 @@ const showLayoutsModal = (typeDesigne: string, id: string) => {
   const content = createHtmlElement('div', 'layouts-modal__content');
   content.classList.add(`content-${typeDesigne}`);
   const currentUserFromLocal: User = JSON.parse(localStorage.getItem('currentUser') as string);
-  const layout = currentUserFromLocal.templates.filter(item => item[0] === typeDesigne && item[1] === id);
+  const layout = currentUserFromLocal.templates.filter(item => item[0] === typeDesigne && item[3] === id);
   content.innerHTML = layout[0][2];
   
   const tools = createHtmlElement('div', 'layouts-modal__tools');
   const btnEdit = createHtmlElement('div', 'layouts-modal__btn-edit');
   btnEdit.setAttribute('data-type', typeDesigne);
-  btnEdit.setAttribute('id', id);
+  btnEdit.setAttribute('data-index', id);
   const btnSave = createHtmlElement('div', 'layouts-modal__btn-save');
   const btnRemove = createHtmlElement('div', 'layouts-modal__btn-remove');
   btnRemove.setAttribute('data-type', typeDesigne);
-  btnRemove.setAttribute('id', id);
+  btnRemove.setAttribute('data-index', id);
   tools.append(btnEdit, btnSave, btnRemove);
   container.append(content, tools);
 
@@ -181,8 +190,8 @@ const removeLayoutsFromAccount = (typeDesigne: string, id: string) => {
   const usersDataFromLocal: User[] = JSON.parse(localStorage.getItem('usersData') as string);
   const currentUserFromLocal: User = JSON.parse(localStorage.getItem('currentUser') as string);
   const login = currentUserFromLocal.login;
-  
-  const index = currentUserFromLocal.templates.findIndex(item => item[0] === typeDesigne && item[1] === id);
+ 
+  const index = currentUserFromLocal.templates.findIndex(item => item[0] === typeDesigne && item[3] === id);
  
   currentUserFromLocal.templates.splice(index, 1);
 
@@ -199,7 +208,7 @@ const removeLayoutsFromAccount = (typeDesigne: string, id: string) => {
 const editLayout = (typeDesigne: string, id: string) => {
   const currentUserFromLocal: User = JSON.parse(localStorage.getItem('currentUser') as string);
   
-  const layoutArray = currentUserFromLocal.templates.filter(item => item[0] === typeDesigne && item[1] === id);
+  const layoutArray = currentUserFromLocal.templates.filter(item => item[0] === typeDesigne && item[3] === id);
 
   const layout = layoutArray[0][2];
 
@@ -267,20 +276,20 @@ mainContainer?.addEventListener('click', (event) => {
 
   if (clickedItem.closest('.layout-block__opacity-wrapper')) {
     const typeDedigne = clickedItem.dataset.type as string;
-    const id = clickedItem.getAttribute('id') as string;
+    const id = clickedItem.dataset.index as string;
     const modal = showLayoutsModal(typeDedigne, id);
     mainContainer?.append(modal);
   }
 
   if (clickedItem.closest('.layouts-modal__btn-remove')) {
     const typeDedigne = clickedItem.dataset.type as string;
-    const id = clickedItem.getAttribute('id') as string;
+    const id = clickedItem.dataset.index as string;
     removeLayoutsFromAccount(typeDedigne, id);
   }
 
   if (clickedItem.closest('.layouts-modal__btn-edit')) {
     const typeDedigne = clickedItem.dataset.type as string;
-    const id = clickedItem.getAttribute('id') as string;
+    const id = clickedItem.dataset.index as string;
     editLayout(typeDedigne, id);
   }
 
