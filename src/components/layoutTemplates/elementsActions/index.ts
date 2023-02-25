@@ -1,5 +1,5 @@
 import { loadPhoto } from '../buttonActions';
-import { createElementTools, setProps } from '../elementsTemplate';
+import { createElementTools } from '../elementsTemplate';
 
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
@@ -28,7 +28,6 @@ export function dragNdrop(container: HTMLDivElement) {
     ) {
       selectedElement.style.cursor = 'grabbing';
     }
-    if (selectedElement && selectedElement instanceof HTMLDivElement) setProps(selectedElement);
     isDragging = true;
   }
 
@@ -67,7 +66,6 @@ export function dragNdrop(container: HTMLDivElement) {
       selectedElement = null;
       isDragging = false;
     }
-    if (selectedElement && selectedElement instanceof HTMLDivElement) setProps(selectedElement);
   }
 
   container.addEventListener('mousedown', startMove);
@@ -137,7 +135,6 @@ function rotateElement(element: HTMLDivElement, handle: HTMLDivElement) {
 export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: HTMLDivElement[]) {
   for (const handle of resizeHandles) {
     handle.addEventListener('mousedown', function (event) {
-      setProps(resizableElement);
       event.preventDefault();
       document.body.style.userSelect = 'none';
       const handleClass = handle.classList[1];
@@ -235,7 +232,6 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
         document.removeEventListener('mousemove', resize);
         document.removeEventListener('mouseup', stopResize);
         document.body.style.userSelect = '';
-        setProps(resizableElement);
       }
 
       document.addEventListener('mousemove', resize);
@@ -318,7 +314,6 @@ export function makeResizable(resizableElement: HTMLDivElement, resizeHandles: H
           document.removeEventListener('touchmove', resize);
           document.removeEventListener('touchend', stopResize);
           document.body.style.userSelect = '';
-          setProps(resizableElement);
         }
 
         document.addEventListener('touchmove', resize, { passive: false });
@@ -372,7 +367,6 @@ export function deleteElement(template: HTMLDivElement) {
 
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Delete') if (target?.parentElement === template) template.removeChild(target);
-    setProps(target);
   });
 }
 
@@ -411,9 +405,9 @@ export function copyElement(template: HTMLDivElement) {
   document.addEventListener('keydown', function (e) {
     let copiedElement = target;
 
-    if (e.ctrlKey && e.key === 'c') {
+    if (e.ctrlKey && (e.key === 'c' || e.key === 'с')) {
       copiedElement = target?.cloneNode(true) as HTMLDivElement;
-    } else if (e.ctrlKey && e.key === 'v') {
+    } else if (e.ctrlKey && (e.key === 'v' || e.key === 'м')) {
       e.preventDefault();
 
       const pasteElement = template;
@@ -421,8 +415,6 @@ export function copyElement(template: HTMLDivElement) {
 
       const copyElem = giveCopyTools(copy);
       if (copyElem) pasteElement.appendChild(copyElem);
-
-      if (copyElem) setProps(copyElem);
     }
   });
 }

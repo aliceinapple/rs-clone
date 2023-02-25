@@ -1,4 +1,9 @@
-import { createTemplateImg, createTemplateShape, createTemplateText, createTemplateTextArea } from './elementsTemplate';
+import {
+  createTemplateImg,
+  createTemplateShape,
+  createTemplateText,
+  createTemplateTextArea,
+} from './elementsTemplate';
 import { defaultTexsts, elemStyleTemplates, tempElementsArr } from '../../data/layoutTemplateData';
 import { ICreateTemplate } from '../../types/interfaces';
 
@@ -32,7 +37,7 @@ function createTemplateElementsPanel(elements: string[]) {
     imgDiv.style.backgroundRepeat = 'no-repeat';
 
     imgDiv.addEventListener('click', () => {
-      const container = document.querySelector('.container');
+      const container = document.querySelector('.container') as HTMLDivElement;
 
       if (elements[i].includes('ico_load_photo')) {
         container?.appendChild(

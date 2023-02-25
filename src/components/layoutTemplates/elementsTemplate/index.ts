@@ -194,6 +194,10 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
     container?.append(tools);
   }, 0);
 
+  tools.addEventListener('click', () => setProps(element));
+  tools.addEventListener('input', () => setProps(element));
+  tools.addEventListener('change', () => setProps(element));
+
   return tools;
 }
 
@@ -217,14 +221,6 @@ export function createTemplateText(
   text.style.fontWeight = elemStyleTemplates.fontWeight;
   text.style.fontStyle = elemStyleTemplates.fontStyle;
 
-  setTimeout(() => {
-    const parent = text.parentElement as HTMLDivElement;
-    if (parent) {
-      text.addEventListener('input', () => setProps(parent));
-      text.addEventListener('focus', () => setProps(parent));
-    }
-  });
-
   return text;
 }
 
@@ -243,8 +239,6 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   element.style.zIndex = elemStyleTemplates.zIndex;
   element.style.cursor = elemStyleTemplates.cursor;
   element.style.transform = elemStyleTemplates.transform;
-
-  element.addEventListener('click', () => setProps(element));
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);
@@ -291,8 +285,6 @@ export function createTemplateShape(
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);
 
-  element.addEventListener('click', () => setProps(element));
-
   return element;
 }
 
@@ -323,8 +315,6 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.cursor = elemStyleTemplates.cursor;
 
   element.style.transform = elemStyleTemplates.transform;
-
-  element.addEventListener('click', () => setProps(element));
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);

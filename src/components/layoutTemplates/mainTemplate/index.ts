@@ -2,6 +2,7 @@ import { businessCardSize, postCardSize, resumeCardSize, logoCardSize } from '..
 import { TypesDesigne } from '../../../types/enums';
 import { ILayoutTemplate, MainCardTemplate } from '../../../types/interfaces';
 import { copyElement, deleteElement, dragNdrop } from '../elementsActions';
+import { setProps } from '../elementsTemplate';
 import { historyStack } from '../layoutHistory/layoutHistory';
 import { setTargetTextElement } from '../targetElement';
 
@@ -57,6 +58,8 @@ export class LayOutTemplate {
 
 export class CreateTemplates implements ILayoutTemplate {
   createEmptyTemplate(size: MainCardTemplate) {
+    console.log(historyStack);
+
     historyStack.length = 0;
     const card = new LayOutTemplate(size, 'white');
 
@@ -67,10 +70,23 @@ export class CreateTemplates implements ILayoutTemplate {
     if (size === resumeCardSize) emptyTemplate.classList.add(TypesDesigne.Resume);
     if (size === logoCardSize) emptyTemplate.classList.add(TypesDesigne.Logo);
 
+    setProps(emptyTemplate);
+    emptyTemplate.addEventListener('click', () => setProps(emptyTemplate));
+    emptyTemplate.addEventListener('mousedown', () => setProps(emptyTemplate));
+    emptyTemplate.addEventListener('mouseup', () => setProps(emptyTemplate));
+    emptyTemplate.addEventListener('touchstart', () => setProps(emptyTemplate));
+    emptyTemplate.addEventListener('touchend', () => setProps(emptyTemplate));
+    emptyTemplate.addEventListener('keydown', (event) => {
+      if (!event.shiftKey) {
+        setProps(emptyTemplate);
+      }
+    });
+
     return emptyTemplate;
   }
 
   render(id: string, cards: HTMLDivElement[]) {
+    console.log(historyStack);
     historyStack.length = 0;
     let card: HTMLDivElement = document.createElement('div');
 
@@ -80,6 +96,18 @@ export class CreateTemplates implements ILayoutTemplate {
         break;
       }
     }
+
+    setProps(card);
+    card.addEventListener('click', () => setProps(card));
+    card.addEventListener('mousedown', () => setProps(card));
+    card.addEventListener('mouseup', () => setProps(card));
+    card.addEventListener('touchstart', () => setProps(card));
+    card.addEventListener('touchend', () => setProps(card));
+    card.addEventListener('keydown', (event) => {
+      if (!event.shiftKey) {
+        setProps(card);
+      }
+    });
 
     return card;
   }
