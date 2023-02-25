@@ -58,8 +58,6 @@ export class LayOutTemplate {
 
 export class CreateTemplates implements ILayoutTemplate {
   createEmptyTemplate(size: MainCardTemplate) {
-    console.log(historyStack);
-
     historyStack.length = 0;
     const card = new LayOutTemplate(size, 'white');
 
@@ -86,7 +84,6 @@ export class CreateTemplates implements ILayoutTemplate {
   }
 
   render(id: string, cards: HTMLDivElement[]) {
-    console.log(historyStack);
     historyStack.length = 0;
     let card: HTMLDivElement = document.createElement('div');
 
