@@ -154,6 +154,10 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
   back.classList.add('element-tools_back');
   back.setAttribute('data-tooltip-elem', 'переместить назад');
 
+  const reflect = document.createElement('div');
+  reflect.classList.add('element-tools_reflect');
+  reflect.setAttribute('data-tooltip-elem', 'отразить');
+
   const borderStyle = document.createElement('div');
   borderStyle.classList.add('border-styles_btn');
 
@@ -175,14 +179,14 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
     }
   });
 
-  addElementToolsActions(element, copy, del, color, bgColor, front, back);
+  addElementToolsActions(element, copy, del, color, bgColor, front, back, reflect);
 
   if (element?.className.includes('template-img')) {
-    tools.append(copy, del, front, back);
+    tools.append(copy, del, front, back, reflect);
   } else if (element?.className.includes('template-shape')) {
-    tools.append(copy, del, bgColor, front, back, borderStyle);
+    tools.append(copy, del, bgColor, front, back, reflect, borderStyle);
   } else {
-    tools.append(copy, del, color, front, back);
+    tools.append(copy, del, color, front, back, reflect);
   }
 
   setTimeout(() => {

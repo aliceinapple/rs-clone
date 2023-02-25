@@ -406,6 +406,10 @@
 }
 
 @media screen and (max-width: 780px) {
+  [data-tooltip-elem]:hover::before {
+    display: none;
+  }
+
   .paint-block__wrapper {
     overflow: hidden;
     grid-template-rows: 500px 15px;

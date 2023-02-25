@@ -127,7 +127,7 @@
 }
 
 .element-tools {
-  position: fixed;
+  position: absolute;
   display: none;
   flex-direction: column;
   padding: 10px;
@@ -180,6 +180,18 @@
 
 .element-tools_back {
   @include ico-style(24px, 24px, 'assets/ico/ico_element-tool-back.png');
+  &:hover {
+    box-shadow: 0px 0px 0px 4px $color_white-gray;
+    border-radius: 4px;
+  }
+  &:active {
+    box-shadow: 0px 0px 0px 4px $color_light-gray;
+    border-radius: 4px;
+  }
+}
+
+.element-tools_reflect {
+  @include ico-style(24px, 24px, 'assets/ico/ico_reflect.png');
   &:hover {
     box-shadow: 0px 0px 0px 4px $color_white-gray;
     border-radius: 4px;
@@ -443,5 +455,16 @@
   &::-webkit-color-swatch {
     border: none;
     border-radius: 4px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .element-tools {
+    flex-direction: row;
+    padding: 10px;
+    top: 140px;
+    left: 1%;
+    box-shadow: none;
+    background: transparent;
   }
 }

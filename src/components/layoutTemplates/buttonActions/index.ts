@@ -71,6 +71,7 @@ export function addElementToolsActions(
   bgColor: HTMLInputElement,
   front: HTMLDivElement,
   back: HTMLDivElement,
+  reflect: HTMLDivElement,
 ) {
   copy.addEventListener('click', () => {
     const parent = element.parentElement as HTMLDivElement;
@@ -124,6 +125,18 @@ export function addElementToolsActions(
     }
     element.style.zIndex = String(Number(element.style.zIndex) - 1);
     setProps(element);
+  });
+
+  reflect.addEventListener('click', () => {
+    if (element.style.transform.includes('scaleX(-1)')) {
+      element.style.transform = element.style.transform.replace('scaleX(-1)', '');
+    } else {
+      if (element.style.transform.includes('none')) {
+        element.style.transform = 'scaleX(-1)';
+      } else {
+        element.style.transform += ' scaleX(-1)';
+      }
+    }
   });
 }
 

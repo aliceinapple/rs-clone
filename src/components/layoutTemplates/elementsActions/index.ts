@@ -4,12 +4,6 @@ import { createElementTools, setProps } from '../elementsTemplate';
 export function dragNdrop(container: HTMLDivElement) {
   let selectedElement: EventTarget | null;
   let isDragging = false;
-  let initialX: number;
-  let initialY: number;
-  let currentX: number;
-  let currentY: number;
-  let xOffset = 0;
-  let yOffset = 0;
 
   function startMove(e: MouseEvent | TouchEvent) {
     let event;
@@ -20,8 +14,6 @@ export function dragNdrop(container: HTMLDivElement) {
     }
     if (event) {
       selectedElement = event.target;
-      initialX = event.clientX;
-      initialY = event.clientY;
       if (selectedElement instanceof HTMLDivElement) {
         if (selectedElement.hasAttribute('contentEditable')) {
           selectedElement = selectedElement.parentElement;
@@ -35,8 +27,6 @@ export function dragNdrop(container: HTMLDivElement) {
       !selectedElement.classList.contains('resize-handle')
     ) {
       selectedElement.style.cursor = 'grabbing';
-      xOffset = selectedElement.offsetLeft - initialX;
-      yOffset = selectedElement.offsetTop - initialY;
     }
     if (selectedElement && selectedElement instanceof HTMLDivElement) setProps(selectedElement);
     isDragging = true;
@@ -50,16 +40,18 @@ export function dragNdrop(container: HTMLDivElement) {
       event = e.touches[0];
     }
     if (event) {
-      currentX = event.clientX;
-      currentY = event.clientY;
       if (!isDragging) return;
       if (
         selectedElement instanceof HTMLDivElement &&
         !selectedElement.classList.contains('container') &&
         !selectedElement.classList.contains('resize-handle')
       ) {
-        selectedElement.style.left = currentX + xOffset + 'px';
-        selectedElement.style.top = currentY + yOffset + 'px';
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = selectedElement.getBoundingClientRect();
+        const cursorX = event.clientX - containerRect.left;
+        const cursorY = event.clientY - containerRect.top;
+        selectedElement.style.left = `calc(${((cursorX - elementRect.width / 2) / containerRect.width) * 100}%`;
+        selectedElement.style.top = `calc(${((cursorY - elementRect.height / 2) / containerRect.height) * 100}%`;
       }
     }
   }
@@ -122,7 +114,11 @@ function rotateElement(element: HTMLDivElement, handle: HTMLDivElement) {
       distanceX = currentX - startX;
       distanceY = currentY - startY;
       currentAngle = Math.atan2(distanceY, distanceX);
-      element.style.transform = `rotate(${currentAngle}rad)`;
+      if (element.style.transform.includes('scaleX(-1)')) {
+        element.style.transform = `rotate(${currentAngle}rad) scaleX(-1)`;
+      } else {
+        element.style.transform = `rotate(${currentAngle}rad)`;
+      }
     }
   }
   function endRotate() {

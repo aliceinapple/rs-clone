@@ -68,12 +68,12 @@
 }
 
 .banner__text-block_title {
-  @include font-size(30px, 33px, 600);
+  @include font-size(28px, 33px, 600);
   color: $color_white-gray;
 }
 
 @media (max-width: 530px) {
   .banner__text-block_title {
-    @include font-size(25px, 25px, 600);
+    @include font-size(24px, 25px, 600);
   }
 }
