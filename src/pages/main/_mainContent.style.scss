@@ -67,6 +67,12 @@
   background-image: url('assets/img/image.png');
 }
 
+.bg-block__title {
+  width: 100%;
+  padding: 0 20px;
+  text-align: center;
+}
+
 .banner__text-block_title {
   @include font-size(28px, 33px, 600);
   color: $color_white-gray;
