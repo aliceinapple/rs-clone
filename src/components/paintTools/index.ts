@@ -285,6 +285,7 @@ export function renderPaintTools() {
   }
  
   function MouseMove(e: MouseEvent | TouchEvent) {
+    e.preventDefault();
     const mouseX = (e as TouchEvent).changedTouches ?
       (e as TouchEvent).changedTouches[0].pageX :
       (e as MouseEvent).pageX;
@@ -383,13 +384,13 @@ export function renderPaintTools() {
     ctx.lineJoin = 'round';
     ctx.fillStyle = 'white';
     
-    canvas.addEventListener('mousedown', MouseDown, { passive: true });
-    canvas.addEventListener('mousemove', MouseMove, { passive: true });
-    canvas.addEventListener('mouseup', MouseUp, { passive: true });
+    canvas.addEventListener('mousedown', MouseDown, { passive: false });
+    canvas.addEventListener('mousemove', MouseMove, { passive: false });
+    canvas.addEventListener('mouseup', MouseUp, { passive: false });
 
-    canvas.addEventListener('touchstart', MouseDown, { passive: true });
-    canvas.addEventListener('touchmove', MouseMove, { passive: true });
-    canvas.addEventListener('touchend', MouseUp, { passive: true });
+    canvas.addEventListener('touchstart', MouseDown, { passive: false });
+    canvas.addEventListener('touchmove', MouseMove, { passive: false });
+    canvas.addEventListener('touchend', MouseUp, { passive: false });
   }
 
   setupCanvas();

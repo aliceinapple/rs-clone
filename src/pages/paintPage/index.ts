@@ -128,13 +128,9 @@ const createPaintBlock = () => {
     canvas.width = Number(`${window.innerWidth / 2 + 50}`);
     canvas.height = Number(`${window.innerHeight / 2 + 50}`);
   } else {
-    canvas.width = Number(`${window.innerWidth / 2 + 50}`);
-    canvas.height = Number(`${window.innerHeight / 2 - 150}`);
+    canvas.width = Number(`${window.innerWidth - 50}`);
+    canvas.height = Number(`${window.innerHeight / 2 + 50}`);
   }
-  
-  // canvas.width = 800;
-  // canvas.height = 600;
-
   wrapper.append(toolsPanel, canvas);
 
   container.append(wrapper);
