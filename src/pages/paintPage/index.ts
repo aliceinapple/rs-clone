@@ -124,11 +124,14 @@ const createPaintBlock = () => {
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   canvas.classList.add('paint-canvas');
   canvas.setAttribute('id', 'canvas');
-  if (window.innerWidth > window.innerHeight) {
-    canvas.width = Number(`${window.innerWidth / 2 + 50}`);
+  if (window.innerWidth < window.innerHeight) {
+    canvas.width = Number(`${window.innerWidth / 2 + 100}`);
+    canvas.height = Number(`${window.innerHeight / 2 + 50}`);
+  } else if (window.innerWidth > window.innerHeight && window.innerWidth - window.innerHeight < 200) {
+    canvas.width = Number(`${window.innerWidth / 2 + 200}`);
     canvas.height = Number(`${window.innerHeight / 2 + 50}`);
   } else {
-    canvas.width = Number(`${window.innerWidth - 50}`);
+    canvas.width = Number(`${window.innerWidth / 2 + 150}`);
     canvas.height = Number(`${window.innerHeight / 2 + 50}`);
   }
   wrapper.append(toolsPanel, canvas);
