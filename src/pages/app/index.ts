@@ -16,7 +16,7 @@ import {
   validationOfregistration, 
   registrationUser, 
 } from '../../components/modalLogIn';
-import { checkBusinessPage, checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
+import { checkColorPage, checkLogo, checkStylePage } from '../../components/logoGeneration';
 import { convertationToCanvas, imageSaveSrc, saveImage } from '../../components/saveImages';
 import { savinglayoutsInAccount } from '../personalAccountPage';
 import { PaintPage } from '../paintPage';
@@ -95,10 +95,6 @@ containerForContent.addEventListener('click', (event) => {
   if (clickedItem.closest('.banner__btn-create-logo')) {
     App.renderNewPage(PagesId.InfoBusinessPage);
     updateURL(PagesId.InfoBusinessPage);
-  }
-
-  if (clickedItem.className === 'input-name-company' || clickedItem.className === 'type-of-activity') {
-    checkBusinessPage();
   }
 
   if (clickedItem.closest('#btn-next__about-business')) {
