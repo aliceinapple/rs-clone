@@ -154,6 +154,10 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
   back.classList.add('element-tools_back');
   back.setAttribute('data-tooltip-elem', 'переместить назад');
 
+  const reflect = document.createElement('div');
+  reflect.classList.add('element-tools_reflect');
+  reflect.setAttribute('data-tooltip-elem', 'отразить');
+
   const borderStyle = document.createElement('div');
   borderStyle.classList.add('border-styles_btn');
 
@@ -175,20 +179,24 @@ export function createElementTools(element: HTMLDivElement): HTMLDivElement {
     }
   });
 
-  addElementToolsActions(element, copy, del, color, bgColor, front, back);
+  addElementToolsActions(element, copy, del, color, bgColor, front, back, reflect);
 
   if (element?.className.includes('template-img')) {
-    tools.append(copy, del, front, back);
+    tools.append(copy, del, front, back, reflect);
   } else if (element?.className.includes('template-shape')) {
-    tools.append(copy, del, bgColor, front, back, borderStyle);
+    tools.append(copy, del, bgColor, front, back, reflect, borderStyle);
   } else {
-    tools.append(copy, del, color, front, back);
+    tools.append(copy, del, color, front, back, reflect);
   }
 
   setTimeout(() => {
     const container = document.querySelector('.layout-canvas');
     container?.append(tools);
   }, 0);
+
+  tools.addEventListener('click', () => setProps(element));
+  tools.addEventListener('input', () => setProps(element));
+  tools.addEventListener('change', () => setProps(element));
 
   return tools;
 }
@@ -213,14 +221,6 @@ export function createTemplateText(
   text.style.fontWeight = elemStyleTemplates.fontWeight;
   text.style.fontStyle = elemStyleTemplates.fontStyle;
 
-  setTimeout(() => {
-    const parent = text.parentElement as HTMLDivElement;
-    if (parent) {
-      text.addEventListener('input', () => setProps(parent));
-      text.addEventListener('focus', () => setProps(parent));
-    }
-  });
-
   return text;
 }
 
@@ -239,8 +239,6 @@ export function createTemplateTextArea(width: string, x: string, y: string): HTM
   element.style.zIndex = elemStyleTemplates.zIndex;
   element.style.cursor = elemStyleTemplates.cursor;
   element.style.transform = elemStyleTemplates.transform;
-
-  element.addEventListener('click', () => setProps(element));
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);
@@ -287,8 +285,6 @@ export function createTemplateShape(
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);
 
-  element.addEventListener('click', () => setProps(element));
-
   return element;
 }
 
@@ -319,8 +315,6 @@ export function createTemplateImg(width: string, height: string, x: string, y: s
   element.style.cursor = elemStyleTemplates.cursor;
 
   element.style.transform = elemStyleTemplates.transform;
-
-  element.addEventListener('click', () => setProps(element));
 
   makeResizable(element, handles);
   showHandles(element, handles, elementTools);

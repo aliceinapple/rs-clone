@@ -16,7 +16,7 @@ import { postCardsPanelTemplates } from '../../components/layoutTemplates/postCa
 import { resumePanelTemplates } from '../../components/layoutTemplates/resume';
 import { logoPanelTemplates } from '../../components/layoutTemplates/logotype';
 import { CreateTemplates } from '../../components/layoutTemplates/mainTemplate';
-import { targetTextElement, targetTextElementParent } from '../../components/layoutTemplates/targetElement';
+import { targetTextElement } from '../../components/layoutTemplates/targetElement';
 import {
   checkTextStyle,
   fontAlignBtnsActions,
@@ -24,8 +24,8 @@ import {
   fontStyleBtnsActions,
 } from '../../components/layoutTemplates/buttonActions';
 import { redo, undo } from '../../components/layoutTemplates/layoutHistory/layoutHistory';
-import { setProps } from '../../components/layoutTemplates/elementsTemplate';
 import { convertationLayoutToCanvas } from '../../components/saveImages';
+import { setProps } from '../../components/layoutTemplates/elementsTemplate';
 
 const createDesignPageHeader = () => {
   const header = createHtmlElement('header', 'header');
@@ -208,6 +208,11 @@ const createHidingPanelForLogo = () => {
 const createHidingPanel = (typeDesigne: string) => {
   const container = createHtmlElement('div', 'designe-page__hiding-panel');
 
+  container.addEventListener('click', () => {
+    const layout = document.querySelector('.container') as HTMLDivElement;
+    setProps(layout);
+  });
+
   if (typeDesigne === TypesDesigne.Postcard) {
     const content = createHidingPanelForPostcard();
     container.append(content);
@@ -250,7 +255,6 @@ const createPainControlPanel = () => {
 
   select.addEventListener('change', () => {
     if (targetTextElement) targetTextElement.style.fontFamily = select.value;
-    setProps(targetTextElementParent);
   });
 
   const fontSizeBlock = createHtmlElement('div', 'font-size-block');
@@ -302,15 +306,15 @@ const createPainControlPanel = () => {
     }
   });
 
-  colorInput.addEventListener('click', () => {
-    const background = document.querySelector('.container') as HTMLDivElement;
-    setProps(background);
-  });
-
   colorInput.addEventListener('change', () => {
     const background = document.querySelector('.container') as HTMLDivElement;
     if (background && background instanceof HTMLDivElement) background.style.background = colorInput.value;
     setProps(background);
+  });
+
+  container.addEventListener('click', () => {
+    const layout = document.querySelector('.container') as HTMLDivElement;
+    setProps(layout);
   });
 
   fontSizeBtnsActions(fontSizePlus, fontSizeMinus, fontSizeInput);

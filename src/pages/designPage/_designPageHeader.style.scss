@@ -51,7 +51,7 @@
 .btn-block__btn-save-in-account {
   opacity: 0.6;
   @include ico-style(24px, 24px, 'assets/ico/ico_save_design.png');
-  @include block-style();
+
   cursor: pointer;
   &:hover {
     transform: scale(1.1);

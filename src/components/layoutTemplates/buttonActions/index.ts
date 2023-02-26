@@ -1,6 +1,6 @@
 import { giveCopyTools } from '../elementsActions';
 import { setProps } from '../elementsTemplate';
-import { targetTextElement, targetTextElementParent } from '../targetElement';
+import { targetTextElement } from '../targetElement';
 
 export function loadPhoto(preview: HTMLDivElement) {
   const fileInput = document.createElement('input');
@@ -71,6 +71,7 @@ export function addElementToolsActions(
   bgColor: HTMLInputElement,
   front: HTMLDivElement,
   back: HTMLDivElement,
+  reflect: HTMLDivElement,
 ) {
   copy.addEventListener('click', () => {
     const parent = element.parentElement as HTMLDivElement;
@@ -78,24 +79,23 @@ export function addElementToolsActions(
 
     const newCopyElem = giveCopyTools(copyElem);
     if (newCopyElem) parent.appendChild(newCopyElem);
-    setProps(element);
   });
 
   del.addEventListener('click', () => {
-    const parent = element.parentElement;
-    parent?.removeChild(element);
-    setProps(element);
+    const parent = element.parentElement as HTMLDivElement;
+    if (parent) {
+      parent.removeChild(element);
+      setProps(parent);
+    }
   });
 
   color.addEventListener('change', () => {
     const child = element.querySelector('[contentEditable = "true"]') as HTMLDivElement;
     child.style.color = color.value;
-    setProps(element);
   });
 
   bgColor.addEventListener('change', () => {
     element.style.background = bgColor.value;
-    setProps(element);
   });
 
   front.addEventListener('click', () => {
@@ -114,7 +114,6 @@ export function addElementToolsActions(
       return;
     }
     element.style.zIndex = String(Number(element.style.zIndex) + 1);
-    setProps(element);
   });
 
   back.addEventListener('click', () => {
@@ -123,7 +122,18 @@ export function addElementToolsActions(
       return;
     }
     element.style.zIndex = String(Number(element.style.zIndex) - 1);
-    setProps(element);
+  });
+
+  reflect.addEventListener('click', () => {
+    if (element.style.transform.includes('scaleX(-1)')) {
+      element.style.transform = element.style.transform.replace('scaleX(-1)', '');
+    } else {
+      if (element.style.transform.includes('none')) {
+        element.style.transform = 'scaleX(-1)';
+      } else {
+        element.style.transform += ' scaleX(-1)';
+      }
+    }
   });
 }
 
@@ -139,33 +149,28 @@ export function borderStyleBtnsActions(
 ) {
   none.addEventListener('click', () => {
     element.style.border = 'none';
-    setProps(element);
   });
 
   solid.addEventListener('click', () => {
     element.style.borderStyle = 'solid';
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
-    setProps(element);
   });
 
   dashed.addEventListener('click', () => {
     element.style.borderStyle = 'dashed';
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
-    setProps(element);
   });
 
   dotted.addEventListener('click', () => {
     element.style.borderStyle = 'dotted';
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
-    setProps(element);
   });
 
   color.addEventListener('change', () => {
     element.style.borderColor = color.value;
-    setProps(element);
   });
 
   borderWidth.addEventListener('input', () => {
@@ -177,8 +182,6 @@ export function borderStyleBtnsActions(
     }
     element.style.borderWidth = `${borderWidth.value}px`;
     element.style.borderColor = color.value;
-
-    setProps(element);
   });
 
   borderRound.addEventListener('input', () => {
@@ -189,8 +192,6 @@ export function borderStyleBtnsActions(
       borderRound.value = borderRound.value.slice(0, -1);
     }
     element.style.borderRadius = `${borderRound.value}%`;
-
-    setProps(element);
   });
 }
 
@@ -202,19 +203,16 @@ export function fontSizeBtnsActions(
   fontSizePlus.addEventListener('click', () => {
     fontSizeInput.value = String(Number(fontSizeInput.value) + 1);
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-    setProps(targetTextElementParent);
   });
 
   fontSizeMinus.addEventListener('click', () => {
     fontSizeInput.value = String(Number(fontSizeInput.value) - 1);
     if (Number(fontSizeInput.value) < 2) fontSizeInput.value = '1';
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-    setProps(targetTextElementParent);
   });
 
   fontSizeInput.addEventListener('input', () => {
     if (targetTextElement) targetTextElement.style.fontSize = `${fontSizeInput.value}px`;
-    setProps(targetTextElementParent);
   });
 }
 
@@ -228,7 +226,6 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.textDecoration = 'none';
       }
     }
-    setProps(targetTextElementParent);
   });
 
   bold.addEventListener('click', () => {
@@ -240,7 +237,6 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.fontWeight = 'normal';
       }
     }
-    setProps(targetTextElementParent);
   });
 
   italic.addEventListener('click', () => {
@@ -252,23 +248,19 @@ export function fontStyleBtnsActions(underlined: HTMLDivElement, bold: HTMLDivEl
         targetTextElement.style.fontStyle = 'normal';
       }
     }
-    setProps(targetTextElementParent);
   });
 }
 
 export function fontAlignBtnsActions(left: HTMLDivElement, right: HTMLDivElement, center: HTMLDivElement) {
   left.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'left';
-    setProps(targetTextElementParent);
   });
 
   right.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'right';
-    setProps(targetTextElementParent);
   });
 
   center.addEventListener('click', () => {
     if (targetTextElement) targetTextElement.style.textAlign = 'center';
-    setProps(targetTextElementParent);
   });
 }

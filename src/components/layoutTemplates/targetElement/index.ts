@@ -1,5 +1,4 @@
 export let targetTextElement: HTMLDivElement | null;
-export let targetTextElementParent: HTMLDivElement | null;
 
 export function setTargetTextElement(field: HTMLDivElement) {
   field.addEventListener('click', (event) => {
@@ -7,10 +6,8 @@ export function setTargetTextElement(field: HTMLDivElement) {
     if (target instanceof HTMLDivElement) {
       if (target.hasAttribute('contentEditable')) {
         targetTextElement = target;
-        targetTextElementParent = targetTextElement.parentElement as HTMLDivElement;
       } else {
         targetTextElement = null;
-        targetTextElementParent = null;
       }
     }
   });
