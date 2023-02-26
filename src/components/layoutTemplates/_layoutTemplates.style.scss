@@ -467,4 +467,43 @@
     box-shadow: none;
     background: transparent;
   }
+
+  .resize-handle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .resize-handle-s,
+  .resize-handle-n {
+    height: 10px;
+  }
+
+  .resize-handle-w,
+  .resize-handle-e {
+    width: 10px;
+  }
+
+  .resize-handle-r {
+    left: calc(50% - 10px);
+    top: -35px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .resize-handle {
+    width: 25px;
+    height: 25px;
+  }
+
+  .resize-handle-s,
+  .resize-handle-n,
+  .resize-handle-w,
+  .resize-handle-e {
+    visibility: hidden;
+  }
+
+  .resize-handle-r {
+    left: calc(50% - 12.5px);
+    top: -35px;
+  }
 }
