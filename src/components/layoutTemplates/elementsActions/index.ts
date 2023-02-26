@@ -32,6 +32,7 @@ export function dragNdrop(container: HTMLDivElement) {
   }
 
   function move(e: MouseEvent | TouchEvent) {
+    e.preventDefault();
     let event;
     if (e instanceof MouseEvent) {
       event = e;
