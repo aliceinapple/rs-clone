@@ -1,6 +1,7 @@
 import { createHtmlElement, createButtonElement } from '../../utils';
 import { createHeader } from '../../components/header';
 import Page from '../../components/pageTemplates';
+import { checkBusinessPage } from '../../components/logoGeneration';
 
 
 const createPageInfoAboutBusiness = () => {
@@ -27,9 +28,9 @@ const createPageInfoAboutBusiness = () => {
   btnNextQuestion.setAttribute('id', 'btn-next__about-business');
   btnNextQuestion.disabled = true;
   btnNextQuestionBlock.append(btnNextQuestion);
-
-
+  container.addEventListener('input', checkBusinessPage);
   container.append(question, nameCompany, typeOfActivity, btnNextQuestionBlock);
+
   return container;
 };
 
